@@ -50,7 +50,7 @@ LEFT JOIN
 LEFT JOIN 
     machines_yillik my ON my.machines_id = mm.id AND my.durum = 0
 LEFT JOIN 
-    machines_ariza mar ON mar.machines_id = mm.id   AND mar.durum = 0 
+    machines_ariza mar ON mar.machines_id = mm.id   AND mar.durum != 0 
 LEFT JOIN 
     machine_bakim_detail mbd_aylik ON ma.id = mbd_aylik.bakim_id and mbd_aylik.type = 1
 LEFT JOIN 
@@ -75,9 +75,82 @@ GROUP BY
     res.status(500).json({ error: 'Internal Server Error' });
   }
 })
+router.post('/insertMachine', cors(), async (req, res) => {
+  const { planlanan_tarih,
+    machine_name,
+    seri_no,
+    birim,
+    user_name,
+    durum_name,
+    durum,
+    user_id } = req.body
+  const machineData = {
+    machine_name: machine_name,
+    seri_no: seri_no,
+    birim: birim
+  };
+  const qrData = JSON.stringify(machineData);
+ 
+
+  try {
+    const qrCodeData = await new Promise((resolve, reject) => {
+      QRCode.toDataURL(qrData, (err, url) => {
+        if (err) {
+          console.error(err);
+          reject(err);
+        } else {
+          resolve(url);
+        }
+      });
+    });
+    const result = await pool.query(`INSERT INTO main_machines(machines_name, seri_no, birim_id, durum, qr)  VALUES ($1, $2, $3, $4, $5) RETURNING id`,
+  [machine_name, seri_no,parseInt(birim), durum, qrCodeData]
+);
+
+let machine_id = result.rows[0].id;
+
+    const tarihParcalari = planlanan_tarih.split('-');
+
+    const yil = parseInt(tarihParcalari[2], 10);
+    const ay = parseInt(tarihParcalari[1], 10) - 1;
+    const gun = parseInt(tarihParcalari[0], 10);
+    const tarihAylik = new Date(yil, ay, gun);
+    tarihAylik.setDate(tarihAylik.getDate() + (1 * 30));
+    const yeniTarih = `${tarihAylik.getDate()}.${tarihAylik.getMonth() + 1}.${tarihAylik.getFullYear()}`;
+    const tarih3Aylik = new Date(yil, ay, gun);
+    tarih3Aylik.setDate(tarih3Aylik.getDate() + (3 * 30));
+    const yeniTarih3 = `${tarih3Aylik.getDate()}.${tarih3Aylik.getMonth() + 1}.${tarih3Aylik.getFullYear()}`;
+    const tarih6Aylik = new Date(yil, ay, gun);
+    tarih6Aylik.setDate(tarih6Aylik.getDate() + (6 * 30));
+    const yeniTarih6 = `${tarih6Aylik.getDate()}.${tarih6Aylik.getMonth() + 1}.${tarih6Aylik.getFullYear()}`;
+    const tarih12Aylik = new Date(yil, ay, gun);
+    tarih12Aylik.setDate(tarih12Aylik.getDate() + (12 * 30));
+    const yeniTarih12 = `${tarih12Aylik.getDate()}.${tarih12Aylik.getMonth() + 1}.${tarih12Aylik.getFullYear()}`;
+
+    const insertMAchineAylik = await pool.query(`INSERT INTO machines_aylik(
+      p_aylik,  machines_id, durum)
+      VALUES ('${yeniTarih}', ${machine_id}, 0);`)
+    const insertMAchine3Aylik = await pool.query(`INSERT INTO machines_ucaylik(
+      p_ucaylik,  machines_id, durum)
+      VALUES ('${yeniTarih3}', ${machine_id}, 0);`)
+    const insertMAchine6Aylik = await pool.query(`INSERT INTO machines_altiaylik(
+        p_altiaylik,  machines_id, durum)
+        VALUES ('${yeniTarih6}', ${machine_id}, 0);`)
+    const insertMAchine12Aylik = await pool.query(`INSERT INTO machines_yillik(
+          p_yillik,  machines_id, durum)
+          VALUES ('${yeniTarih12}', ${machine_id}, 0);`)
+
+    res.status(200).json({ status: 200, data: result });
+
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+})
 router.post('/getAyrintiMachinesOnarim', cors(), async (req, res) => {
   const { machine_id, type, bakim_id } = req.body
-  console.log("burda mıyız?",req.body)
+  console.log("burda mıyız?", req.body)
   try {
     let result
     let data
@@ -229,7 +302,7 @@ router.post('/getGecmisMachinesOnarim', cors(), async (req, res) => {
   }
 })
 router.post('/putAylikMachinesOnarim', cors(), async (req, res) => {
-  const { type, machine_id, bakim_turu, bakim_tarihi,ariza_id, bakim_aciklama, bakim_tur_name, bakim_detail, bakim_durumu, user_id, user_name } = req.body
+  const { type, machine_id, bakim_turu, bakim_tarihi, ariza_id, bakim_aciklama, bakim_tur_name, bakim_detail, bakim_durumu, user_id, user_name } = req.body
   const tarihParcalari = bakim_tarihi.split('-');
 
   const yil = parseInt(tarihParcalari[2], 10);
@@ -502,12 +575,12 @@ router.post('/putAylikMachinesOnarim', cors(), async (req, res) => {
       }
       break;
     case 0://arıza
-    type_name = "Ariza"
+      type_name = "Ariza"
       //arızayı kayapacak 
       const updateAriza = await pool.query(`UPDATE machines_ariza SET durum = 0,g_tarih='${bakim_tarihi}' WHERE id = ${ariza_id}`)
       const updateMachine = await pool.query(`UPDATE main_machines SET durum = 0 WHERE id = ${machine_id}`)
       const insertArizaBakim = await pool.query(`INSERT INTO machine_bakim_detail ( type, user_id, user_name, bakim_turu, bakim_tarihi, aciklama, bakim_detail, type_name, bakim_tur_name, bakim_id,machine_id)
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10,$11)`,  [type, user_id, user_name, bakim_turu, bakim_tarihi, bakim_aciklama, bakim_detail, type_name, bakim_tur_name, ariza_id, machine_id])
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10,$11)`, [type, user_id, user_name, bakim_turu, bakim_tarihi, bakim_aciklama, bakim_detail, type_name, bakim_tur_name, ariza_id, machine_id])
 
       break;
 
@@ -665,17 +738,17 @@ router.post('/postKalibrasyonMetarial', cors(), async (req, res) => {
   }
 })
 
-router.post('/qrMachineSearch', cors(),async(req,res)=>{
+router.post('/qrMachineSearch', cors(), async (req, res) => {
   const { machine_id, seri_no } = req.body;
   try {
     const quality_status = await pool.query(`SELECT * FROM main_machines WHERE id = ${machine_id} AND seri_no = ${seri_no}`);
-   
+
 
 
     res.status(200).json({
       status: 200,
       quality_status: quality_status.rows,
-     
+
     });
 
   } catch (error) {

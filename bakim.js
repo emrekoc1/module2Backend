@@ -274,7 +274,7 @@ router.post('/getGecmisMachinesOnarim', cors(), async (req, res) => {
         mm.*, mar.durum as ariza_durum,
        
         mar.id AS ariza_id, mar.ariza_tarih, mar.g_tarih,
-      json_agg(mar_detail.*)as yillik_bakim
+      json_agg(mar_detail.*)as ariza_bakim
     FROM 
         main_machines mm
    

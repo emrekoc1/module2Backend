@@ -10,7 +10,63 @@ const http = require('http');
 const request = require('request')
 router.use(cors());
 const pool = require('./db');
+const { machine } = require('os');
+const multer = require('multer');
+const path = require('path');
+const transliteration = require('transliteration');
 
+
+
+
+const storageDocs = multer.diskStorage({
+
+    destination: (req, file, callBack) => {
+        const destinationPath = path.join(__dirname, '..', '..', '..', '..', '..', '..', 'wamp64', 'www','bakim', 'assets', 'docs');
+      //const destinationPath = path.join(__dirname, '..', 'front end', 'front end', 'src', 'assets', 'docs');
+      console.log("burayı tamamladı ", destinationPath)
+      callBack(null, destinationPath)
+    },
+    filename: (req, file, callBack) => {
+      const bugun = new Date();
+      const tarihDamgasi = bugun.toISOString().replace(/[:.]/g, '').substring(0, 10); // Sadece '2023-08-25' bölümü
+      const originalnameWithoutExtension = path.parse(file.originalname).name;
+      const transliteratedName = transliteration.slugify(originalnameWithoutExtension, { lowercase: false });
+      callBack(null, `bakimDokuman${tarihDamgasi}${transliteratedName}${path.extname(file.originalname)}`);
+  
+    }
+  
+  
+  })
+  const uploadDocs = multer({ storage: storageDocs })
+
+  router.post('/insertMachineDokuman', uploadDocs.array('files'), async (req, res, next) => {
+    const {machine_id,machine_name,dokuman_name,dokuman_turu} = req.body
+    
+    const files = req.files;
+  
+    console.log(files) 
+    
+    if (!files) {
+      const error = new Error('No File')
+      error.httpStatusCode = 400
+      console.log("buraya geldi ?")// buraya geliyor 
+
+      return next(error)
+    }
+    try {
+      console.log("buraya geldi mi")
+      let belge_url = `assets\\docs\\${files[0].filename}`
+      
+      result = await pool.query(`INSERT INTO public.main_machine_dokuman(
+         name, dokuman_url, machine_id, makina_name,dokuman_turu)
+        VALUES ('${dokuman_name}', '${belge_url}', ${machine_id}, '${machine_name}', '${dokuman_turu}');`);
+       
+      res.send({ status: 200 });
+    } catch (error) {
+      console.log(error)
+    }
+  
+  })
 router.get('/machines', cors(), async (req, res) => {
   const id = req.params.code;
   try {
@@ -90,7 +146,7 @@ router.post('/insertMachine', cors(), async (req, res) => {
     birim: birim
   };
   const qrData = JSON.stringify(machineData);
- 
+
 
   try {
     const qrCodeData = await new Promise((resolve, reject) => {
@@ -104,10 +160,10 @@ router.post('/insertMachine', cors(), async (req, res) => {
       });
     });
     const result = await pool.query(`INSERT INTO main_machines(machines_name, seri_no, birim_id, durum, qr)  VALUES ($1, $2, $3, $4, $5) RETURNING id`,
-  [machine_name, seri_no,parseInt(birim), durum, qrCodeData]
-);
+      [machine_name, seri_no, parseInt(birim), durum, qrCodeData]
+    );
 
-let machine_id = result.rows[0].id;
+    let machine_id = result.rows[0].id;
 
     const tarihParcalari = planlanan_tarih.split('-');
 
@@ -158,6 +214,44 @@ router.post('/getAyrintiMachinesOnarim', cors(), async (req, res) => {
       SELECT * FROM machine_bakim_detail WHERE type= ${type} AND bakim_id =  ${bakim_id} AND machine_id =  ${machine_id}
   
     `);
+    data = result.rows;
+
+
+    res.status(200).json({ status: 200, data: data });
+
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+})
+router.post('/getMachineDokuman', cors(), async (req, res) => {
+  const { machine_id } = req.body
+  try {
+    let result
+    let data
+
+   result = await pool.query(`SELECT * FROM  main_machine_dokuman WHERE machine_id = ${machine_id}
+        `);
+    data = result.rows;
+
+
+    res.status(200).json({ status: 200, data: data });
+
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+})
+router.post('/insertMachineDokuman', cors(), async (req, res) => {
+  const { machine_id } = req.body
+  try {
+    let result
+    let data
+
+   result = await pool.query(`SELECT * FROM  main_machine_dokuman WHERE machine_id = ${machine_id}
+        `);
     data = result.rows;
 
 
@@ -618,76 +712,7 @@ router.post('/getMachinesBakim', cors(), async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 })
-router.post('/insertMachineAriza', cors(), async (req, res) => {
-  const { ariza_tarih, machine_id, user_name, machine_name, seri_no, type, durum, user_id, ariza_tur_name, ariza_tur, durum_name } = req.body
-  const tarihParcalari = ariza_tarih.split('-');
-  const yil = parseInt(tarihParcalari[2], 10);
-  const ay = parseInt(tarihParcalari[1], 10) - 1;
-  const gun = parseInt(tarihParcalari[0], 10);
 
-  const tarih = new Date(yil, ay, gun);
-  tarih.setDate(tarih.getDate());
-  const yeniTarih = `${tarih.getDate()}.${tarih.getMonth() + 1}.${tarih.getFullYear()}`;
-  console.log('Yeni Tarih:', yeniTarih);
-
-  try {
-
-
-    const result = await pool.query(
-      `INSERT INTO machines_ariza(
-            ariza_tarih, machines_id, durum, user_id, ariza_tur_name, ariza_tur, durum_name)
-            VALUES ($1, $2, $3, $4, $5, $6, $7)`,
-      [ariza_tarih, machine_id, durum, user_id, ariza_tur_name, ariza_tur, durum_name]
-    );
-    const resultUpdate = await pool.query(`UPDATE public.main_machines
-        SET  durum = ${durum}
-        WHERE id=${machine_id}`)   //main machine duruş yaptığı için duruş bilgisi girilecektir. Makina arızalı olarak görükecektir. durum = 0 çalışıyor , durum = 1 arızalı , durum = 2 makina durdu
-    try {
-
-      let transporter = nodemailer.createTransport({
-        host: '20.0.0.20',
-        port: 25,
-        secure: false,
-
-        auth: {
-          user: 'bilgi@aho.com',
-          pass: 'Bilgi5858!'
-        },
-        tls: {
-          rejectUnauthorized: false
-        }
-      });
-      let mailOptions = {
-        from: 'bilgi@aho.com',
-        to: 'bakim@aho.com,yhalici@aho.com,ekoc@aho.com',
-        cc: '',
-        subject: `Bakım Onarım ${ariza_tur_name} Bildirimi`,
-        html: `<p>Sayın İlgili,</p>
-          <p>Makian arıza-duruş kaydı girilmiştir.</p> 
-  ${user_name} Kullanıcı tarafından ${machine_name} isimli ${seri_no} lu makina için  ${ariza_tur_name} kaydı girmiştir. 
-  
-          `
-      };
-      transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-          console.log(error);
-        } else {
-          console.log('Email sent: ' + info.response);
-        }
-      });
-
-    } catch (err) {
-      console.error(err.message);
-    }
-
-    res.status(200).json({ status: 200 });
-
-
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-})
 router.post('/getKalibrasyonGecmis', cors(), async (req, res) => {
   try {
     const id = req.body.id

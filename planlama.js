@@ -739,7 +739,7 @@ const groupAndSumSiparisler = async (siparisler) => {
         const yil = parseInt(tarihParcalari[2], 10);
         console.log(ay, "-", yil)
         let teslim_tarihi
-        if ((yil <= 2024)) {
+        if ((ay < 12 && yil <= 2023) || (ay <= 12 && yil <= 2022)|| (yil<2024)) {
             teslim_tarihi = "ESKİBORC"
         } else {
             const aylar = [
@@ -1561,173 +1561,311 @@ router.get('/siparisler', cors(), (req, res) => {
 });
 
 router.post('/satisSiparisDuzenleme', cors(), async (req, res) => {
-
     try {
-        let duzenliSiparis = []
-        let dataSiparis = await pool.query(`SELECT * FROM siparisler`)
-        let siparisler = dataSiparis.rows
+        let dataSiparis = await pool.query(`SELECT * FROM siparisler`);
+        let siparisler = dataSiparis.rows;
+        let deleteLocalSiparisDuzen = await pool.query('DELETE FROM local_duzenli_siparis');
+
         for (const element of siparisler) {
-            let siparisVarmi=[]
-            let toplamMiktar = 0
-            let updateSiparisLocalDuzen=0
-            switch (element.teslim_tarihi) {
+            await updateLocalDuzenliSiparis(element);
+        }
+    } catch (error) {
+        console.error(error);
+    }
+});
+router.post('/satisSiparisCek', cors(), async (req, res) => {
+    try {
+        satisSiparis()
+    } catch (error) {
+        console.error(error);
+    }
+});
+router.post('/bomCekOTOMATik', cors(), async (req, res) => {
+    try {
+        gunlukBomGet()
+    } catch (error) {
+        console.error(error);
+    }
+});
+router.post('/ambarDataOtomatikBomFor', cors(), async (req, res) => {
+    try {
+        ambarDurumOtomatik()
+    } catch (error) {
+        console.error(error);
+    }
+});
 
-                case 'Aralık':
-                    //bu ayda bu üründen var mı? 
-                    //varsa update et
-                    //yoksa insert et
-                     siparisVarmi = await pool.query(`Select * from local_duzenli_siparis WHERE malzeme='${element.malzeme}'`)
-                     
-                    if (siparisVarmi.rowCount > 0) {
-                        console.log(toplamMiktar)
-                         toplamMiktar = element.acik_siparis
-                        updateSiparisLocalDuzen = await pool.query(`UPDATE local_duzenli_siparis SET ay_1 = ${toplamMiktar}  WHERE id = ${siparisVarmi.rows[0].id}`)
-                     } else {
-                        console.log(toplamMiktar)
-                        toplamMiktar = element.acik_siparis
-                        
-                        updateSiparisLocalDuzen = await pool.query(`INSERT INTO local_duzenli_siparis (proje, malzeme, malzeme_adi,ay_1) VALUES ('${element.proje}','${element.malzeme}','${element.malzeme_adi}',${toplamMiktar})`)
-                      }
-                    break;
-                case 'Şubat':
-                     siparisVarmi = await pool.query(`Select * from local_duzenli_siparis WHERE malzeme='${element.malzeme}'`)
-                    if (siparisVarmi.rowCount > 0) {
-                        console.log(toplamMiktar)
-                        toplamMiktar = element.acik_siparis
-                        updateSiparisLocalDuzen = await pool.query(`UPDATE local_duzenli_siparis SET ay_2 = ${toplamMiktar}`)
-                     } else {
-                        console.log(toplamMiktar)
-                        toplamMiktar = element.acik_siparis
-                        updateSiparisLocalDuzen = await pool.query(`INSERT INTO local_duzenli_siparis (proje, malzeme, malzeme_adi, ay_2) VALUES ('${element.proje}','${element.malzeme}','${element.malzeme_adi}',${toplamMiktar})`)
-                      }
-                    break;
+async function ambarDurumOtomatik() {
+    try {
+        
+    const dataSiparis = await pool.query(`SELECT * FROM local_duzenli_siparis`)
+    const siparisList = dataSiparis.rows 
 
-                case 'Mart':
-                    siparisVarmi = await pool.query(`Select * from local_duzenli_siparis WHERE malzeme='${element.malzeme}'`)
-                    if (siparisVarmi.rowCount > 0) {
-                        console.log(toplamMiktar)
-                        toplamMiktar = element.acik_siparis
-                        updateSiparisLocalDuzen = await pool.query(`UPDATE local_duzenli_siparis SET ay_3 = ${toplamMiktar}`)
-                     } else {
-                        toplamMiktar = element.acik_siparis
-                        updateSiparisLocalDuzen = await pool.query(`INSERT INTO local_duzenli_siparis (proje, malzeme, malzeme_adi, ay_3) VALUES ('${element.proje}','${element.malzeme}','${element.malzeme_adi}',${toplamMiktar})`)
-                      }
-                    break;
-                case 'Nisan':
-                    siparisVarmi = await pool.query(`Select * from local_duzenli_siparis WHERE malzeme='${element.malzeme}'`)
-                    if (siparisVarmi.rowCount > 0) {
-                        toplamMiktar = element.acik_siparis
-                        updateSiparisLocalDuzen = await pool.query(`UPDATE local_duzenli_siparis SET ay_4 = ${toplamMiktar}`)
-                     } else {
-                        toplamMiktar = element.acik_siparis
-                        updateSiparisLocalDuzen = await pool.query(`INSERT INTO local_duzenli_siparis (proje, malzeme, malzeme_adi, ay_4) VALUES ('${element.proje}','${element.malzeme}','${element.malzeme_adi}',${toplamMiktar})`)
-                      }
-                    break;
-                case 'Mayıs':
-                    siparisVarmi = await pool.query(`Select * from local_duzenli_siparis WHERE malzeme='${element.malzeme}'`)
-                    if (siparisVarmi.rowCount > 0) {
-                        toplamMiktar = element.acik_siparis
-                        updateSiparisLocalDuzen = await pool.query(`UPDATE local_duzenli_siparis SET ay_5 = ${toplamMiktar}`)
-                     } else {
-                        toplamMiktar = element.acik_siparis
-                        updateSiparisLocalDuzen = await pool.query(`INSERT INTO local_duzenli_siparis (proje, malzeme, malzeme_adi, ay_5) VALUES ('${element.proje}','${element.malzeme}','${element.malzeme_adi}',${toplamMiktar})`)
-                      }
-                    break;
+    for (const element of siparisList) {
+        let minAmbar = 9999
 
-                case 'Haziran':
-                    siparisVarmi = await pool.query(`Select * from local_duzenli_siparis WHERE malzeme='${element.malzeme}'`)
-                    if (siparisVarmi.rowCount > 0) {
-                        toplamMiktar = element.acik_siparis
-                        updateSiparisLocalDuzen = await pool.query(`UPDATE local_duzenli_siparis SET ay_6 = ${toplamMiktar}`)
-                     } else {
-                        toplamMiktar = element.acik_siparis
-                        updateSiparisLocalDuzen = await pool.query(`INSERT INTO local_duzenli_siparis (proje, malzeme, malzeme_adi, ay_6) VALUES ('${element.proje}','${element.malzeme}','${element.malzeme_adi}',${toplamMiktar})`)
-                      }
-                    break;
-                case 'Temmuz':
-                    siparisVarmi = await pool.query(`Select * from local_duzenli_siparis WHERE malzeme='${element.malzeme}'`)
-                    if (siparisVarmi.rowCount > 0) {
-                        toplamMiktar = element.acik_siparis
-                        updateSiparisLocalDuzen = await pool.query(`UPDATE local_duzenli_siparis SET ay_7 = ${toplamMiktar}`)
-                     } else {
-                        toplamMiktar = element.acik_siparis
-                        updateSiparisLocalDuzen = await pool.query(`INSERT INTO local_duzenli_siparis (proje, malzeme, malzeme_adi, ay_7) VALUES ('${element.proje}','${element.malzeme}','${element.malzeme_adi}',${toplamMiktar})`)
-                      }
-                    break;
-                case 'Ağustos':
-                    siparisVarmi = await pool.query(`Select * from local_duzenli_siparis WHERE malzeme='${element.malzeme}'`)
-                    if (siparisVarmi.rowCount > 0) {
-                        toplamMiktar = element.acik_siparis
-                        updateSiparisLocalDuzen = await pool.query(`UPDATE local_duzenli_siparis SET ay_8 = ${toplamMiktar}`)
-                     } else {
-                        toplamMiktar = element.acik_siparis
-                        updateSiparisLocalDuzen = await pool.query(`INSERT INTO local_duzenli_siparis (proje, malzeme, malzeme_adi, ay_8) VALUES ('${element.proje}','${element.malzeme}','${element.malzeme_adi}',${toplamMiktar})`)
-                      }
-                    break;
-                case 'Eylül':
-                    siparisVarmi = await pool.query(`Select * from local_duzenli_siparis WHERE malzeme='${element.malzeme}'`)
-                    if (siparisVarmi.rowCount > 0) {
-                        toplamMiktar = element.acik_siparis
-                        updateSiparisLocalDuzen = await pool.query(`UPDATE local_duzenli_siparis SET ay_9 = ${toplamMiktar}`)
-                     } else {
-                        toplamMiktar = element.acik_siparis
-                        updateSiparisLocalDuzen = await pool.query(`INSERT INTO local_duzenli_siparis (proje, malzeme, malzeme_adi, ay_9) VALUES ('${element.proje}','${element.malzeme}','${element.malzeme_adi}',${toplamMiktar})`)
-                      }
-                    break;
-                case 'Ekim':
-                    siparisVarmi = await pool.query(`Select * from local_duzenli_siparis WHERE malzeme='${element.malzeme}'`)
-                    if (siparisVarmi.rowCount > 0) {
-                        toplamMiktar = element.acik_siparis
-                        updateSiparisLocalDuzen = await pool.query(`UPDATE local_duzenli_siparis SET ay_10 = ${toplamMiktar}`)
-                     } else {
-                        toplamMiktar = element.acik_siparis
-                        updateSiparisLocalDuzen = await pool.query(`INSERT INTO local_duzenli_siparis (proje, malzeme, malzeme_adi, ay_10) VALUES ('${element.proje}','${element.malzeme}','${element.malzeme_adi}',${toplamMiktar})`)
-                      }
-                    break;
-                case 'Kasım':
-                    siparisVarmi = await pool.query(`Select * from local_duzenli_siparis WHERE malzeme='${element.malzeme}'`)
-                    if (siparisVarmi.rowCount > 0) {
-                        toplamMiktar = element.acik_siparis
-                        updateSiparisLocalDuzen = await pool.query(`UPDATE local_duzenli_siparis SET ay_11 = ${toplamMiktar}`)
-                     } else {
-                        toplamMiktar = element.acik_siparis
-                        updateSiparisLocalDuzen = await pool.query(`INSERT INTO local_duzenli_siparis (proje, malzeme, malzeme_adi, ay_11) VALUES ('${element.proje}','${element.malzeme}','${element.malzeme_adi}',${toplamMiktar})`)
-                      }
-                    break;
-                case 'Aralık':
-                    siparisVarmi = await pool.query(`Select * from local_duzenli_siparis WHERE malzeme='${element.malzeme}'`)
-                    if (siparisVarmi.rowCount > 0) {
-                        toplamMiktar = element.acik_siparis
-                        updateSiparisLocalDuzen = await pool.query(`UPDATE local_duzenli_siparis SET ay_12 = ${toplamMiktar}`)
-                     } else {
-                        toplamMiktar = element.acik_siparis
-                        updateSiparisLocalDuzen = await pool.query(`INSERT INTO local_duzenli_siparis (proje, malzeme, malzeme_adi, ay_12) VALUES ('${element.proje}','${element.malzeme}','${element.malzeme_adi}',${toplamMiktar})`)
-                      }
-                    break;
-                case 'ESKİBORC':
-                    siparisVarmi = await pool.query(`Select * from local_duzenli_siparis WHERE malzeme='${element.malzeme}'`)
-                    if (siparisVarmi.rowCount > 0) {
-                        toplamMiktar = 0
-                        toplamMiktar = element.acik_siparis
-                        updateSiparisLocalDuzen = await pool.query(`UPDATE local_duzenli_siparis SET gecmis = ${toplamMiktar}`)
-                     } else {
-                        toplamMiktar = element.acik_siparis
-                        updateSiparisLocalDuzen = await pool.query(`INSERT INTO local_duzenli_siparis (proje, malzeme, malzeme_adi, gecmis) VALUES ('${element.proje}','${element.malzeme}','${element.malzeme_adi}',${toplamMiktar})`)
-                      }
-                    break;
-
-
-                default:
-                    break;
+        let dataBom = await pool.query(`SELECT * FROM target_bom WHERE siparis_urun = '${element.malzeme}'`);
+        let bomListe = dataBom.rows;
+        for (const bomElement of bomListe) {
+            let toplamDepo = await ambarDurumUpdate(bomElement);
+            let ihmalData = await pool.query (`SELECT * FROM ihmal_product WHERE malzeme_kodu = '${bomElement.kod}'`)
+            let varmi = ihmalData.rowCount
+            if(varmi>0){
+                minAmbar = minAmbar
+            }else{
+                console.log(minAmbar,toplamDepo)
+                minAmbar = minAmbar > toplamDepo ? toplamDepo : minAmbar;
             }
+           
+          const updateTargetBomAmbar = await pool.query(`UPDATE target_bom SET sum_ambar = ${toplamDepo} WHERE id = ${bomElement.id}`);
+        }
+
+        //local_duzenli_siparis tablosundaki ürünleri sırayla gezerek target_bom tablosunda olanları bulacak sum_ambar miktarı minumum  olanı bulacak ihmal edilen üründe varsa yeni onu minumum kabul etmeyecek liste bittiğinde üretilebilirlik yazacak
+
+       
+        const insertSiparisUretim = await pool.query(`UPDATE local_duzenli_siparis SET uretilebilir= ${minAmbar} WHERE id = ${element.id}`)
+            
         }
 
     } catch (error) {
-        console.error(error)
+        console.error(error);
+    }
+}
+async function ambarDurumUpdate(element) {
+    const code = element.kod
+    let toplamDepo = 0
+    try {
+        
+        const access_token = await getToken2();
+        const initialUrl = `http://20.0.0.14:32001/api/v1/queries?tsql=${encodeURIComponent("SELECT * FROM AMBAR_TOPLAMLARI_224 WHERE( KODU = '" + code + "') AND MİKTAR > 0 AND DEPO != 'Şube Tekrar Lens Deposu' AND DEPO != 'AHO Hurda-Fire' AND DEPO != 'Sevkiyat' AND DEPO != 'Bakım Onarım Deposu' AND DEPO != 'Ek Uygunsuzluk Deposu' AND DEPO != 'İthalat Deposu' AND DEPO != 'Aselsan Hurda-Fire Yansıtma' AND DEPO != 'Rework Deposu' AND DEPO != 'İade Deposu' AND DEPO != 'Sabit Kıymet Deposu' AND DEPO != 'Ankara AR-GE Üretim Deposu' AND DEPO != 'Bilgi İşlem Deposu' ")}`;
+        const initialOptions = {
+            method: 'GET',
+            url: initialUrl,
+            headers: {
+                Authorization: `Bearer ${access_token.access_token}`,
+                'Content-Type': 'application/json',
+                Accept: 'application/json'
+            }
+        };
+
+        const initialResponse = await axios(initialOptions);
+        let ambar = initialResponse.data.items || [];
+        for (const element of ambar) {
+           toplamDepo += element['MİKTAR'];
+           
+        }
+        return toplamDepo;
+
+
+
+
+       
+    } catch (error) {
+        console.error(error);
+      
     }
 
-});
+   // return Object.values(toplamDepo);
+ 
+}
+async function satisSiparisDuzenleme() {
+    try {
+        let dataSiparis = await pool.query(`SELECT * FROM siparisler`);
+        let siparisler = dataSiparis.rows;
+        let deleteLocalSiparisDuzen = await pool.query('DELETE FROM local_duzenli_siparis');
 
+        for (const element of siparisler) {
+            await updateLocalDuzenliSiparis(element);
+        }
+    } catch (error) {
+        console.error(error);
+    }
+}
+async function gunlukBomGet() {
+    try {
+        let dataSiparis = await pool.query(`SELECT * FROM local_duzenli_siparis`);
+       let data = dataSiparis.rows
+
+        for (const element of data) {
+            await bomCekOtomatikGunluk(element);
+        }
+    } catch (error) {
+        console.error(error);
+    }
+}
+async function updateLocalDuzenliSiparis(element) {
+    try {
+        let monthField = getMonthField(element.teslim_tarihi);
+
+        let siparisVarmi = await pool.query(`SELECT * FROM local_duzenli_siparis WHERE malzeme=$1`, [element.malzeme]);
+
+        if (siparisVarmi.rowCount > 0) {
+            let totalAmount = element.acik_siparis + siparisVarmi.rows[0][monthField];
+            let updateFieldQuery = `UPDATE local_duzenli_siparis SET ${monthField} = $1 WHERE id = $2`;
+
+            await pool.query(updateFieldQuery, [totalAmount, siparisVarmi.rows[0].id]);
+        } else {
+            let totalAmount = element.acik_siparis;
+            let insertFieldQuery = `INSERT INTO local_duzenli_siparis (proje, malzeme, malzeme_adi, ${monthField}) VALUES ($1, $2, $3, $4)`;
+
+            await pool.query(insertFieldQuery, [element.proje, element.malzeme, element.malzeme_adi, totalAmount]);
+        }
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+function getMonthField(teslim_tarihi) {
+    switch (teslim_tarihi) {
+        case 'Ocak':
+            return 'ay_1';
+        case 'Şubat':
+            return 'ay_2';
+        case 'Mart':
+            return 'ay_3';
+        case 'Nisan':
+            return 'ay_4';
+        case 'Mayıs':
+            return 'ay_5';
+        case 'Haziran':
+            return 'ay_6';
+        case 'Temmuz':
+            return 'ay_7';
+        case 'Ağustos':
+            return 'ay_8';
+        case 'Eylül':
+            return 'ay_9';
+        case 'Ekim':
+            return 'ay_10';
+        case 'Kasım':
+            return 'ay_11';
+        case 'Aralık':
+            return 'ay_12';
+        case 'ESKİBORC':
+            return 'gecmis';
+        default:
+            // Handle unexpected cases
+            throw new Error(`Invalid teslim_tarihi: ${teslim_tarihi}`);
+    }
+}
+
+async function bomCekOtomatikGunluk(element){
+    try {
+        const { ay_1, ay_2, ay_3, ay_4, ay_5, ay_6, ay_7, ay_8, ay_9, ay_10, ay_11, ay_12, gecmis,malzeme } = element
+        let code = malzeme.toString()
+        const access_token = await getToken2();
+        const initialUrl = `http://20.0.0.14:32001/api/v1/queries?tsql=SELECT * FROM BOM_SATIR_224() WHERE KOD = '${code}'`;
+        const initialOptions = {
+            method: 'GET',
+            url: initialUrl,
+            headers: {
+                Authorization: `Bearer ${access_token.access_token}`,
+                'Content-Type': 'application/json',
+                Accept: 'application/json'
+            }
+        };
+
+        const initialResponse = await axios(initialOptions);
+        let bomlist = initialResponse.data.items || [];
+
+        for (const element of bomlist) {
+
+            element.level = 0; // Ana elemanlar için level 0
+            if (element.BOMAD2 != null) {
+                const subComponentUrl = `http://20.0.0.14:32001/api/v1/queries?tsql=SELECT * FROM BOM_SATIR_224() WHERE KOD = '${element.ALTKOD}'`;
+                const subComponentOptions = {
+                    method: 'GET',
+                    url: subComponentUrl,
+                    headers: {
+                        Authorization: `Bearer ${access_token.access_token}`,
+                        'Content-Type': 'application/json',
+                        Accept: 'application/json'
+                    }
+                };
+
+                const subComponentResponse = await axios(subComponentOptions);
+                const subComponentData = subComponentResponse.data.items || [];
+                subComponentData.forEach(subElement => {
+                    subElement.level = 1; // Alt elemanlar için level 1
+
+                });
+                bomlist = bomlist.concat(subComponentData);
+            }
+        }
+        for (const element of bomlist) {
+            if (element.level == 1 && element.BOMAD2 != null) {
+                const subComponentUrl = `http://20.0.0.14:32001/api/v1/queries?tsql=SELECT * FROM BOM_SATIR_224() WHERE KOD = '${element.ALTKOD}'`;
+                const subComponentOptions = {
+                    method: 'GET',
+                    url: subComponentUrl,
+                    headers: {
+                        Authorization: `Bearer ${access_token.access_token}`,
+                        'Content-Type': 'application/json',
+                        Accept: 'application/json'
+                    }
+                };
+
+                const subComponentResponse = await axios(subComponentOptions);
+                const subComponentData = subComponentResponse.data.items || [];
+                subComponentData.forEach(subElement => {
+                    subElement.level = 2; // Alt elemanlar için level 1
+
+                });
+                bomlist = bomlist.concat(subComponentData);
+            }
+
+        }
+        for (const element of bomlist) {
+            if (element.level === 2 && element.BOMAD2 != null && element.level != 1) {
+                const subComponentUrl = `http://20.0.0.14:32001/api/v1/queries?tsql=SELECT * FROM BOM_SATIR_224() WHERE KOD = '${element.ALTKOD}'`;
+                const subComponentOptions = {
+                    method: 'GET',
+                    url: subComponentUrl,
+                    headers: {
+                        Authorization: `Bearer ${access_token.access_token}`,
+                        'Content-Type': 'application/json',
+                        Accept: 'application/json'
+                    }
+                };
+
+                const subComponentResponse = await axios(subComponentOptions);
+                const subComponentData = subComponentResponse.data.items || [];
+                subComponentData.forEach(subElement => {
+                    subElement.level = 3; // Alt elemanlar için level 1
+
+                });
+                bomlist = bomlist.concat(subComponentData);
+            }
+
+        }
+
+        // gelen Bom listi database kaydecek
+        // eski bomu bul ve sil
+        const selectBom = await pool.query(`Select * from target_bom WHERE siparis_urun = '${code}'`)
+        if (selectBom.rowCount > 0) {
+            const deleteBom = await pool.query(`DELETE FROM target_bom WHERE siparis_urun = '${code}'`)
+        }
+
+        // yenisini insert edilecek
+        bomlist.forEach(async element => {
+            const insertNewBom = await pool.query(`INSERT INTO target_bom(
+          ust_kod, ust_malzeme, kod, malzeme, miktar, birim, seviye, ay_1, ay_2, ay_3, ay_4, ay_5, ay_6, ay_7, ay_8, ay_9, ay_10, ay_11, ay_12, diger, siparis_urun)
+         VALUES ('${element.KOD}',' ${element.MALZEME}', '${element.ALTKOD}', '${element.ALTMALZEME}', ${element.MIKTAR}, '${element.BIRIM}', ${element.level}, ${ay_1}, ${ay_2},
+           ${ay_3}, ${ay_4}, ${ay_5}, ${ay_6}, ${ay_7}, ${ay_8}, ${ay_9}, ${ay_10}, ${ay_11}, ${ay_12}, ${gecmis}, '${code}')`)
+        });
+
+
+
+
+       
+    } catch (error) {
+        console.error(error);
+      
+    }
+
+    return Object.values("data");
+
+}
 
 const satisSiparis = async () => {
     // Burada sorgunuzu çalıştırabilirsiniz, örneğin:
@@ -1772,17 +1910,43 @@ const satisSiparis = async () => {
 };
 
 
-const yirmidortSaat = 24 * 60 * 60 * 1000;
-
+const yirmiSaat = 20 * 60 * 60 * 1000;
+// logo satış çekme
 setInterval(async () => {
     try {
         await satisSiparis();
+
         //await calistirSorguyu();
 
     } catch (error) {
         console.error(error);
     }
-}, yirmidortSaat);
+}, yirmiSaat);
+// satış düzenle
+setInterval(async () => {
+    try {
+        await satisSiparisDuzenleme();
+
+        //await calistirSorguyu();
+
+    } catch (error) {
+        console.error(error);
+    }
+}, yirmiSaat + 36000000);
+
+// logo bom çek
+setInterval(async () => {
+    try {
+        await gunlukBomGet();
+
+        //await calistirSorguyu();
+
+    } catch (error) {
+        console.error(error);
+    }
+}, yirmiSaat + 72000000);
+
+
 
 
 module.exports = router;

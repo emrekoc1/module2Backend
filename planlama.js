@@ -23,46 +23,8 @@ router.get('/token', (req, res) => {
 
 
 let transformedSiparisler = []
-function findSubcomponents(data, code, level = 0) {
-    const subcomponents = [];
-    for (const item of data) {
-        if (item.KOD === code) {
-            subcomponents.push({
-                level,
-                KOD: item.KOD,
-                ALTMALZEME: item.ALTMALZEME,
-                ALTKOD: item.ALTKOD,
-                MIKTAR: item.MIKTAR,
-                BIRIM: item.BIRIM,
-            });
-            if (item.ALTKOD) {
-                const nestedSubcomponents = findSubcomponents(data, item.ALTKOD, level + 1);
-                subcomponents.push(...nestedSubcomponents);
-            }
-        }
-    }
-    return subcomponents;
-}
-function findSubcomponents(data, code) {
-    const subcomponents = [];
-    for (const item of data) {
-        if (item.KOD === code) {
-            subcomponents.push({
-                level,
-                KOD: item.KOD,
-                ALTMALZEME: item.ALTMALZEME,
-                ALTKOD: item.ALTKOD,
-                MIKTAR: item.MIKTAR,
-                BIRIM: item.BIRIM,
-            });
-            if (item.ALTKOD) {
-                const nestedSubcomponents = findSubcomponents(data, item.ALTKOD, level + 1);
-                subcomponents.push(...nestedSubcomponents);
-            }
-        }
-    }
-    return subcomponents;
-}
+
+
 function getToken(callback) {
     const tokenOptions = {
         method: 'GET',
@@ -214,9 +176,10 @@ router.post('/bomCek2', cors(), async (req, res) => {
 
         const initialResponse = await axios(initialOptions);
         let bomlist = initialResponse.data.items || [];
-
-        for (const element of bomlist) {
-
+        let duzeltmebomList = initialResponse.data.items || [];
+        let subComponentDataLevel1 = []
+        for (const element of duzeltmebomList) {
+            console.log(element.ALTKOD,element.KOD)
             element.level = 0; // Ana elemanlar için level 0
             if (element.BOMAD2 != null) {
                 const subComponentUrl = `http://20.0.0.14:32001/api/v1/queries?tsql=SELECT * FROM BOM_SATIR_224() WHERE KOD = '${element.ALTKOD}'`;
@@ -231,15 +194,18 @@ router.post('/bomCek2', cors(), async (req, res) => {
                 };
 
                 const subComponentResponse = await axios(subComponentOptions);
-                const subComponentData = subComponentResponse.data.items || [];
-                subComponentData.forEach(subElement => {
+                subComponentDataLevel1 = subComponentResponse.data.items || [];
+                subComponentDataLevel1.forEach(subElement => {
                     subElement.level = 1; // Alt elemanlar için level 1
 
                 });
-                bomlist = bomlist.concat(subComponentData);
+                bomlist = bomlist.concat(subComponentDataLevel1);
             }
         }
-        for (const element of bomlist) {
+        let subComponentDataLevel2 = []
+        for (const element of subComponentDataLevel1) {
+            console.log(element.ALTKOD,element.KOD)
+
             if (element.level == 1 && element.BOMAD2 != null) {
                 const subComponentUrl = `http://20.0.0.14:32001/api/v1/queries?tsql=SELECT * FROM BOM_SATIR_224() WHERE KOD = '${element.ALTKOD}'`;
                 const subComponentOptions = {
@@ -253,16 +219,18 @@ router.post('/bomCek2', cors(), async (req, res) => {
                 };
 
                 const subComponentResponse = await axios(subComponentOptions);
-                const subComponentData = subComponentResponse.data.items || [];
-                subComponentData.forEach(subElement => {
+                const subComponentDataLevel2 = subComponentResponse.data.items || [];
+                subComponentDataLevel2.forEach(subElement => {
                     subElement.level = 2; // Alt elemanlar için level 1
 
                 });
-                bomlist = bomlist.concat(subComponentData);
+                bomlist = bomlist.concat(subComponentDataLevel2);
             }
 
         }
-        for (const element of bomlist) {
+        let subComponentDataLevel3 = []
+
+        for (const element of subComponentDataLevel2) {
             if (element.level === 2 && element.BOMAD2 != null && element.level != 1) {
                 const subComponentUrl = `http://20.0.0.14:32001/api/v1/queries?tsql=SELECT * FROM BOM_SATIR_224() WHERE KOD = '${element.ALTKOD}'`;
                 const subComponentOptions = {
@@ -276,12 +244,12 @@ router.post('/bomCek2', cors(), async (req, res) => {
                 };
 
                 const subComponentResponse = await axios(subComponentOptions);
-                const subComponentData = subComponentResponse.data.items || [];
-                subComponentData.forEach(subElement => {
+                const subComponentDataLevel3 = subComponentResponse.data.items || [];
+                subComponentDataLevel3.forEach(subElement => {
                     subElement.level = 3; // Alt elemanlar için level 1
 
                 });
-                bomlist = bomlist.concat(subComponentData);
+                bomlist = bomlist.concat(subComponentDataLevel3);
             }
 
         }
@@ -557,41 +525,7 @@ async function bomListFonksiyon(id) {
     }
 }
 
-router.post('/bomCek', cors(), (req, res) => {
-    const { code } = req.body;
-    getToken((error, access_token) => {
-        if (error) {
-            console.error(error);
-            res.status(500).json({ error: 'Internal Server Error' });
-            return;
-        }
-        const url = `http://20.0.0.14:32001/api/v1/queries?tsql=SELECT *FROM BOM_SATIR_224()`; // API endpointini doğru şekilde belirtin
-        const options = {
-            method: 'GET',
-            url: url,
-            headers: {
-                Authorization: `Bearer ${access_token.access_token}`,
-                'Content-Type': 'application/json',
-                Accept: 'application/json'
-            }
-        };
 
-        request(options, function (error, response, body) {
-            if (error) {
-                console.error(error);
-                res.status(500).json({ error: 'Internal Server Error' });
-                return;
-            }
-
-            const parsedBody = JSON.parse(body);
-            bomlist = parsedBody.items || []; // "items" özelliğini kullanarak sipariş verilerini alın
-
-            const result = findSubcomponents(bomlist, code);
-            res.json(result);
-        });
-    });
-
-});
 
 
 function getTokenPromise() {
@@ -618,97 +552,6 @@ function getTokenPromise() {
     });
 }
 
-router.post('/targetPost', cors(), async (req, res) => {
-    let resultBomList;
-    const { ay, miktar, kod, cari, aciksiparis, bom, oncelik, onem } = req.body;
-
-    // İlk olarak, var olan kayıtı kontrol edin
-    pool.query('SELECT * FROM targettable WHERE "urunKod" = $1 AND ay = $2', [kod, ay], (error, result) => {
-        if (error) {
-            console.error(error);
-            return res.status(500).json({ error: 'Internal Server Error' });
-        }
-
-        if (result.rows.length > 0) {
-            // Kayıt varsa, miktarı ve gerçekleşeni güncelleyin
-            pool.query(
-                'UPDATE targettable SET hedef = $1, gercek = 0 WHERE "urunKod" = $2 AND ay = $3',
-                [miktar, kod, ay],
-                (updateError, updateResult) => {
-                    if (updateError) {
-                        console.error(updateError);
-                        return res.status(500).json({ error: 'Internal Server Error' });
-                    }
-                    return res.status(200).json({ message: 'Veri başarıyla güncellendi' });
-                }
-            );
-        } else {
-            pool.query(
-                'INSERT INTO targettable ("urunKod", cari, "acikSiparis", ay, hedef, gercek, onem, oncelik, kontrolet) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, false) RETURNING id',
-                [kod, cari, aciksiparis, ay, miktar, 0, onem, oncelik],
-                async (insertError, insertResult) => {
-                    if (insertError) {
-                        console.error(insertError);
-                        return res.status(500).json({ error: 'Internal Server Error' });
-                    }
-
-                    const targetId = insertResult.rows[0].id; // Yeni eklenen 'id' değerini alın
-
-
-                    // Şimdi 'target_bom' tablosuna veri ekleyin
-
-                    const access_token = await getTokenPromise();
-
-                    const url = `http://20.0.0.14:32001/api/v1/queries?tsql=SELECT *FROM BOM_SATIR_224()`;
-                    const options = {
-                        method: 'GET',
-                        url: url,
-                        headers: {
-                            Authorization: `Bearer ${access_token.access_token}`,
-                            'Content-Type': 'application/json',
-                            Accept: 'application/json'
-                        }
-                    };
-
-                    const body = await new Promise((resolve, reject) => {
-                        request(options, (error, response, body) => {
-                            if (error) {
-                                reject(error);
-                            } else {
-                                resolve(body);
-                            }
-                        });
-                    });
-
-                    const parsedBody = JSON.parse(body);
-                    bomlist = parsedBody.items || [];
-                    resultBomList = findSubcomponents(bomlist, kod);
-                    resultBomList.forEach(element => {
-                        let ALTKOD = element.ALTKOD
-                        let alturun = element.KOD
-                        let bom_miktar = element.MIKTAR
-                        let hedefIhtiyac = bom_miktar * miktar
-                        let seviye = element.level
-
-                        pool.query(
-                            'INSERT INTO public.target_bom(anaurun, alturun, miktar, ay, siparis, hedef, seviye, alttakimkod, oncelik, onem, targetid) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)',
-                            [kod, alturun, bom_miktar, ay, aciksiparis, hedefIhtiyac, seviye, ALTKOD, oncelik, onem, targetId],
-                            (bomInsertError, bomInsertResult) => {
-                                if (bomInsertError) {
-                                    console.error(bomInsertError);
-                                    return res.status(500).json({ error: 'Internal Server Error' });
-                                }
-                                return console.log("hata varmiyor")
-                            }
-                        );
-
-                    });
-
-                }
-            );
-        }
-    });
-});
 
 
 
@@ -788,7 +631,7 @@ router.post('/iliskiliUrunler', cors(), async (req, res) => {
 router.post('/localSiparisGet', cors(), async (req, res) => {
     console.log("buraya geldi");
     try {
-        const result = await pool.query('SELECT * FROM siparisler WHERE acik_siparis>0');
+        const result = await pool.query('SELECT * FROM local_duzenli_siparis');
         const data = result.rows;
         res.status(200).json({ status: 200, data: data });
     } catch (error) {
@@ -799,7 +642,7 @@ router.post('/localSiparisGet', cors(), async (req, res) => {
 router.post('/localSiparisGetSingle', cors(), async (req, res) => {
     const proje = req.body.proje
     try {
-        const result = await pool.query(`SELECT * FROM siparisler WHERE proje = '${proje}' AND acik_siparis > 0`);
+        const result = await pool.query(`SELECT * FROM local_duzenli_siparis WHERE proje = '${proje}'`);
         const data = result.rows;
         res.status(200).json({ status: 200, data: data });
     } catch (error) {
@@ -1151,10 +994,10 @@ router.post('/productDetailAksiyonPost', cors(), async (req, res) => {
 })
 router.post('/productDetails', cors(), async (req, res) => {
     const data = req.body.data
-
+console.log(data)
     try {
         data.forEach(async element => {
-            const result = await pool.query('INSERT INTO product_detail(product_code, anaurunkodu, urunadi,siparis_urun,is_active) VALUES ($1,$2, $3, $4,$5)', [element.product_code, element.anaurunkodu, element.urunadi, element.siparis_urun, true]);
+            const result = await pool.query('INSERT INTO product_detail(product_code, anaurunkodu, urunadi,siparis_urun,is_active,miktar,tarih) VALUES ($1,$2, $3, $4,$5,$6,$7)', [element.product_code, element.anaurunkodu, element.urunadi, element.siparis_urun, true,element.miktar,element.tarih]);
             const datas = result;
 
         });
@@ -1573,6 +1416,41 @@ router.post('/satisSiparisDuzenleme', cors(), async (req, res) => {
         console.error(error);
     }
 });
+router.post('/mrpSonuc', cors(), async (req, res) => {
+    const { kod } = req.body;
+    try {
+        const jsonBomList = fs.readFileSync('mrpdata.json', 'utf8');
+        const sqlData = JSON.parse(jsonBomList);
+        const dataFilter = sqlData.filter(item => item.malzeme_kodu === kod);
+        res.json({ status: 200, dataFilter: dataFilter });
+    } catch (error) {
+        res.json(error);
+    }
+});
+router.post('/ihamlPost', cors(), async (req, res) => {
+    const data = req.body.data
+    try {
+        data.forEach(async element => {
+            let ihmalPost = await pool.query(`INSERT INTO ihmal_product(malzeme_kodu, malzeme_adi, proje_kodu) VALUES ('${element.product_code}','${element.urunadi}','${element.selectedProje}')`);
+        });
+        
+        res.json({status:200})
+    } catch (error) {
+       res.json(error)
+    }
+});
+router.post('/ihmalEdilenAll', cors(), async (req, res) => {
+ 
+    try {
+       
+            let ihmalPost = await pool.query(`SELECT * FROM  ihmal_product`);
+     
+        console.log(ihmalPost.rows)
+        res.json({status:200,data:ihmalPost.rows})
+    } catch (error) {
+       res.json(error)
+    }
+});
 router.post('/satisSiparisCek', cors(), async (req, res) => {
     try {
         satisSiparis()
@@ -1582,6 +1460,7 @@ router.post('/satisSiparisCek', cors(), async (req, res) => {
 });
 router.post('/bomCekOTOMATik', cors(), async (req, res) => {
     try {
+        
         gunlukBomGet()
     } catch (error) {
         console.error(error);
@@ -1696,6 +1575,7 @@ async function gunlukBomGet() {
 async function updateLocalDuzenliSiparis(element) {
     try {
         let monthField = getMonthField(element.teslim_tarihi);
+        console.log(monthField)
 
         let siparisVarmi = await pool.query(`SELECT * FROM local_duzenli_siparis WHERE malzeme=$1`, [element.malzeme]);
 
@@ -1767,9 +1647,9 @@ async function bomCekOtomatikGunluk(element){
 
         const initialResponse = await axios(initialOptions);
         let bomlist = initialResponse.data.items || [];
-
-        for (const element of bomlist) {
-
+        let duzeltmebomList = initialResponse.data.items || [];
+        let subComponentDataLevel1 = []
+        for (const element of duzeltmebomList) {
             element.level = 0; // Ana elemanlar için level 0
             if (element.BOMAD2 != null) {
                 const subComponentUrl = `http://20.0.0.14:32001/api/v1/queries?tsql=SELECT * FROM BOM_SATIR_224() WHERE KOD = '${element.ALTKOD}'`;
@@ -1792,7 +1672,8 @@ async function bomCekOtomatikGunluk(element){
                 bomlist = bomlist.concat(subComponentData);
             }
         }
-        for (const element of bomlist) {
+        let subComponentDataLevel2 = []
+        for (const element of subComponentDataLevel1) {
             if (element.level == 1 && element.BOMAD2 != null) {
                 const subComponentUrl = `http://20.0.0.14:32001/api/v1/queries?tsql=SELECT * FROM BOM_SATIR_224() WHERE KOD = '${element.ALTKOD}'`;
                 const subComponentOptions = {
@@ -1815,7 +1696,9 @@ async function bomCekOtomatikGunluk(element){
             }
 
         }
-        for (const element of bomlist) {
+        let subComponentDataLevel3 = []
+
+        for (const element of subComponentDataLevel2) {
             if (element.level === 2 && element.BOMAD2 != null && element.level != 1) {
                 const subComponentUrl = `http://20.0.0.14:32001/api/v1/queries?tsql=SELECT * FROM BOM_SATIR_224() WHERE KOD = '${element.ALTKOD}'`;
                 const subComponentOptions = {
@@ -1911,6 +1794,9 @@ const satisSiparis = async () => {
 
 
 const yirmiSaat = 20 * 60 * 60 * 1000;
+const yirmi1Saat = 21* 60 * 60 * 1000;
+const yirmi2Saat = 22 * 60 * 60 * 1000;
+const yirmi3Saat = 23 * 60 * 60 * 1000;
 // logo satış çekme
 setInterval(async () => {
     try {
@@ -1932,7 +1818,7 @@ setInterval(async () => {
     } catch (error) {
         console.error(error);
     }
-}, yirmiSaat + 36000000);
+}, yirmi1Saat);
 
 // logo bom çek
 setInterval(async () => {
@@ -1944,7 +1830,17 @@ setInterval(async () => {
     } catch (error) {
         console.error(error);
     }
-}, yirmiSaat + 72000000);
+}, yirmi2Saat);
+setInterval(async () => {
+    try {
+        await ambarDurumOtomatik();
+
+        //await calistirSorguyu();
+
+    } catch (error) {
+        console.error(error);
+    }
+}, yirmi2Saat);
 
 
 

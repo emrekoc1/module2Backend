@@ -161,98 +161,50 @@ router.post('/getSat', cors(), (req, res) => {
 router.post('/bomCek2', cors(), async (req, res) => {
     try {
         const { ay_1, ay_2, ay_3, ay_4, ay_5, ay_6, ay_7, ay_8, ay_9, ay_10, ay_11, ay_12, diger } = req.body;
-        let code = req.body.code.toString()
+        const code = req.body.code.toString();
         const access_token = await getToken2();
-        const initialUrl = `http://20.0.0.14:32001/api/v1/queries?tsql=SELECT * FROM BOM_SATIR_224() WHERE KOD = '${code}'`;
-        const initialOptions = {
-            method: 'GET',
-            url: initialUrl,
-            headers: {
-                Authorization: `Bearer ${access_token.access_token}`,
-                'Content-Type': 'application/json',
-                Accept: 'application/json'
-            }
+        
+        const fetchBomData = async (kod) => {
+            const bomUrl = `http://20.0.0.14:32001/api/v1/queries?tsql=SELECT * FROM BOM_SATIR_224() WHERE KOD = '${kod}'`;
+            const bomOptions = {
+                method: 'GET',
+                url: bomUrl,
+                headers: {
+                    Authorization: `Bearer ${access_token.access_token}`,
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json'
+                }
+            };
+
+            const bomResponse = await axios(bomOptions);
+            return bomResponse.data.items || [];
         };
 
-        const initialResponse = await axios(initialOptions);
-        let bomlist = initialResponse.data.items || [];
-        let duzeltmebomList = initialResponse.data.items || [];
-        let subComponentDataLevel1 = []
-        for (const element of duzeltmebomList) {
-            console.log(element.ALTKOD,element.KOD)
-            element.level = 0; // Ana elemanlar için level 0
-            if (element.BOMAD2 != null) {
-                const subComponentUrl = `http://20.0.0.14:32001/api/v1/queries?tsql=SELECT * FROM BOM_SATIR_224() WHERE KOD = '${element.ALTKOD}'`;
-                const subComponentOptions = {
-                    method: 'GET',
-                    url: subComponentUrl,
-                    headers: {
-                        Authorization: `Bearer ${access_token.access_token}`,
-                        'Content-Type': 'application/json',
-                        Accept: 'application/json'
-                    }
-                };
-
-                const subComponentResponse = await axios(subComponentOptions);
-                subComponentDataLevel1 = subComponentResponse.data.items || [];
-                subComponentDataLevel1.forEach(subElement => {
-                    subElement.level = 1; // Alt elemanlar için level 1
-
-                });
-                bomlist = bomlist.concat(subComponentDataLevel1);
+        const processBomLevel = async (bomList, level) => {
+            const result = [];
+        
+            for (const element of bomList) {
+                element.level = level;
+                console.log(element.ALTKOD,element.KOD, level);
+        
+                if (element.BOMAD2 != null && element.ALTKOD != null && element.ALTKOD !== "") {
+                    const subComponentData = await fetchBomData(element.ALTKOD);
+                    const processedSubComponents = await processBomLevel(subComponentData, level + 1);
+                    result.push(...processedSubComponents);
+                }
             }
-        }
-        let subComponentDataLevel2 = []
-        for (const element of subComponentDataLevel1) {
-            console.log(element.ALTKOD,element.KOD)
+        
+            // Döngü sonunda sadece ana elemanı ekle
+            result.push(...bomList);
+        
+            return result;
+        };
 
-            if (element.level == 1 && element.BOMAD2 != null) {
-                const subComponentUrl = `http://20.0.0.14:32001/api/v1/queries?tsql=SELECT * FROM BOM_SATIR_224() WHERE KOD = '${element.ALTKOD}'`;
-                const subComponentOptions = {
-                    method: 'GET',
-                    url: subComponentUrl,
-                    headers: {
-                        Authorization: `Bearer ${access_token.access_token}`,
-                        'Content-Type': 'application/json',
-                        Accept: 'application/json'
-                    }
-                };
+        // İlk seviye
+        const initialBomList = await fetchBomData(code);
 
-                const subComponentResponse = await axios(subComponentOptions);
-                const subComponentDataLevel2 = subComponentResponse.data.items || [];
-                subComponentDataLevel2.forEach(subElement => {
-                    subElement.level = 2; // Alt elemanlar için level 1
-
-                });
-                bomlist = bomlist.concat(subComponentDataLevel2);
-            }
-
-        }
-        let subComponentDataLevel3 = []
-
-        for (const element of subComponentDataLevel2) {
-            if (element.level === 2 && element.BOMAD2 != null && element.level != 1) {
-                const subComponentUrl = `http://20.0.0.14:32001/api/v1/queries?tsql=SELECT * FROM BOM_SATIR_224() WHERE KOD = '${element.ALTKOD}'`;
-                const subComponentOptions = {
-                    method: 'GET',
-                    url: subComponentUrl,
-                    headers: {
-                        Authorization: `Bearer ${access_token.access_token}`,
-                        'Content-Type': 'application/json',
-                        Accept: 'application/json'
-                    }
-                };
-
-                const subComponentResponse = await axios(subComponentOptions);
-                const subComponentDataLevel3 = subComponentResponse.data.items || [];
-                subComponentDataLevel3.forEach(subElement => {
-                    subElement.level = 3; // Alt elemanlar için level 1
-
-                });
-                bomlist = bomlist.concat(subComponentDataLevel3);
-            }
-
-        }
+        // Diğer seviyeler
+        const bomlist = await processBomLevel(initialBomList, 0);
 
         // gelen Bom listi database kaydecek
         // eski bomu bul ve sil
@@ -559,6 +511,7 @@ function getTokenPromise() {
 
 const groupAndSumSiparisler = async (siparisler) => {
     const groupedSiparisler = {};
+    console.log("siparisler tamamla")
     try {
         const eskiSiparisleriSil = await pool.query(`DELETE FROM siparisler `);
     } catch (error) {
@@ -1373,10 +1326,11 @@ router.get('/siparisler', cors(), (req, res) => {
     getToken((error, access_token) => {
         if (error) {
             console.error(error);
+
             res.status(500).json({ error: 'Internal Server Error' });
             return;
         }
-
+console.log("burası mı")
         const url = `http://20.0.0.14:32001/api/v1/queries?tsql=SELECT *FROM SATIS_SIPARISLERI_224`; // API endpointini doğru şekilde belirtin
         const options = {
             method: 'GET',
@@ -1393,9 +1347,9 @@ router.get('/siparisler', cors(), (req, res) => {
                 res.status(500).json({ error: 'Internal Server Error' });
                 return;
             }
-
             const parsedBody = JSON.parse(body);
             siparisler = parsedBody.items || []; // "items" özelliğini kullanarak sipariş verilerini alın
+            console.log(siparisler)
             transformedSiparisler = groupAndSumSiparisler(siparisler); // Siparişleri dönüştürün
 
             res.json(transformedSiparisler); // İşlenen veriyi JSON olarak yanıt olarak gönderin
@@ -1435,6 +1389,18 @@ router.post('/ihamlPost', cors(), async (req, res) => {
         });
         
         res.json({status:200})
+    } catch (error) {
+       res.json(error)
+    }
+});
+router.post('/localSiparisSingel', cors(), async (req, res) => {
+    const kod = req.body.kod
+    console.log(req.body)
+    try {
+     
+            let selectData = await pool.query(`SELECT*FROM siparisler WHERE malzeme = '${kod}'`);
+         
+        res.json({status:200,data:selectData.rows})
     } catch (error) {
        res.json(error)
     }
@@ -1560,18 +1526,7 @@ async function satisSiparisDuzenleme() {
         console.error(error);
     }
 }
-async function gunlukBomGet() {
-    try {
-        let dataSiparis = await pool.query(`SELECT * FROM local_duzenli_siparis`);
-       let data = dataSiparis.rows
 
-        for (const element of data) {
-            await bomCekOtomatikGunluk(element);
-        }
-    } catch (error) {
-        console.error(error);
-    }
-}
 async function updateLocalDuzenliSiparis(element) {
     try {
         let monthField = getMonthField(element.teslim_tarihi);
@@ -1628,99 +1583,73 @@ function getMonthField(teslim_tarihi) {
             throw new Error(`Invalid teslim_tarihi: ${teslim_tarihi}`);
     }
 }
-
-async function bomCekOtomatikGunluk(element){
+async function gunlukBomGet() {
     try {
-        const { ay_1, ay_2, ay_3, ay_4, ay_5, ay_6, ay_7, ay_8, ay_9, ay_10, ay_11, ay_12, gecmis,malzeme } = element
-        let code = malzeme.toString()
+        let dataSiparis = await pool.query(`SELECT * FROM local_duzenli_siparis`);
+       let data = dataSiparis.rows
+
+        for (const element of data) {
+            await bomCekOtomatikGunluk(element);
+        }
+    } catch (error) {
+        console.error(error);
+    }
+}
+async function bomCekOtomatikGunluk(gelen){
+    try {
+        console.log(gelen)
+        const { ay_1, ay_2, ay_3, ay_4, ay_5, ay_6, ay_7, ay_8, ay_9, ay_10, ay_11, ay_12, gecmis } = gelen;
+        const code =gelen.malzeme.toString();
         const access_token = await getToken2();
-        const initialUrl = `http://20.0.0.14:32001/api/v1/queries?tsql=SELECT * FROM BOM_SATIR_224() WHERE KOD = '${code}'`;
-        const initialOptions = {
-            method: 'GET',
-            url: initialUrl,
-            headers: {
-                Authorization: `Bearer ${access_token.access_token}`,
-                'Content-Type': 'application/json',
-                Accept: 'application/json'
-            }
+        
+        const fetchBomData = async (kod) => {
+            const bomUrl = `http://20.0.0.14:32001/api/v1/queries?tsql=SELECT * FROM BOM_SATIR_224() WHERE KOD = '${kod}'`;
+            console.log(bomUrl)
+            const bomOptions = {
+                method: 'GET',
+                url: bomUrl,
+                headers: {
+                    Authorization: `Bearer ${access_token.access_token}`,
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json'
+                }
+            };
+
+            const bomResponse = await axios(bomOptions);
+            return bomResponse.data.items || [];
         };
 
-        const initialResponse = await axios(initialOptions);
-        let bomlist = initialResponse.data.items || [];
-        let duzeltmebomList = initialResponse.data.items || [];
-        let subComponentDataLevel1 = []
-        for (const element of duzeltmebomList) {
-            element.level = 0; // Ana elemanlar için level 0
-            if (element.BOMAD2 != null) {
-                const subComponentUrl = `http://20.0.0.14:32001/api/v1/queries?tsql=SELECT * FROM BOM_SATIR_224() WHERE KOD = '${element.ALTKOD}'`;
-                const subComponentOptions = {
-                    method: 'GET',
-                    url: subComponentUrl,
-                    headers: {
-                        Authorization: `Bearer ${access_token.access_token}`,
-                        'Content-Type': 'application/json',
-                        Accept: 'application/json'
-                    }
-                };
-
-                const subComponentResponse = await axios(subComponentOptions);
-                const subComponentData = subComponentResponse.data.items || [];
-                subComponentData.forEach(subElement => {
-                    subElement.level = 1; // Alt elemanlar için level 1
-
-                });
-                bomlist = bomlist.concat(subComponentData);
+        const processBomLevel = async (bomList, level) => {
+            const result = [];
+        
+            for (const element of bomList) {
+                element.level = level;
+                console.log(element.ALTKOD,element.KOD, level);
+        
+                if (element.BOMAD2 != null && element.ALTKOD != null && element.ALTKOD !== "") {
+                    const subComponentData = await fetchBomData(element.ALTKOD);
+                    const processedSubComponents = await processBomLevel(subComponentData, level + 1);
+                    result.push(...processedSubComponents);
+                }
             }
+        
+            // Döngü sonunda sadece ana elemanı ekle
+            result.push(...bomList);
+        
+            return result;
+        };
+
+        // İlk seviye
+        const initialBomList = await fetchBomData(code);
+
+        if (!initialBomList) {
+            console.log("BOM verisi bulunamadı.");
+            return Object.values("data");
         }
-        let subComponentDataLevel2 = []
-        for (const element of subComponentDataLevel1) {
-            if (element.level == 1 && element.BOMAD2 != null) {
-                const subComponentUrl = `http://20.0.0.14:32001/api/v1/queries?tsql=SELECT * FROM BOM_SATIR_224() WHERE KOD = '${element.ALTKOD}'`;
-                const subComponentOptions = {
-                    method: 'GET',
-                    url: subComponentUrl,
-                    headers: {
-                        Authorization: `Bearer ${access_token.access_token}`,
-                        'Content-Type': 'application/json',
-                        Accept: 'application/json'
-                    }
-                };
 
-                const subComponentResponse = await axios(subComponentOptions);
-                const subComponentData = subComponentResponse.data.items || [];
-                subComponentData.forEach(subElement => {
-                    subElement.level = 2; // Alt elemanlar için level 1
-
-                });
-                bomlist = bomlist.concat(subComponentData);
-            }
-
-        }
-        let subComponentDataLevel3 = []
-
-        for (const element of subComponentDataLevel2) {
-            if (element.level === 2 && element.BOMAD2 != null && element.level != 1) {
-                const subComponentUrl = `http://20.0.0.14:32001/api/v1/queries?tsql=SELECT * FROM BOM_SATIR_224() WHERE KOD = '${element.ALTKOD}'`;
-                const subComponentOptions = {
-                    method: 'GET',
-                    url: subComponentUrl,
-                    headers: {
-                        Authorization: `Bearer ${access_token.access_token}`,
-                        'Content-Type': 'application/json',
-                        Accept: 'application/json'
-                    }
-                };
-
-                const subComponentResponse = await axios(subComponentOptions);
-                const subComponentData = subComponentResponse.data.items || [];
-                subComponentData.forEach(subElement => {
-                    subElement.level = 3; // Alt elemanlar için level 1
-
-                });
-                bomlist = bomlist.concat(subComponentData);
-            }
-
-        }
+      
+        // Diğer seviyeler
+        const bomlist = await processBomLevel(initialBomList, 0);
 
         // gelen Bom listi database kaydecek
         // eski bomu bul ve sil
@@ -1738,15 +1667,14 @@ async function bomCekOtomatikGunluk(element){
         });
 
 
+    
 
-
-       
+        
+            return Object.values("data");
+     
     } catch (error) {
         console.error(error);
-      
     }
-
-    return Object.values("data");
 
 }
 

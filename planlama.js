@@ -8,7 +8,8 @@ const http = require('http');
 const request = require('request')
 router.use(cors());
 const pool = require('./db');
-const fs = require("fs")
+const fs = require("fs");
+const { Console } = require('console');
 router.get('/token', (req, res) => {
     getToken((error, access_token) => {
         if (error) {
@@ -163,7 +164,7 @@ router.post('/bomCek2', cors(), async (req, res) => {
         const { ay_1, ay_2, ay_3, ay_4, ay_5, ay_6, ay_7, ay_8, ay_9, ay_10, ay_11, ay_12, diger } = req.body;
         const code = req.body.code.toString();
         const access_token = await getToken2();
-        
+
         const fetchBomData = async (kod) => {
             const bomUrl = `http://20.0.0.14:32001/api/v1/queries?tsql=SELECT * FROM BOM_SATIR_224() WHERE KOD = '${kod}'`;
             const bomOptions = {
@@ -182,21 +183,20 @@ router.post('/bomCek2', cors(), async (req, res) => {
 
         const processBomLevel = async (bomList, level) => {
             const result = [];
-        
+
             for (const element of bomList) {
                 element.level = level;
-                console.log(element.ALTKOD,element.KOD, level);
-        
+
                 if (element.BOMAD2 != null && element.ALTKOD != null && element.ALTKOD !== "") {
                     const subComponentData = await fetchBomData(element.ALTKOD);
                     const processedSubComponents = await processBomLevel(subComponentData, level + 1);
                     result.push(...processedSubComponents);
                 }
             }
-        
+
             // Döngü sonunda sadece ana elemanı ekle
             result.push(...bomList);
-        
+
             return result;
         };
 
@@ -246,7 +246,6 @@ router.post('/operasyonSureli2', cors(), async (req, res) => {
 
             const desiredId = sqlData[index].ROUT_CODE;
             const rotaData = await rotuerGet(desiredId); // ID parametresini gönderin
-            console.log(rotaData)
 
             for (let element = 0; element < rotaData.length; element++) {
                 dataBom.push(
@@ -295,22 +294,247 @@ router.post('/operasyonSureli2', cors(), async (req, res) => {
     }
 });
 router.post('/itemsBomGetir', cors(), async (req, res) => {
-
     const jsonBomList = fs.readFileSync('mrpuretim.json', 'utf8');
     const sqlData = JSON.parse(jsonBomList);
-
     try {
         const dataBom = []
-
         for (let index = 0; index < sqlData.length; index++) {
             const desiredId = sqlData[index].urunRef;
             const bomData = await itemsBul(desiredId); // ID parametresini gönderin
-
-
             dataBom.push({
                 LOGICALREF: bomData[0].LOGICALREF
             })
+        }
+        res.json(dataBom);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+router.post('/kapasitePlanHesapla', cors(), async (req, res) => {
 
+    const jsonBomList = fs.readFileSync('mrpdata.json', 'utf8');
+    const sqlData = JSON.parse(jsonBomList);
+
+
+    let itemsRef = []
+    let bomsRef = []
+    let bomsGetRotali = []
+    try {
+        let dataGelenIndex = 0
+        const dataBom = []
+        for (let mrpVeri of sqlData) {
+            const desiredId = mrpVeri.malzeme_kodu;
+
+            //items bulacak
+
+            itemsRef = await itemRefBul(desiredId)
+            bomsRef = await bomRefBul(itemsRef[0].LOGICALREF)
+            // //ref e göre bom bulacak
+            // //bom restapiden bom  ve rotaları getirecek
+            // //rotaların operasyonları gelecek
+            if (mrpVeri.karsılama_turu != 'Satınalma') {
+                for (let bomrefDon of bomsRef) {
+
+                    let bomrefDatass = bomrefDon.LOGICALREF
+                    let ay = mrpVeri.ihtiyac_tarihi.split('/')[1]
+                    let yil = mrpVeri.ihtiyac_tarihi.split('/')[2]
+                    if (bomrefDatass < 99999 && bomrefDatass > 999) {
+                        bomsGetRotali = await bomListFonksiyon(bomrefDon.LOGICALREF)
+                        if (bomsGetRotali.ROUT_CODE != 'FASON') {
+                            const rotaData = await rotuerGet(bomsGetRotali.ROUT_CODE);
+                            for (let element of rotaData) {
+                                dataBom.push(
+                                    {
+                                        code: bomsGetRotali.CODE,
+                                        urun_kod: mrpVeri.malzeme_kodu,
+                                        urun_aciklama: mrpVeri.aciklama,
+                                        ihtiyac_miktar: mrpVeri.ihtiyac_miktar,
+                                        ay: ay,
+                                        yil: yil,
+                                        bom_name: bomsGetRotali.NAME,
+                                        revizyon_id: bomsGetRotali.VALIDREVREF,
+                                        urun_id: bomsGetRotali.MAINPRODREF,
+                                        bom_id: bomsGetRotali.BOMMASTERREF,
+                                        o_kod: bomsGetRotali.MP_CODE,
+                                        o_name: bomsGetRotali.MP_NAME,
+                                        rota_kod: bomsGetRotali.ROUT_CODE,
+                                        rota_name: bomsGetRotali.ROUT_NAME,
+                                        satir_no: element.LINENO_,
+                                        istasyonname: element.istasyonname,
+                                        istasyonkod: element.istasyonkod,
+                                        atolye: element.atolye,
+                                        op_code: element.op_code,
+                                        hazirlik: element.hazirlik,
+                                        iscilik_suresi: element.islemzaman,
+                                        islem_miktari: element.islem_miktari,
+                                        oponcesibekleme: element.makinazamani,
+                                        makinazamani: element.oponcesibekleme,
+                                        makinapartimiktari: element.makinapartimiktari,
+                                        dataGelenIndex: dataGelenIndex
+
+                                    }
+                                )
+
+                            }
+                        }
+
+                    }
+                }
+            }
+            dataGelenIndex += 1
+        }
+
+
+        const dataDelete = await pool.query(`DELETE FROM operasyon_kapasite `)
+        for (let insterForData of dataBom) {
+            const insertDataSourch = await pool.query(`INSERT INTO public.operasyon_kapasite(
+        grup_id,urun_kod, urun_aciklama, ihtiyac_miktar, ay, yil, bom_name, revizyon_id, urun_id, bom_id, o_kod, o_name, rota_kod, rota_name, satir_no, istasyonname, istasyonkod, atolye, operasyon_code, hazirlik, iscilik_suresi, islem_miktari, oponcesibekleme, makinazamani, makinapartimiktari)
+       VALUES (${insterForData.dataGelenIndex},'${insterForData.urun_kod}',
+       '${insterForData.urun_aciklama}',
+        ${insterForData.ihtiyac_miktar},
+        ${parseInt(insterForData.ay)},
+        ${parseInt(insterForData.yil)},
+        '${insterForData.bom_name}',
+        ${insterForData.revizyon_id},
+        ${insterForData.urun_id},
+        ${insterForData.bom_id},
+        '${insterForData.o_kod}',
+        '${insterForData.o_name}',
+        '${insterForData.rota_kod}',
+        '${insterForData.rota_name}',
+        ${insterForData.satir_no},
+        '${insterForData.istasyonname}',
+        '${insterForData.istasyonkod}',
+        '${insterForData.atolye}',
+        '${insterForData.op_code}',
+        ${insterForData.hazirlik},
+        ${insterForData.iscilik_suresi},
+        ${insterForData.islem_miktari},
+        ${insterForData.oponcesibekleme},
+        ${insterForData.makinazamani},
+        ${insterForData.makinapartimiktari} )`)
+
+        }
+        const dataSelectAll = await pool.query(`SELECT SUM(ihtiyac_miktar),urun_kod FROM (
+            select grup_id,urun_kod, sum(ihtiyac_miktar) as toplam, ihtiyac_miktar from operasyon_kapasite GROUP BY grup_id,ihtiyac_miktar,urun_kod
+        ) as gor GROUP BY urun_kod
+        `)
+        for (let datadon of dataSelectAll.rows) { const updateData = await pool.query(`UPDATE operasyon_kapasite SET  toplam_ihtiyac = ${datadon.sum} WHERE urun_kod ='${datadon.urun_kod}'`) }
+        res.json(dataBom);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+router.post('/getKabaKapasiteAtelye', cors(), async (req, res) => {
+    const { data } = req.body
+    try {
+        const getData = await pool.query(`SELECT
+        tablo1.atolye, tablo1.urun_kod, tablo1.urun_aciklama, tablo1.operasyon_code,
+        tablo1.hazirlik, tablo1.iscilik_suresi, tablo1.islem_miktari,
+        tablo1.oponcesibekleme, tablo1.makinazamani, tablo1.makinapartimiktari,
+        tablo1.toplam_ihtiyac
+
+    FROM operasyon_kapasite tablo1
+    INNER JOIN (
+        SELECT
+            grup_id, urun_kod, urun_aciklama, ihtiyac_miktar
+        FROM operasyon_kapasite
+        GROUP BY grup_id, urun_kod, urun_aciklama, ihtiyac_miktar
+    ) AS tablo2 ON tablo1.urun_kod = tablo2.urun_kod
+    WHERE tablo1.atolye LIKE '%${data}%'
+    GROUP BY
+        tablo1.atolye, tablo1.urun_kod, tablo1.urun_aciklama,
+        tablo1.operasyon_code, tablo1.hazirlik, tablo1.iscilik_suresi,
+        tablo1.islem_miktari, tablo1.oponcesibekleme, tablo1.makinazamani,
+        tablo1.makinapartimiktari,tablo1.toplam_ihtiyac
+
+    ORDER BY tablo1.urun_kod
+
+ `)
+
+        const getDataRow = getData.rows
+
+
+
+
+
+
+        res.json({ status: 200, data: getDataRow })
+    } catch (error) {
+        console.error(error)
+    }
+})
+router.post('/getKabaKapasiteAll', cors(), async (req, res) => {
+    try {
+        //const {projeler} =req.body
+        const projeler = [
+            {
+                atelye: "Gündüz Görüş",
+
+            },
+            {
+                atelye: "Gece Görüş",
+
+            },
+            {
+                atelye: "Termal Sistemler",
+
+            },
+            {
+                atelye: "Optik",
+            },
+            {
+                atelye: "Mekanik",
+            },
+            {
+                atelye: "Test Sistemleri",
+            }
+        ]
+        let dataArray = []
+        for (let dongu of projeler) {
+            const getData = await pool.query(`	SELECT urun_kod,
+            urun_aciklama,
+            operasyon_code,
+            hazirlik,
+            iscilik_suresi,
+            islem_miktari,
+            oponcesibekleme,
+            makinazamani,
+            makinapartimiktari,
+            toplam_ihtiyac,COUNT(*)
+            FROM operasyon_kapasite
+            WHERE atolye  like '%${dongu.atelye}%'
+             GROUP BY atolye,
+             urun_kod,
+             urun_aciklama,
+             operasyon_code,
+             hazirlik,
+             iscilik_suresi,
+             islem_miktari,
+             oponcesibekleme,
+             makinazamani,
+             makinapartimiktari,
+             toplam_ihtiyac `)
+            const getDataRow = getData.rows
+            let iscilikToplamSure = 0
+            let makinaToplamSure = 0
+            for (let data of getDataRow) {
+                let iscilikSure = data.iscilik_suresi >= (65536 * 256) ? ((data.iscilik_suresi / (65536 * 256)) * 60) : data.iscilik_suresi / 65536
+                iscilikToplamSure = Math.ceil(iscilikToplamSure + iscilikSure * Math.ceil(data.toplam_ihtiyac / data.islem_miktari))
+                if (data.oponcesibekleme > 0) {
+                    let makianSure = data.oponcesibekleme >= (65536 * 256) ? ((data.oponcesibekleme / (65536 * 256)) * 60) : data.oponcesibekleme / 65536
+                    makinaToplamSure = Math.ceil(makinaToplamSure + makianSure * Math.ceil(data.toplam_ihtiyac / data.makinapartimiktari))
+                }
+
+            }
+            dataArray.push({
+                atolye: dongu.atelye,
+                isclikSuresi: iscilikToplamSure,
+                makinaSuresi: makinaToplamSure
+            })
         }
 
 
@@ -318,13 +542,12 @@ router.post('/itemsBomGetir', cors(), async (req, res) => {
 
 
 
-        res.json(dataBom);
 
+        res.json({ status: 200, data: dataArray })
     } catch (error) {
-        console.error(error);
-        res.status(500).send('Internal Server Error');
+        console.error(error)
     }
-});
+})
 router.post('/operasyonSureli', cors(), async (req, res) => {
 
     const jsonBomList = fs.readFileSync('veri.json', 'utf8');
@@ -408,6 +631,52 @@ router.post('/operasyonSureli', cors(), async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
+async function itemRefBul(id) {
+    try {
+        const access_token = await getToken2(); // getToken2 fonksiyonu tanımlı olmalı ve await ile kullanılmalı
+        // const initialUrl = `http://20.0.0.14:32001/api/v1/queries?tsql=SELECT * FROM LG_224_BOMASTER boms WHERE boms.MAINPRODREF = ${id}'`; // id parametresi kullanılmalı
+        const initialUrl = `http://20.0.0.14:32001/api/v1/queries?tsql=SELECT LOGICALREF FROM LG_224_ITEMS bomss where  bomss.CODE = '${id}'`; // id parametresi kullanılmalı
+
+        const initialOptions = {
+            method: 'GET',
+            url: initialUrl,
+            headers: {
+                Authorization: `Bearer ${access_token.access_token}`,
+                'Content-Type': 'application/json',
+                Accept: 'application/json'
+            }
+        };
+        const initialResponse = await axios(initialOptions);
+        let router = initialResponse.data.items || [];
+        return router; // resolve yerine return kullanılmalı
+    } catch (error) {
+        console.error(error);
+        throw error; // Hata yakalandığında işlenmeli veya fırlatılmalı
+    }
+}
+async function bomRefBul(id) {
+    try {
+        const access_token = await getToken2(); // getToken2 fonksiyonu tanımlı olmalı ve await ile kullanılmalı
+        // const initialUrl = `http://20.0.0.14:32001/api/v1/queries?tsql=SELECT * FROM LG_224_BOMASTER boms WHERE boms.MAINPRODREF = ${id}'`; // id parametresi kullanılmalı
+        const initialUrl = `http://20.0.0.14:32001/api/v1/queries?tsql=SELECT LOGICALREF FROM LG_224_BOMASTER bomss where  bomss.MAINPRODREF = '${id}'`; // id parametresi kullanılmalı
+
+        const initialOptions = {
+            method: 'GET',
+            url: initialUrl,
+            headers: {
+                Authorization: `Bearer ${access_token.access_token}`,
+                'Content-Type': 'application/json',
+                Accept: 'application/json'
+            }
+        };
+        const initialResponse = await axios(initialOptions);
+        let router = initialResponse.data.items || [];
+        return router; // resolve yerine return kullanılmalı
+    } catch (error) {
+        console.error(error);
+        throw error; // Hata yakalandığında işlenmeli veya fırlatılmalı
+    }
+}
 async function itemsBul(id) {
     try {
         const access_token = await getToken2(); // getToken2 fonksiyonu tanımlı olmalı ve await ile kullanılmalı
@@ -434,9 +703,9 @@ async function itemsBul(id) {
 async function rotuerGet(id) {
     try {
         const access_token = await getToken2(); // getToken2 fonksiyonu tanımlı olmalı ve await ile kullanılmalı
-        const initialUrl = `http://20.0.0.14:32001/api/v1/queries?tsql=SELECT 
-        rotl.*,worksta.NAME as istasyonname,worksta.CODE as istasyonkod,
-        oper.CODE as op_code,opq.QUETIME as kuyrukZaman,opq.INSPTIME as kontrolzaman,opq.RUNTIME as islemzaman,opq.BATCHQUANTITY as islem_miktari,opq.WAITBATCHTIME as makinazamani,opq.WAITBATCHQTY as makinapartimiktari,opq.HEADTIME as oponcesibekleme FROM LG_224_ROUTING rot INNER JOIN LG_224_RTNGLINE rotl ON rot.LOGICALREF = rotl.ROUTINGREF INNER JOIN LG_224_OPERTION oper ON rotl.OPERATIONREF = oper.LOGICALREF INNER JOIN LG_224_OPRTREQ opq ON oper.LOGICALREF= opq.OPERATIONREF INNER JOIN LG_224_WORKSTAT worksta ON worksta.LOGICALREF=opq.WSREF AND rot.CODE = '${id}'`; // id parametresi kullanılmalı
+        const initialUrl = `http://20.0.0.14:32001/api/v1/queries?tsql=SELECT
+        rotl.*,worksta.NAME as istasyonname,worksta.CODE as istasyonkod,ozelKod.DEFINITION_ as atolye,
+        oper.CODE as op_code,opq.FIXEDSETUPTIME as hazirlik,opq.RUNTIME as islemzaman,opq.BATCHQUANTITY as islem_miktari,opq.WAITBATCHTIME as makinazamani,opq.WAITBATCHQTY as makinapartimiktari,opq.HEADTIME as oponcesibekleme FROM LG_224_ROUTING rot INNER JOIN LG_224_RTNGLINE rotl ON rot.LOGICALREF = rotl.ROUTINGREF INNER JOIN LG_224_OPERTION oper ON rotl.OPERATIONREF = oper.LOGICALREF INNER JOIN LG_224_OPRTREQ opq ON oper.LOGICALREF= opq.OPERATIONREF INNER JOIN LG_224_WORKSTAT worksta ON worksta.LOGICALREF=opq.WSREF INNER JOIN LG_224_SPECODES ozelKod ON worksta.SPECODE=ozelKod.SPECODE AND rot.CODE = '${id}'`; // id parametresi kullanılmalı
         const initialOptions = {
             method: 'GET',
             url: initialUrl,
@@ -454,7 +723,6 @@ async function rotuerGet(id) {
         throw error; // Hata yakalandığında işlenmeli veya fırlatılmalı
     }
 }
-
 async function bomListFonksiyon(id) {
     try {
         const access_token = await getToken2(); // getToken2 fonksiyonu tanımlı olmalı ve await ile kullanılmalı
@@ -476,10 +744,6 @@ async function bomListFonksiyon(id) {
         throw error; // Hata yakalandığında işlenmeli veya fırlatılmalı
     }
 }
-
-
-
-
 function getTokenPromise() {
     return new Promise((resolve, reject) => {
         const tokenOptions = {
@@ -503,15 +767,8 @@ function getTokenPromise() {
         });
     });
 }
-
-
-
-
-
-
 const groupAndSumSiparisler = async (siparisler) => {
     const groupedSiparisler = {};
-    console.log("siparisler tamamla")
     try {
         const eskiSiparisleriSil = await pool.query(`DELETE FROM siparisler `);
     } catch (error) {
@@ -533,9 +790,8 @@ const groupAndSumSiparisler = async (siparisler) => {
         const tarihParcalari = teslim_tarih.split('.');
         const ay = parseInt(tarihParcalari[1], 10);
         const yil = parseInt(tarihParcalari[2], 10);
-        console.log(ay, "-", yil)
         let teslim_tarihi
-        if ((ay < 12 && yil <= 2023) || (ay <= 12 && yil <= 2022)|| (yil<2024)) {
+        if ((ay < 12 && yil <= 2023) || (ay <= 12 && yil <= 2022) || (yil < 2024)) {
             teslim_tarihi = "ESKİBORC"
         } else {
             const aylar = [
@@ -582,7 +838,6 @@ router.post('/iliskiliUrunler', cors(), async (req, res) => {
 })
 
 router.post('/localSiparisGet', cors(), async (req, res) => {
-    console.log("buraya geldi");
     try {
         const result = await pool.query('SELECT * FROM local_duzenli_siparis');
         const data = result.rows;
@@ -671,7 +926,6 @@ pool.connect((error, client, release) => {
     if (error) {
         console.error('Veritabanına bağlanılamadı:', error);
     } else {
-        console.log('Veritabanına başarıyla bağlanıldı');
         release(); // Bağlantıyı serbest bırakın
     }
 });
@@ -849,11 +1103,49 @@ router.post('/getProductDetailAksiyon', cors(), async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 })
+router.post('/localSatinAlma', cors(), async (req, res) => {
+    try {
+
+
+        const result = await pool.query(`SELECT SUM(aciksas) FROM gunluk_satin_alma WHERE urun_kod = '${req.body.code}'`);
+        const data = result.rows;
+
+
+
+        res.status(200).json({ data });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+})
+router.post('/localAmbar', cors(), async (req, res) => {
+    try {
+
+
+        const result = await pool.query(`SELECT SUM(miktar) FROM gunluk_depo_toplam WHERE urun_kod = '${req.body.code}'`);
+        const data = result.rows;
+
+
+
+        res.status(200).json({ data });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+})
 router.get('/productDetail', cors(), async (req, res) => {
     try {
 
-        const result = await pool.query('SELECT * FROM public.product_detail ');
+
+        const result = await pool.query(`SELECT 
+        (SELECT COUNT(*) FROM product_detail_aksiyon pda WHERE product_detail_id = pd.id) AS aksiyonAdet,
+        (SELECT SUM(miktar) FROM gunluk_depo_toplam pda WHERE urun_kod = pd.product_code) AS ambarToplam,
+        pd.*,
+        (SELECT json_agg(gsa.*) FROM gunluk_satin_alma gsa WHERE gsa.urun_kod = pd.product_code) as child
+    FROM product_detail pd; `);
         const data = result.rows;
+
+
 
         res.status(200).json({ data });
     } catch (error) {
@@ -936,7 +1228,61 @@ router.post('/productDetailAksiyonPost', cors(), async (req, res) => {
 
         const result = await pool.query('INSERT INTO product_detail_aksiyon( product_detail_id, aksiyon_aciklama, siparis_no, termin_tarih, termin_adet, cari,is_active) VALUES ($1,$2, $3, $4,$5,$6,true)', [product_detail_id, aksiyon_aciklama, siparis_no, termin_tarih, termin_adet, cari]);
         const datas = result.rows;
+        const selectUrunKod = await pool.query(`select * from product_detail WHERE id = ${product_detail_id}`)
+        const selectUrunKodRows = selectUrunKod.rows[0]
+        let tableRows = `
+              <tr style="border: 1px solid #ddd;">
+                <th style="border: 1px solid #ddd; padding: 8px;">Ürün Kodu</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">Ürün Açıklama</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">Tedarik Planlama Açıklaması</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">Firma Adı</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">Termin Miktari</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">Termin Tarihi</th>
+              </tr>`;
 
+
+        tableRows += `
+                  <tr style="border: 1px solid #ddd;">
+                    <td style="border: 1px solid #ddd; padding: 8px;">${selectUrunKodRows.product_code}</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">${selectUrunKodRows.urunadi}</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">${aksiyon_aciklama}</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">${cari}</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">${termin_adet}</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">${termin_tarih}</td>
+                  </tr>`;
+
+        let transporter = nodemailer.createTransport({
+            host: '20.0.0.20',
+            port: 25,
+            secure: false,
+
+            auth: {
+                user: 'bilgi@aho.com',
+                pass: 'Bilgi5858!'
+            },
+            tls: {
+                rejectUnauthorized: false
+            }
+        });
+        let mailOptions = {
+            from: 'bilgi@aho.com',
+            to: 'planlama@aho.com,ekoc@aho.com',
+            cc: 'tedarikplanlama@aho.com,satinalma@aho.com',
+            subject: `Aksiyon Alındı`,
+            html: `<p>Sayın İlgili,</p>
+          <p>Satınalma - Tedarik Planlama Tarafından Kritik Malzemeler için Aksiyon Alınmıştır..</p> 
+ 
+          <table>${tableRows}</table>`
+
+
+        };
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log('Email sent: ' + info.response);
+            }
+        });
         res.status(200).json({ status: 200 })
 
 
@@ -947,12 +1293,60 @@ router.post('/productDetailAksiyonPost', cors(), async (req, res) => {
 })
 router.post('/productDetails', cors(), async (req, res) => {
     const data = req.body.data
-console.log(data)
     try {
         data.forEach(async element => {
-            const result = await pool.query('INSERT INTO product_detail(product_code, anaurunkodu, urunadi,siparis_urun,is_active,miktar,tarih) VALUES ($1,$2, $3, $4,$5,$6,$7)', [element.product_code, element.anaurunkodu, element.urunadi, element.siparis_urun, true,element.miktar,element.tarih]);
+            const result = await pool.query('INSERT INTO product_detail(product_code, anaurunkodu, urunadi,siparis_urun,is_active,miktar,tarih) VALUES ($1,$2, $3, $4,$5,$6,$7)', [element.product_code, element.anaurunkodu, element.urunadi, element.siparis_urun, true, element.miktar, element.tarih]);
             const datas = result;
+            // Generate HTML table dynamically
+            let tableRows = `
+              <tr style="border: 1px solid #ddd;">
+                <th style="border: 1px solid #ddd; padding: 8px;">Ürün Kodu</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">Ürün Açıklama</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">Talep edilen Tarih</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">Talep edilen Miktar</th>
+              </tr>`;
 
+            data.forEach(dataElement => {
+                tableRows += `
+                  <tr style="border: 1px solid #ddd;">
+                    <td style="border: 1px solid #ddd; padding: 8px;">${dataElement.product_code}</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">${dataElement.urunadi}</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">${dataElement.tarih}</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">${dataElement.miktar}</td>
+                  </tr>`;
+            });
+            let transporter = nodemailer.createTransport({
+                host: '20.0.0.20',
+                port: 25,
+                secure: false,
+
+                auth: {
+                    user: 'bilgi@aho.com',
+                    pass: 'Bilgi5858!'
+                },
+                tls: {
+                    rejectUnauthorized: false
+                }
+            });
+            let mailOptions = {
+                from: 'bilgi@aho.com',
+                to: 'tedarikplanlama@aho.com,satinalma@aho.com',
+                cc: 'planlama@aho.com,ekoc@aho.com',
+                subject: `Kritik Malzeme Belirleme Hk.`,
+                html: `<p>Sayın İlgili,</p>
+          <p>Planlmaa Tarafından Kritik Malzeme Belirlenmiştir.</p> 
+ 
+          <table>${tableRows}</table>`
+
+
+            };
+            transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log('Email sent: ' + info.response);
+                }
+            });
         });
         res.status(200).json({ status: 200 });
 
@@ -975,7 +1369,6 @@ router.post('/productDetailAksiyonPut', cors(), async (req, res) => {
 
 
 router.post('/productDetailPut', cors(), async (req, res) => {
-    console.log(req.body)
     let data = req.body
     const { id, ay, cari, siparis_no, aciklama, aciklama2, is_active, termin, termin2, product_code, anaurunkodu, urunadi } = req.body;
     try {
@@ -1316,7 +1709,6 @@ router.post('/cariSasGet', cors(), (req, res) => {
 
             const parsedBody = JSON.parse(body);
             siparisler = parsedBody.items || []; // "items" özelliğini kullanarak sipariş verilerini alın
-            console.log(siparisler)
 
             res.json(siparisler); // İşlenen veriyi JSON olarak yanıt olarak gönderin
         });
@@ -1330,7 +1722,6 @@ router.get('/siparisler', cors(), (req, res) => {
             res.status(500).json({ error: 'Internal Server Error' });
             return;
         }
-console.log("burası mı")
         const url = `http://20.0.0.14:32001/api/v1/queries?tsql=SELECT *FROM SATIS_SIPARISLERI_224`; // API endpointini doğru şekilde belirtin
         const options = {
             method: 'GET',
@@ -1349,7 +1740,6 @@ console.log("burası mı")
             }
             const parsedBody = JSON.parse(body);
             siparisler = parsedBody.items || []; // "items" özelliğini kullanarak sipariş verilerini alın
-            console.log(siparisler)
             transformedSiparisler = groupAndSumSiparisler(siparisler); // Siparişleri dönüştürün
 
             res.json(transformedSiparisler); // İşlenen veriyi JSON olarak yanıt olarak gönderin
@@ -1387,34 +1777,32 @@ router.post('/ihamlPost', cors(), async (req, res) => {
         data.forEach(async element => {
             let ihmalPost = await pool.query(`INSERT INTO ihmal_product(malzeme_kodu, malzeme_adi, proje_kodu) VALUES ('${element.product_code}','${element.urunadi}','${element.selectedProje}')`);
         });
-        
-        res.json({status:200})
+
+        res.json({ status: 200 })
     } catch (error) {
-       res.json(error)
+        res.json(error)
     }
 });
 router.post('/localSiparisSingel', cors(), async (req, res) => {
     const kod = req.body.kod
-    console.log(req.body)
     try {
-     
-            let selectData = await pool.query(`SELECT*FROM siparisler WHERE malzeme = '${kod}'`);
-         
-        res.json({status:200,data:selectData.rows})
+
+        let selectData = await pool.query(`SELECT*FROM siparisler WHERE malzeme = '${kod}'`);
+
+        res.json({ status: 200, data: selectData.rows })
     } catch (error) {
-       res.json(error)
+        res.json(error)
     }
 });
 router.post('/ihmalEdilenAll', cors(), async (req, res) => {
- 
+
     try {
-       
-            let ihmalPost = await pool.query(`SELECT * FROM  ihmal_product`);
-     
-        console.log(ihmalPost.rows)
-        res.json({status:200,data:ihmalPost.rows})
+
+        let ihmalPost = await pool.query(`SELECT * FROM  ihmal_product`);
+
+        res.json({ status: 200, data: ihmalPost.rows })
     } catch (error) {
-       res.json(error)
+        res.json(error)
     }
 });
 router.post('/satisSiparisCek', cors(), async (req, res) => {
@@ -1426,7 +1814,7 @@ router.post('/satisSiparisCek', cors(), async (req, res) => {
 });
 router.post('/bomCekOTOMATik', cors(), async (req, res) => {
     try {
-        
+
         gunlukBomGet()
     } catch (error) {
         console.error(error);
@@ -1442,45 +1830,157 @@ router.post('/ambarDataOtomatikBomFor', cors(), async (req, res) => {
 
 async function ambarDurumOtomatik() {
     try {
-        
-    const dataSiparis = await pool.query(`SELECT * FROM local_duzenli_siparis`)
-    const siparisList = dataSiparis.rows 
 
-    for (const element of siparisList) {
-        let minAmbar = 9999
+        const dataSiparis = await pool.query(`SELECT * FROM local_duzenli_siparis`)
+        const siparisList = dataSiparis.rows
 
-        let dataBom = await pool.query(`SELECT * FROM target_bom WHERE siparis_urun = '${element.malzeme}'`);
-        let bomListe = dataBom.rows;
-        for (const bomElement of bomListe) {
-            let toplamDepo = await ambarDurumUpdate(bomElement);
-            let ihmalData = await pool.query (`SELECT * FROM ihmal_product WHERE malzeme_kodu = '${bomElement.kod}'`)
-            let varmi = ihmalData.rowCount
-            if(varmi>0){
-                minAmbar = minAmbar
-            }else{
-                console.log(minAmbar,toplamDepo)
-                minAmbar = minAmbar > toplamDepo ? toplamDepo : minAmbar;
+        for (const element of siparisList) {
+            let minAmbar = 9999
+
+            let dataBom = await pool.query(`SELECT * FROM target_bom WHERE siparis_urun = '${element.malzeme}'`);
+            let bomListe = dataBom.rows;
+            for (const bomElement of bomListe) {
+                let toplamDepo = await ambarDurumUpdate(bomElement);
+                let ihmalData = await pool.query(`SELECT * FROM ihmal_product WHERE malzeme_kodu = '${bomElement.kod}'`)
+                let varmi = ihmalData.rowCount
+                if (varmi > 0) {
+                    minAmbar = minAmbar
+                } else {
+                    minAmbar = minAmbar > toplamDepo ? toplamDepo : minAmbar;
+                }
+
+                const updateTargetBomAmbar = await pool.query(`UPDATE target_bom SET sum_ambar = ${toplamDepo} WHERE id = ${bomElement.id}`);
             }
-           
-          const updateTargetBomAmbar = await pool.query(`UPDATE target_bom SET sum_ambar = ${toplamDepo} WHERE id = ${bomElement.id}`);
-        }
 
-        //local_duzenli_siparis tablosundaki ürünleri sırayla gezerek target_bom tablosunda olanları bulacak sum_ambar miktarı minumum  olanı bulacak ihmal edilen üründe varsa yeni onu minumum kabul etmeyecek liste bittiğinde üretilebilirlik yazacak
+            //local_duzenli_siparis tablosundaki ürünleri sırayla gezerek target_bom tablosunda olanları bulacak sum_ambar miktarı minumum  olanı bulacak ihmal edilen üründe varsa yeni onu minumum kabul etmeyecek liste bittiğinde üretilebilirlik yazacak
 
-       
-        const insertSiparisUretim = await pool.query(`UPDATE local_duzenli_siparis SET uretilebilir= ${minAmbar} WHERE id = ${element.id}`)
-            
+
+            const insertSiparisUretim = await pool.query(`UPDATE local_duzenli_siparis SET uretilebilir= ${minAmbar} WHERE id = ${element.id}`)
+
         }
 
     } catch (error) {
         console.error(error);
     }
 }
+async function ambarDurumOtomatik() {
+    try {
+
+        const dataSiparis = await pool.query(`SELECT * FROM local_duzenli_siparis`)
+        const siparisList = dataSiparis.rows
+
+        for (const element of siparisList) {
+            let minAmbar = 9999
+
+            let dataBom = await pool.query(`SELECT * FROM target_bom WHERE siparis_urun = '${element.malzeme}'`);
+            let bomListe = dataBom.rows;
+            for (const bomElement of bomListe) {
+                let toplamDepo = await ambarDurumUpdate(bomElement);
+                let ihmalData = await pool.query(`SELECT * FROM ihmal_product WHERE malzeme_kodu = '${bomElement.kod}'`)
+                let varmi = ihmalData.rowCount
+                if (varmi > 0) {
+                    minAmbar = minAmbar
+                } else {
+                    minAmbar = minAmbar > toplamDepo ? toplamDepo : minAmbar;
+                }
+
+                const updateTargetBomAmbar = await pool.query(`UPDATE target_bom SET sum_ambar = ${toplamDepo} WHERE id = ${bomElement.id}`);
+            }
+
+            //local_duzenli_siparis tablosundaki ürünleri sırayla gezerek target_bom tablosunda olanları bulacak sum_ambar miktarı minumum  olanı bulacak ihmal edilen üründe varsa yeni onu minumum kabul etmeyecek liste bittiğinde üretilebilirlik yazacak
+
+
+            const insertSiparisUretim = await pool.query(`UPDATE local_duzenli_siparis SET uretilebilir= ${minAmbar} WHERE id = ${element.id}`)
+
+        }
+
+    } catch (error) {
+        console.error(error);
+    }
+}
+async function ototmatikSiparisCek(element) {
+    let toplamDepo = 0
+    try {
+        const access_token = await getToken2();
+        const initialUrl = `http://20.0.0.14:32001/api/v1/queries?tsql=SELECT *FROM SATINALMA_SIPARIS_224`;
+        const initialOptions = {
+            method: 'GET',
+            url: initialUrl,
+            headers: {
+                Authorization: `Bearer ${access_token.access_token}`,
+                'Content-Type': 'application/json',
+                Accept: 'application/json'
+            }
+        };
+
+        const initialResponse = await axios(initialOptions);
+        let ambar = initialResponse.data.items || [];
+        const deleteSatinalma = await pool.query(`delete from public.gunluk_satin_alma`)
+        for (const element of ambar) {
+            const insertAmbar = await pool.query(`INSERT INTO public.gunluk_satin_alma(
+                cari, aciksas, siparis_no, teslim_tarihi,urun_kod)
+                VALUES ('${element[['CARİ']]}', ${element['AÇIK SİPARİŞ']}, ' ${element['SİPARİŞ KODU']}', '${element['TERMİN TARİHİ']}','${element['KOD']}')`)
+        }
+
+        return toplamDepo;
+
+
+
+
+
+    } catch (error) {
+        console.error(error);
+
+    }
+
+    // return Object.values(toplamDepo);
+
+}
+async function ototmatikAmbarCek(element) {
+    let toplamDepo = 0
+    try {
+
+        const access_token = await getToken2();
+        const initialUrl = `http://20.0.0.14:32001/api/v1/queries?tsql=${encodeURIComponent("SELECT * FROM AMBAR_TOPLAMLARI_224 WHERE  MİKTAR > 0 AND DEPO != 'Şube Tekrar Lens Deposu' AND DEPO != 'AHO Hurda-Fire' AND DEPO != 'Sevkiyat' AND DEPO != 'Bakım Onarım Deposu' AND DEPO != 'Ek Uygunsuzluk Deposu' AND DEPO != 'İthalat Deposu' AND DEPO != 'Aselsan Hurda-Fire Yansıtma' AND DEPO != 'Rework Deposu' AND DEPO != 'İade Deposu' AND DEPO != 'Sabit Kıymet Deposu' AND DEPO != 'Ankara AR-GE Üretim Deposu' AND DEPO != 'Bilgi İşlem Deposu' ")}`;
+        const initialOptions = {
+            method: 'GET',
+            url: initialUrl,
+            headers: {
+                Authorization: `Bearer ${access_token.access_token}`,
+                'Content-Type': 'application/json',
+                Accept: 'application/json'
+            }
+        };
+
+        const initialResponse = await axios(initialOptions);
+        let ambar = initialResponse.data.items || [];
+        const deleteSatinalma = await pool.query(`delete from public.gunluk_depo_toplam`)
+        for (const element of ambar) {
+            const insertAmbar = await pool.query(`INSERT INTO public.gunluk_depo_toplam(
+                urun_kod, miktar, ambar)
+                VALUES ('${element.KODU}', ${element['MİKTAR']}, '${element.DEPO}');`)
+        }
+        console.log("Ambar Çekildi")
+
+        return toplamDepo;
+
+
+
+
+
+    } catch (error) {
+        console.error(error);
+
+    }
+
+    // return Object.values(toplamDepo);
+
+}
 async function ambarDurumUpdate(element) {
     const code = element.kod
     let toplamDepo = 0
     try {
-        
+
         const access_token = await getToken2();
         const initialUrl = `http://20.0.0.14:32001/api/v1/queries?tsql=${encodeURIComponent("SELECT * FROM AMBAR_TOPLAMLARI_224 WHERE( KODU = '" + code + "') AND MİKTAR > 0 AND DEPO != 'Şube Tekrar Lens Deposu' AND DEPO != 'AHO Hurda-Fire' AND DEPO != 'Sevkiyat' AND DEPO != 'Bakım Onarım Deposu' AND DEPO != 'Ek Uygunsuzluk Deposu' AND DEPO != 'İthalat Deposu' AND DEPO != 'Aselsan Hurda-Fire Yansıtma' AND DEPO != 'Rework Deposu' AND DEPO != 'İade Deposu' AND DEPO != 'Sabit Kıymet Deposu' AND DEPO != 'Ankara AR-GE Üretim Deposu' AND DEPO != 'Bilgi İşlem Deposu' ")}`;
         const initialOptions = {
@@ -1496,22 +1996,138 @@ async function ambarDurumUpdate(element) {
         const initialResponse = await axios(initialOptions);
         let ambar = initialResponse.data.items || [];
         for (const element of ambar) {
-           toplamDepo += element['MİKTAR'];
-           
+            toplamDepo += element['MİKTAR'];
+
         }
         return toplamDepo;
 
 
 
 
-       
+
     } catch (error) {
         console.error(error);
-      
+
     }
 
-   // return Object.values(toplamDepo);
- 
+    // return Object.values(toplamDepo);
+
+}
+async function kapasiteOtomatik() {
+
+    const jsonBomList = fs.readFileSync('mrpdata.json', 'utf8');
+    const sqlData = JSON.parse(jsonBomList);
+
+
+    let itemsRef = []
+    let bomsRef = []
+    let bomsGetRotali = []
+    try {
+        let dataGelenIndex = 0
+        const dataBom = []
+        for (let mrpVeri of sqlData) {
+            const desiredId = mrpVeri.malzeme_kodu;
+
+            //items bulacak
+
+            itemsRef = await itemRefBul(desiredId)
+            bomsRef = await bomRefBul(itemsRef[0].LOGICALREF)
+            // //ref e göre bom bulacak
+            // //bom restapiden bom  ve rotaları getirecek
+            // //rotaların operasyonları gelecek
+            if (mrpVeri.karsılama_turu != 'Satınalma') {
+                for (let bomrefDon of bomsRef) {
+
+                    let bomrefDatass = bomrefDon.LOGICALREF
+                    let ay = mrpVeri.ihtiyac_tarihi.split('/')[1]
+                    let yil = mrpVeri.ihtiyac_tarihi.split('/')[2]
+                    if (bomrefDatass < 99999 && bomrefDatass > 999) {
+                        bomsGetRotali = await bomListFonksiyon(bomrefDon.LOGICALREF)
+                        if (bomsGetRotali.ROUT_CODE != 'FASON') {
+                            const rotaData = await rotuerGet(bomsGetRotali.ROUT_CODE);
+                            for (let element of rotaData) {
+                                dataBom.push(
+                                    {
+                                        code: bomsGetRotali.CODE,
+                                        urun_kod: mrpVeri.malzeme_kodu,
+                                        urun_aciklama: mrpVeri.aciklama,
+                                        ihtiyac_miktar: mrpVeri.ihtiyac_miktar,
+                                        ay: ay,
+                                        yil: yil,
+                                        bom_name: bomsGetRotali.NAME,
+                                        revizyon_id: bomsGetRotali.VALIDREVREF,
+                                        urun_id: bomsGetRotali.MAINPRODREF,
+                                        bom_id: bomsGetRotali.BOMMASTERREF,
+                                        o_kod: bomsGetRotali.MP_CODE,
+                                        o_name: bomsGetRotali.MP_NAME,
+                                        rota_kod: bomsGetRotali.ROUT_CODE,
+                                        rota_name: bomsGetRotali.ROUT_NAME,
+                                        satir_no: element.LINENO_,
+                                        istasyonname: element.istasyonname,
+                                        istasyonkod: element.istasyonkod,
+                                        atolye: element.atolye,
+                                        op_code: element.op_code,
+                                        hazirlik: element.hazirlik,
+                                        iscilik_suresi: element.islemzaman,
+                                        islem_miktari: element.islem_miktari,
+                                        oponcesibekleme: element.makinazamani,
+                                        makinazamani: element.oponcesibekleme,
+                                        makinapartimiktari: element.makinapartimiktari,
+                                        dataGelenIndex: dataGelenIndex
+
+                                    }
+                                )
+
+                            }
+                        }
+
+                    }
+                }
+            }
+            dataGelenIndex += 1
+        }
+
+
+        const dataDelete = await pool.query(`DELETE FROM operasyon_kapasite `)
+        for (let insterForData of dataBom) {
+            const insertDataSourch = await pool.query(`INSERT INTO public.operasyon_kapasite(
+            grup_id,urun_kod, urun_aciklama, ihtiyac_miktar, ay, yil, bom_name, revizyon_id, urun_id, bom_id, o_kod, o_name, rota_kod, rota_name, satir_no, istasyonname, istasyonkod, atolye, operasyon_code, hazirlik, iscilik_suresi, islem_miktari, oponcesibekleme, makinazamani, makinapartimiktari)
+           VALUES (${insterForData.dataGelenIndex},'${insterForData.urun_kod}',
+           '${insterForData.urun_aciklama}',
+            ${insterForData.ihtiyac_miktar},
+            ${parseInt(insterForData.ay)},
+            ${parseInt(insterForData.yil)},
+            '${insterForData.bom_name}',
+            ${insterForData.revizyon_id},
+            ${insterForData.urun_id},
+            ${insterForData.bom_id},
+            '${insterForData.o_kod}',
+            '${insterForData.o_name}',
+            '${insterForData.rota_kod}',
+            '${insterForData.rota_name}',
+            ${insterForData.satir_no},
+            '${insterForData.istasyonname}',
+            '${insterForData.istasyonkod}',
+            '${insterForData.atolye}',
+            '${insterForData.op_code}',
+            ${insterForData.hazirlik},
+            ${insterForData.iscilik_suresi},
+            ${insterForData.islem_miktari},
+            ${insterForData.oponcesibekleme},
+            ${insterForData.makinazamani},
+            ${insterForData.makinapartimiktari} )`)
+
+        }
+        const dataSelectAll = await pool.query(`SELECT SUM(ihtiyac_miktar),urun_kod FROM (
+                select grup_id,urun_kod, sum(ihtiyac_miktar) as toplam, ihtiyac_miktar from operasyon_kapasite GROUP BY grup_id,ihtiyac_miktar,urun_kod
+            ) as gor GROUP BY urun_kod
+            `)
+        for (let datadon of dataSelectAll.rows) { const updateData = await pool.query(`UPDATE operasyon_kapasite SET  toplam_ihtiyac = ${datadon.sum} WHERE urun_kod ='${datadon.urun_kod}'`) }
+        console.log("kapasite çekildi")
+        return 0
+    } catch (error) {
+        console.error(error);
+    }
 }
 async function satisSiparisDuzenleme() {
     try {
@@ -1522,6 +2138,7 @@ async function satisSiparisDuzenleme() {
         for (const element of siparisler) {
             await updateLocalDuzenliSiparis(element);
         }
+        return 0
     } catch (error) {
         console.error(error);
     }
@@ -1530,7 +2147,6 @@ async function satisSiparisDuzenleme() {
 async function updateLocalDuzenliSiparis(element) {
     try {
         let monthField = getMonthField(element.teslim_tarihi);
-        console.log(monthField)
 
         let siparisVarmi = await pool.query(`SELECT * FROM local_duzenli_siparis WHERE malzeme=$1`, [element.malzeme]);
 
@@ -1586,7 +2202,7 @@ function getMonthField(teslim_tarihi) {
 async function gunlukBomGet() {
     try {
         let dataSiparis = await pool.query(`SELECT * FROM local_duzenli_siparis`);
-       let data = dataSiparis.rows
+        let data = dataSiparis.rows
 
         for (const element of data) {
             await bomCekOtomatikGunluk(element);
@@ -1595,16 +2211,14 @@ async function gunlukBomGet() {
         console.error(error);
     }
 }
-async function bomCekOtomatikGunluk(gelen){
+async function bomCekOtomatikGunluk(gelen) {
     try {
-        console.log(gelen)
         const { ay_1, ay_2, ay_3, ay_4, ay_5, ay_6, ay_7, ay_8, ay_9, ay_10, ay_11, ay_12, gecmis } = gelen;
-        const code =gelen.malzeme.toString();
+        const code = gelen.malzeme.toString();
         const access_token = await getToken2();
-        
+
         const fetchBomData = async (kod) => {
             const bomUrl = `http://20.0.0.14:32001/api/v1/queries?tsql=SELECT * FROM BOM_SATIR_224() WHERE KOD = '${kod}'`;
-            console.log(bomUrl)
             const bomOptions = {
                 method: 'GET',
                 url: bomUrl,
@@ -1621,21 +2235,20 @@ async function bomCekOtomatikGunluk(gelen){
 
         const processBomLevel = async (bomList, level) => {
             const result = [];
-        
+
             for (const element of bomList) {
                 element.level = level;
-                console.log(element.ALTKOD,element.KOD, level);
-        
+
                 if (element.BOMAD2 != null && element.ALTKOD != null && element.ALTKOD !== "") {
                     const subComponentData = await fetchBomData(element.ALTKOD);
                     const processedSubComponents = await processBomLevel(subComponentData, level + 1);
                     result.push(...processedSubComponents);
                 }
             }
-        
+
             // Döngü sonunda sadece ana elemanı ekle
             result.push(...bomList);
-        
+
             return result;
         };
 
@@ -1643,11 +2256,10 @@ async function bomCekOtomatikGunluk(gelen){
         const initialBomList = await fetchBomData(code);
 
         if (!initialBomList) {
-            console.log("BOM verisi bulunamadı.");
             return Object.values("data");
         }
 
-      
+
         // Diğer seviyeler
         const bomlist = await processBomLevel(initialBomList, 0);
 
@@ -1667,17 +2279,153 @@ async function bomCekOtomatikGunluk(gelen){
         });
 
 
-    
 
-        
-            return Object.values("data");
-     
+
+
+        return Object.values("data");
+
     } catch (error) {
         console.error(error);
     }
 
 }
 
+const kritikMalzemeHatirlatma = async () => {
+    // Burada sorgunuzu çalıştırabilirsiniz, örneğin:
+    try {
+        data.forEach(async element => {
+            const result = await pool.query(`SELECT 
+            (SELECT COUNT(*) FROM product_detail_aksiyon pda WHERE product_detail_id = pd.id) AS aksiyon,
+            (SELECT SUM(aciksas) FROM gunluk_satin_alma pda WHERE urun_kod = pd.product_code) AS sas,
+            pd.*
+         FROM product_detail pd WHERE pd.is_active = true; `);
+            const datas = result.rows;
+            // Generate HTML table dynamically
+            let tableRows = `
+              <tr style="border: 1px solid #ddd;">
+                <th style="border: 1px solid #ddd; padding: 8px;">Ürün Kodu</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">Ürün Açıklama</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">Talep edilen Tarih</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">Talep edilen Miktar</th>
+              </tr>`;
+
+            datas.forEach(dataElement => {
+                if (dataElement.aksiyon < 1 && dataElement.sas > 0)
+                    tableRows += `
+                  <tr style="border: 1px solid #ddd;">
+                    <td style="border: 1px solid #ddd; padding: 8px;">${dataElement.product_code}</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">${dataElement.urunadi}</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">${dataElement.tarih}</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">${dataElement.miktar}</td>
+                  </tr>`;
+            });
+            let transporter = nodemailer.createTransport({
+                host: '20.0.0.20',
+                port: 25,
+                secure: false,
+
+                auth: {
+                    user: 'bilgi@aho.com',
+                    pass: 'Bilgi5858!'
+                },
+                tls: {
+                    rejectUnauthorized: false
+                }
+            });
+            let mailOptions = {
+                from: 'bilgi@aho.com',
+                to: 'tedarikplanlama@aho.com,satinalma@aho.com',
+                cc: 'planlama@aho.com,ekoc@aho.com',
+                subject: `Kritik Malzeme Hatırlatma Hk.`,
+                html: `<p>Sayın İlgili,</p>
+          <p>Planlmaa Tarafından Kritik malzemeler için aksiyonlarınız beklenmektedir..</p> 
+ Ürün listesi ekte verilmiştir.
+          <table>${tableRows}</table>`
+
+
+            };
+            transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log('Email sent: ' + info.response);
+                }
+            });
+        });
+
+    } catch (error) {
+        console.error(error);
+
+    }
+};
+const kritikMAlzemeSasSifir = async () => {
+    // Burada sorgunuzu çalıştırabilirsiniz, örneğin:
+    try {
+        data.forEach(async element => {
+            const result = await pool.query(`SELECT 
+            (SELECT COUNT(*) FROM product_detail_aksiyon pda WHERE product_detail_id = pd.id) AS aksiyon,
+            (SELECT SUM(aciksas) FROM gunluk_satin_alma pda WHERE urun_kod = pd.product_code) AS sas,
+            pd.*
+         FROM product_detail pd WHERE pd.is_active = true; `);
+            const datas = result.rows;
+            // Generate HTML table dynamically
+            let tableRows = `
+              <tr style="border: 1px solid #ddd;">
+                <th style="border: 1px solid #ddd; padding: 8px;">Ürün Kodu</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">Ürün Açıklama</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">Talep edilen Tarih</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">Talep edilen Miktar</th>
+              </tr>`;
+
+            datas.forEach(dataElement => {
+                if ( !dataElement.sas)
+                    tableRows += `
+                  <tr style="border: 1px solid #ddd;">
+                    <td style="border: 1px solid #ddd; padding: 8px;">${dataElement.product_code}</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">${dataElement.urunadi}</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">${dataElement.tarih}</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">${dataElement.miktar}</td>
+                  </tr>`;
+            });
+            let transporter = nodemailer.createTransport({
+                host: '20.0.0.20',
+                port: 25,
+                secure: false,
+
+                auth: {
+                    user: 'bilgi@aho.com',
+                    pass: 'Bilgi5858!'
+                },
+                tls: {
+                    rejectUnauthorized: false
+                }
+            });
+            let mailOptions = {
+                from: 'bilgi@aho.com',
+                to: 'planlama@aho.com,ekoc@aho.com',
+                cc: 'tedarikplanlama@aho.com,satinalma@aho.com',
+                subject: `Kritik Malzeme Hatırlatma Hk.`,
+                html: `<p>Sayın İlgili,</p>
+          <p>Aşağıda İstenen Ürünler için SAS oluşturulmadığından dolayı Temin edilememektedir.Ürünler AHO üretimi olacak veya ürün ihtiyacının olmaması halinde listeden çıkartılmasını rica ederiz.</p> 
+ Ürün listesi ekte verilmiştir.
+          <table>${tableRows}</table>`
+
+
+            };
+            transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log('Email sent: ' + info.response);
+                }
+            });
+        });
+
+    } catch (error) {
+        console.error(error);
+
+    }
+};
 const satisSiparis = async () => {
     // Burada sorgunuzu çalıştırabilirsiniz, örneğin:
     try {
@@ -1709,7 +2457,6 @@ const satisSiparis = async () => {
                 siparisler = parsedBody.items || []; // "items" özelliğini kullanarak sipariş verilerini alın
                 transformedSiparisler = groupAndSumSiparisler(siparisler); // Siparişleri dönüştürün
 
-                console.log("bitti")
             });
 
         });
@@ -1720,16 +2467,20 @@ const satisSiparis = async () => {
     }
 };
 
-
+const bucuk =19.5 * 30 * 60 * 1000;
+const bucuk2 =20.5 * 30 * 60 * 1000;
 const yirmiSaat = 20 * 60 * 60 * 1000;
-const yirmi1Saat = 21* 60 * 60 * 1000;
+const yirmi1Saat = 21 * 60 * 60 * 1000;
 const yirmi2Saat = 22 * 60 * 60 * 1000;
 const yirmi3Saat = 23 * 60 * 60 * 1000;
+const altisaat = 6 * 60 * 60 * 1000;
+const bessaat = 5 * 60 * 60 * 1000;
+const ondokuzSaat = 19 * 60 * 60 * 1000;
 // logo satış çekme
 setInterval(async () => {
     try {
         await satisSiparis();
-
+console.log("satinalma çekildi")
         //await calistirSorguyu();
 
     } catch (error) {
@@ -1740,6 +2491,7 @@ setInterval(async () => {
 setInterval(async () => {
     try {
         await satisSiparisDuzenleme();
+        console.log("siparisDuzenlendi çekildi")
 
         //await calistirSorguyu();
 
@@ -1751,7 +2503,30 @@ setInterval(async () => {
 // logo bom çek
 setInterval(async () => {
     try {
+        await kritikMalzemeHatirlatma();
+        console.log("kritik malzeme hatırlatıldı")
+
+        //await calistirSorguyu();
+
+    } catch (error) {
+        console.error(error);
+    }
+}, bucuk);
+setInterval(async () => {
+    try {
+        await kritikMAlzemeSasSifir();
+        console.log("kritik malzeme listesine ekleme hatırlatıldı")
+
+        //await calistirSorguyu();
+
+    } catch (error) {
+        console.error(error);
+    }
+}, bucuk2);
+setInterval(async () => {
+    try {
         await gunlukBomGet();
+        console.log("bom çekildi")
 
         //await calistirSorguyu();
 
@@ -1762,13 +2537,47 @@ setInterval(async () => {
 setInterval(async () => {
     try {
         await ambarDurumOtomatik();
+        console.log("ambar çekildi")
 
         //await calistirSorguyu();
 
     } catch (error) {
         console.error(error);
     }
-}, yirmi2Saat);
+}, yirmi3Saat);
+setInterval(async () => {
+    try {
+        await ototmatikSiparisCek();
+        console.log("satın alma çekildi")
+
+        //await calistirSorguyu();
+
+    } catch (error) {
+        console.error(error);
+    }
+}, altisaat);
+setInterval(async () => {
+    try {
+        await ototmatikAmbarCek();
+        console.log("ambar otomatik insert edildi çekildi")
+
+        //await calistirSorguyu();
+
+    } catch (error) {
+        console.error(error);
+    }
+}, bessaat);
+setInterval(async () => {
+    try {
+        await kapasiteOtomatik();
+        console.log("kapasite raporu hazırlandı çekildi")
+
+        //await calistirSorguyu();
+
+    } catch (error) {
+        console.error(error);
+    }
+}, ondokuzSaat);
 
 
 

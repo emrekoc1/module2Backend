@@ -1,1958 +1,1568 @@
 [
     {
-     "MALZEMEkOD": "10032661-1",
-     "ACİKLAMA": "TAKIM PIL BDK NRK",
-     "URUNREF": 13001,
-     "BOMREF": 5236
-    },
-    {
-     "MALZEMEkOD": "10034208-1",
-     "ACİKLAMA": "GÖVDE, NRK",
-     "URUNREF": 17113,
-     "BOMREF": 5237
-    },
-    {
-     "MALZEMEkOD": 10061972,
-     "ACİKLAMA": "A100, OKÜLER ADAPTÖR ",
-     "URUNREF": 377,
-     "BOMREF": 4788
-    },
-    {
-     "MALZEMEkOD": 10061974,
-     "ACİKLAMA": "A100, OKÜLER ADAPTÖR SONLAMA ",
-     "URUNREF": 378,
-     "BOMREF": 8018
-    },
-    {
-     "MALZEMEkOD": "10062017-1",
-     "ACİKLAMA": "A100, AYAR HALKASI, GÖZ LASTİĞİ ",
-     "URUNREF": 381,
-     "BOMREF": 5963
-    },
-    {
-     "MALZEMEkOD": 10065455,
-     "ACİKLAMA": "A341 LENS 1 OBJ.",
-     "URUNREF": 1333,
-     "BOMREF": 4662
-    },
-    {
-     "MALZEMEkOD": "10068898-2",
-     "ACİKLAMA": "A100 MONOKÜLER NİŞANGAHI",
-     "URUNREF": 6035,
-     "BOMREF": 4771
-    },
-    {
-     "MALZEMEkOD": "10070711-35",
-     "ACİKLAMA": "A230 GECE GÖRÜŞ EL DÜRBÜNÜ",
-     "URUNREF": 21929,
-     "BOMREF": 8245
-    },
-    {
-     "MALZEMEkOD": 10082011,
-     "ACİKLAMA": "A100-EYEPIECE LENS 3 ",
-     "URUNREF": 1351,
-     "BOMREF": 4886
-    },
-    {
-     "MALZEMEkOD": 10082012,
-     "ACİKLAMA": "A100-OKÜLER DOUBLET",
-     "URUNREF": 681,
-     "BOMREF": 4551
-    },
-    {
-     "MALZEMEkOD": "10082834-1",
-     "ACİKLAMA": "A100, GÖVDE, OKÜLER ",
-     "URUNREF": 362,
-     "BOMREF": 5613
-    },
-    {
-     "MALZEMEkOD": "10082835-1",
-     "ACİKLAMA": "A100, OKÜLER ARALAYICI, HAFİF ",
-     "URUNREF": 364,
-     "BOMREF": 8016
-    },
-    {
-     "MALZEMEkOD": "10082836-1",
-     "ACİKLAMA": "A100, HAFİF OKÜLER TUTUCU",
-     "URUNREF": 379,
-     "BOMREF": 8031
-    },
-    {
-     "MALZEMEkOD": "10085015-3",
-     "ACİKLAMA": "TAŞIMA ÇANTASI, MONOKÜLER GGG,A100",
-     "URUNREF": 19929,
-     "BOMREF": 5864
-    },
-    {
-     "MALZEMEkOD": "10086029-1",
-     "ACİKLAMA": "A600 ÜST GÖVDE TAKIMI",
-     "URUNREF": 2628,
-     "BOMREF": 4827
-    },
-    {
-     "MALZEMEkOD": "10086029-3",
-     "ACİKLAMA": "A600 ÜST GÖVDE TAKIMI",
-     "URUNREF": 8727,
-     "BOMREF": 5130
-    },
-    {
-     "MALZEMEkOD": 10086178,
-     "ACİKLAMA": "T LEGGOB APD LENS 2",
-     "URUNREF": 12677,
-     "BOMREF": 8034
-    },
-    {
-     "MALZEMEkOD": 10086628,
-     "ACİKLAMA": "3X LENS 1",
-     "URUNREF": 6138,
-     "BOMREF": 8294
-    },
-    {
-     "MALZEMEkOD": 10086635,
-     "ACİKLAMA": "GÖVDE, 3X UZATMA OPTİK TAKIMI",
-     "URUNREF": 6381,
-     "BOMREF": 5886
-    },
-    {
-     "MALZEMEkOD": "10087523-2",
-     "ACİKLAMA": "OKÜLER ALT-TAKIMI, A301",
-     "URUNREF": 28712,
-     "BOMREF": 5249
-    },
-    {
-     "MALZEMEkOD": "10089920-1",
-     "ACİKLAMA": "TAKIM, LENS YUVASI, NRK",
-     "URUNREF": 13032,
-     "BOMREF": 5238
-    },
-    {
-     "MALZEMEkOD": "10091673-1",
-     "ACİKLAMA": "F4 HAREKETLİ GÖVDE ÖN,ARALAYICI 2 (0.75MM)",
-     "URUNREF": 6115,
-     "BOMREF": 4963
-    },
-    {
-     "MALZEMEkOD": "10091681-1",
-     "ACİKLAMA": "F4 LENS 3-4 YAY TUTUCU",
-     "URUNREF": 6090,
-     "BOMREF": 5958
-    },
-    {
-     "MALZEMEkOD": "10091684-1",
-     "ACİKLAMA": "F4 HAREKETLİ DİŞLİ ÖN",
-     "URUNREF": 6108,
-     "BOMREF": 4948
-    },
-    {
-     "MALZEMEkOD": 10091772,
-     "ACİKLAMA": "ATS 70 TUTUCU 2 IRIS ",
-     "URUNREF": 3507,
-     "BOMREF": 5846
-    },
-    {
-     "MALZEMEkOD": 10091773,
-     "ACİKLAMA": "ATS 70 TUTUCU 1 IRIS ",
-     "URUNREF": 3508,
-     "BOMREF": 5934
-    },
-    {
-     "MALZEMEkOD": 10091785,
-     "ACİKLAMA": "ATS70 YAY TUTUCU",
-     "URUNREF": 3487,
-     "BOMREF": 5935
-    },
-    {
-     "MALZEMEkOD": 10094454,
-     "ACİKLAMA": "A600 COLIMATOR LENS 1",
-     "URUNREF": 2753,
-     "BOMREF": 4666
-    },
-    {
-     "MALZEMEkOD": 10094457,
-     "ACİKLAMA": "A600 COLIMATOR DOUBLET 1 L2-L3",
-     "URUNREF": 2754,
-     "BOMREF": 4979
-    },
-    {
-     "MALZEMEkOD": 10094460,
-     "ACİKLAMA": "A600 COLIMATOR DOUBLET 2 L4-L5",
-     "URUNREF": 2757,
-     "BOMREF": 5487
-    },
-    {
-     "MALZEMEkOD": 10094461,
-     "ACİKLAMA": "A600 COLIMATOR LENS 6",
-     "URUNREF": 2760,
-     "BOMREF": 4671
-    },
-    {
-     "MALZEMEkOD": "10095566-1",
-     "ACİKLAMA": "A600 OBJEKTİF TAKIMI",
-     "URUNREF": 2625,
-     "BOMREF": 4823
-    },
-    {
-     "MALZEMEkOD": "10095566-3",
-     "ACİKLAMA": "A600 OBJEKTİF TAKIMI",
-     "URUNREF": 8722,
-     "BOMREF": 4825
-    },
-    {
-     "MALZEMEkOD": "10095568-1",
-     "ACİKLAMA": "A600, GÖVDE (SİYAH)",
-     "URUNREF": 2587,
-     "BOMREF": 8369
-    },
-    {
-     "MALZEMEkOD": 10095580,
-     "ACİKLAMA": "A600, KOLİMATÖR, TUTUCU LENS 1",
-     "URUNREF": 2584,
-     "BOMREF": 8332
-    },
-    {
-     "MALZEMEkOD": 10095593,
-     "ACİKLAMA": "A600, TÜP TUTUCU",
-     "URUNREF": 2588,
-     "BOMREF": 5876
-    },
-    {
-     "MALZEMEkOD": 10095596,
-     "ACİKLAMA": "BOA OBJ. ODAK KILAVUZ",
-     "URUNREF": 536,
-     "BOMREF": 8200
-    },
-    {
-     "MALZEMEkOD": 10095597,
-     "ACİKLAMA": "A600 OBJEKTİF ODAK, KAM",
-     "URUNREF": 2595,
-     "BOMREF": 8248
-    },
-    {
-     "MALZEMEkOD": 10095598,
-     "ACİKLAMA": "A600 BOA ODAK BURÇ",
-     "URUNREF": 523,
-     "BOMREF": 8032
-    },
-    {
-     "MALZEMEkOD": "10095604-1",
-     "ACİKLAMA": "A600, DÜRBÜN KÖRÜK, HALKA",
-     "URUNREF": 2651,
-     "BOMREF": 5795
-    },
-    {
-     "MALZEMEkOD": 10096239,
-     "ACİKLAMA": "ARN-12 REFLEX SİGHT DOUBLET",
-     "URUNREF": 901,
-     "BOMREF": 4864
-    },
-    {
-     "MALZEMEkOD": 10097394,
-     "ACİKLAMA": "60 MM LENS 1 VK",
-     "URUNREF": 3568,
-     "BOMREF": 8339
-    },
-    {
-     "MALZEMEkOD": 10097395,
-     "ACİKLAMA": "60 MM LENS 2 VK",
-     "URUNREF": 3571,
-     "BOMREF": 5797
-    },
-    {
-     "MALZEMEkOD": 10098036,
-     "ACİKLAMA": "A100, OKÜLER TUTUCU HAFİF OKÜLER ",
-     "URUNREF": 388,
-     "BOMREF": 8014
-    },
-    {
-     "MALZEMEkOD": "10100207-1",
-     "ACİKLAMA": "ARN-12 GÖVDE (SİYAH)",
-     "URUNREF": 5685,
-     "BOMREF": 4611
-    },
-    {
-     "MALZEMEkOD": "10100207-2",
-     "ACİKLAMA": "ARN-12 GÖVDE (SARI)",
-     "URUNREF": 22502,
-     "BOMREF": 4612
-    },
-    {
-     "MALZEMEkOD": "10100208-1",
-     "ACİKLAMA": "ARN-12 YANCA-1",
-     "URUNREF": 908,
-     "BOMREF": 4779
-    },
-    {
-     "MALZEMEkOD": "10100209-1",
-     "ACİKLAMA": "ARN-12 YANCA-2",
-     "URUNREF": 909,
-     "BOMREF": 4782
-    },
-    {
-     "MALZEMEkOD": 10100210,
-     "ACİKLAMA": "ARN-12 YÜKSELİŞ",
-     "URUNREF": 906,
-     "BOMREF": 4783
-    },
-    {
-     "MALZEMEkOD": 10100211,
-     "ACİKLAMA": "ARN-12 TUTUCU,KART",
-     "URUNREF": 907,
-     "BOMREF": 5483
-    },
-    {
-     "MALZEMEkOD": 10100229,
-     "ACİKLAMA": "ARN-12 VİDA,YANCA",
-     "URUNREF": 893,
-     "BOMREF": 5073
-    },
-    {
-     "MALZEMEkOD": 10100230,
-     "ACİKLAMA": "ARN-12 VİDA,YÜKSELİŞ",
-     "URUNREF": 892,
-     "BOMREF": 5051
-    },
-    {
-     "MALZEMEkOD": 10100237,
-     "ACİKLAMA": "ARN-12 KAPAK,PİL",
-     "URUNREF": 911,
-     "BOMREF": 5180
-    },
-    {
-     "MALZEMEkOD": "10101236-3",
-     "ACİKLAMA": "A600, OBJEKTİF ODAK, ÇEVİRME HALKASI (SARI)",
-     "URUNREF": 19909,
-     "BOMREF": 8323
-    },
-    {
-     "MALZEMEkOD": 10101238,
-     "ACİKLAMA": "BATARYA KAPAĞI, A600",
-     "URUNREF": 2647,
-     "BOMREF": 8033
-    },
-    {
-     "MALZEMEkOD": "10105236-1",
-     "ACİKLAMA": "60 MM ATERMAL OBJ. TAKIMI",
-     "URUNREF": 4121,
-     "BOMREF": 5158
-    },
-    {
-     "MALZEMEkOD": "10105323-1",
-     "ACİKLAMA": "A600 SİLAH ADAPTÖRÜ 16.8MM",
-     "URUNREF": 2868,
-     "BOMREF": 5181
-    },
-    {
-     "MALZEMEkOD": "10108233-15",
-     "ACİKLAMA": "A210 GECE GÖRÜŞ EL DÜRBÜNÜ",
-     "URUNREF": 28749,
-     "BOMREF": 8310
-    },
-    {
-     "MALZEMEkOD": "10108909-1",
-     "ACİKLAMA": "GÖVDE TAKIM TSD-MR",
-     "URUNREF": 22386,
-     "BOMREF": 8237
-    },
-    {
-     "MALZEMEkOD": "10108912-1",
-     "ACİKLAMA": "ARKA KAPAK TSD MR",
-     "URUNREF": 8742,
-     "BOMREF": 8207
-    },
-    {
-     "MALZEMEkOD": "10108913-1",
-     "ACİKLAMA": "ÜST KAPAK TAKIMI TSD-MR",
-     "URUNREF": 22388,
-     "BOMREF": 8238
-    },
-    {
-     "MALZEMEkOD": 10110871,
-     "ACİKLAMA": "GÖVDE 5X",
-     "URUNREF": 28499,
-     "BOMREF": 5065
-    },
-    {
-     "MALZEMEkOD": 10110872,
-     "ACİKLAMA": "ARALAYICI 1 5X",
-     "URUNREF": 28504,
-     "BOMREF": 5066
-    },
-    {
-     "MALZEMEkOD": 10110873,
-     "ACİKLAMA": "TUTUCU 1 5X",
-     "URUNREF": 28508,
-     "BOMREF": 5067
-    },
-    {
-     "MALZEMEkOD": 10110874,
-     "ACİKLAMA": "TUTUCU 2 5X",
-     "URUNREF": 28513,
-     "BOMREF": 5068
-    },
-    {
-     "MALZEMEkOD": 10110875,
-     "ACİKLAMA": "TUTUCU 3 5X",
-     "URUNREF": 28517,
-     "BOMREF": 5069
-    },
-    {
-     "MALZEMEkOD": "10113310-3",
-     "ACİKLAMA": "5-25X56 NİŞANCI DÜRBÜNÜ",
-     "URUNREF": 21892,
-     "BOMREF": 5443
-    },
-    {
-     "MALZEMEkOD": 10113742,
-     "ACİKLAMA": "3X-4X EYE PIECE DOUBLET LENS 1",
-     "URUNREF": 9100,
-     "BOMREF": 4544
-    },
-    {
-     "MALZEMEkOD": 10113743,
-     "ACİKLAMA": "3X-4X EYE PIECE DOUBLET LENS 2",
-     "URUNREF": 9101,
-     "BOMREF": 4543
-    },
-    {
-     "MALZEMEkOD": 10113749,
-     "ACİKLAMA": "3X OBJECTIVE DOUBLET LENS 1",
-     "URUNREF": 9104,
-     "BOMREF": 4682
-    },
-    {
-     "MALZEMEkOD": 10113750,
-     "ACİKLAMA": "3X OBJECTIVE DOUBLET LENS 2",
-     "URUNREF": 9105,
-     "BOMREF": 4683
-    },
-    {
-     "MALZEMEkOD": 10113753,
-     "ACİKLAMA": "4X OBJECTIVE DOUBLET LENS 1",
-     "URUNREF": 9107,
-     "BOMREF": 4685
-    },
-    {
-     "MALZEMEkOD": 10113754,
-     "ACİKLAMA": "4X OBJECTIVE DOUBLET LENS 2",
-     "URUNREF": 9108,
-     "BOMREF": 4616
-    },
-    {
-     "MALZEMEkOD": 10114015,
-     "ACİKLAMA": "ARALIYICI ÖN 3X",
-     "URUNREF": 9066,
-     "BOMREF": 5838
-    },
-    {
-     "MALZEMEkOD": 10114017,
-     "ACİKLAMA": "SABİTLEYİCİ ÖN 3X",
-     "URUNREF": 9067,
-     "BOMREF": 5437
-    },
-    {
-     "MALZEMEkOD": 10114018,
-     "ACİKLAMA": "OBJ GÖVDESİ 3X",
-     "URUNREF": 9068,
-     "BOMREF": 4724
-    },
-    {
-     "MALZEMEkOD": 10114019,
-     "ACİKLAMA": "OBJEKTİF GÖVDESİ 4X",
-     "URUNREF": 9069,
-     "BOMREF": 4740
-    },
-    {
-     "MALZEMEkOD": "10114020\/3X-2",
-     "ACİKLAMA": "ANA GÖVDE, 3X (SARI)",
-     "URUNREF": 22352,
-     "BOMREF": 4572
-    },
-    {
-     "MALZEMEkOD": "10114020\/4X-1",
-     "ACİKLAMA": "ANA GÖVDE, 4X (SİYAH)",
-     "URUNREF": 22349,
-     "BOMREF": 4569
-    },
-    {
-     "MALZEMEkOD": 10114021,
-     "ACİKLAMA": "PRİZMA GÖVDESİ, 3X-4X",
-     "URUNREF": 9071,
-     "BOMREF": 4719
-    },
-    {
-     "MALZEMEkOD": 10114022,
-     "ACİKLAMA": "RETİKIL GÖVDESİ  3X-4X",
-     "URUNREF": 9072,
-     "BOMREF": 4741
-    },
-    {
-     "MALZEMEkOD": 10114023,
-     "ACİKLAMA": "SABİTLEYİCİ 3X-4X",
-     "URUNREF": 9073,
-     "BOMREF": 4648
-    },
-    {
-     "MALZEMEkOD": 10114024,
-     "ACİKLAMA": "ARALIYICI, ARKA, 3X",
-     "URUNREF": 9074,
-     "BOMREF": 7005
-    },
-    {
-     "MALZEMEkOD": 10114030,
-     "ACİKLAMA": "PUL, 3X-4X",
-     "URUNREF": 9079,
-     "BOMREF": 5146
-    },
-    {
-     "MALZEMEkOD": 10114031,
-     "ACİKLAMA": "SABİTLEYİCİ, ORTA LENS GÖVDESİ, 3X-4X",
-     "URUNREF": 9080,
-     "BOMREF": 4649
-    },
-    {
-     "MALZEMEkOD": 10114032,
-     "ACİKLAMA": "OKÜLER GÖVDE,  3X-4X",
-     "URUNREF": 9081,
-     "BOMREF": 4720
-    },
-    {
-     "MALZEMEkOD": 10114033,
-     "ACİKLAMA": "SABİTLEYİCİ,  3X-4X",
-     "URUNREF": 9082,
-     "BOMREF": 4614
-    },
-    {
-     "MALZEMEkOD": 10114034,
-     "ACİKLAMA": "SABİTLEYİCİ 2, 3X-4X",
-     "URUNREF": 9083,
-     "BOMREF": 4801
-    },
-    {
-     "MALZEMEkOD": 10114039,
-     "ACİKLAMA": "ARALIYICI, ÖN,  4X",
-     "URUNREF": 9085,
-     "BOMREF": 5434
-    },
-    {
-     "MALZEMEkOD": 10114041,
-     "ACİKLAMA": "SABİTLEYİCİ, ÖN,  4X",
-     "URUNREF": 9086,
-     "BOMREF": 5088
-    },
-    {
-     "MALZEMEkOD": 10115471,
-     "ACİKLAMA": "32.8 MM DU KOLİMATÖR TAKIMI",
-     "URUNREF": 12342,
-     "BOMREF": 5122
-    },
-    {
-     "MALZEMEkOD": 10116266,
-     "ACİKLAMA": "28.2 MM DU KOLİMATÖR TAKIMI",
-     "URUNREF": 24543,
-     "BOMREF": 8235
-    },
-    {
-     "MALZEMEkOD": 10118255,
-     "ACİKLAMA": "LENS 1_SRCHO_OBJ",
-     "URUNREF": 17652,
-     "BOMREF": 5833
-    },
-    {
-     "MALZEMEkOD": 10118256,
-     "ACİKLAMA": "LENS 2_SRCHO_OBJ",
-     "URUNREF": 17650,
-     "BOMREF": 5832
-    },
-    {
-     "MALZEMEkOD": 10119184,
-     "ACİKLAMA": "TUTUCU GÖVDE, FERSAH",
-     "URUNREF": 17378,
-     "BOMREF": 5292
-    },
-    {
-     "MALZEMEkOD": 10119185,
-     "ACİKLAMA": "OKÜLER GÖVDE , FERSAH",
-     "URUNREF": 17388,
-     "BOMREF": 5293
-    },
-    {
-     "MALZEMEkOD": 10119198,
-     "ACİKLAMA": "OBJEKTİF GÖVDE,9X,FERSAH",
-     "URUNREF": 19540,
-     "BOMREF": 5942
-    },
-    {
-     "MALZEMEkOD": 10119199,
-     "ACİKLAMA": "OBJEKTİF LENS TUTUCU-1,9X,FERSAH",
-     "URUNREF": 19541,
-     "BOMREF": 5941
-    },
-    {
-     "MALZEMEkOD": 10119200,
-     "ACİKLAMA": "OBJEKTİF LENS TUTUCU-2,9X,FERSAH",
-     "URUNREF": 19544,
-     "BOMREF": 5946
-    },
-    {
-     "MALZEMEkOD": 10119201,
-     "ACİKLAMA": "OBJEKTİF ARALAYICI-1,9X,FERSAH",
-     "URUNREF": 19542,
-     "BOMREF": 5944
-    },
-    {
-     "MALZEMEkOD": 10119206,
-     "ACİKLAMA": "OPTİK ANA TUTUCU GÖVDE,9X",
-     "URUNREF": 19539,
-     "BOMREF": 8111
-    },
-    {
-     "MALZEMEkOD": 10119232,
-     "ACİKLAMA": "A100 BAĞLANTI ARAYÜZÜ,FERSAH",
-     "URUNREF": 18173,
-     "BOMREF": 5494
-    },
-    {
-     "MALZEMEkOD": "10126597 LOTSUZ",
-     "ACİKLAMA": "TAKIM BOROSKOP 35mm HSSM PMT",
-     "URUNREF": 24559,
-     "BOMREF": 4860
-    },
-    {
-     "MALZEMEkOD": 10127901,
-     "ACİKLAMA": "OKÜLER TAKIMI, MİNİ DORUK",
-     "URUNREF": 29353,
-     "BOMREF": 8047
-    },
-    {
-     "MALZEMEkOD": 10128688,
-     "ACİKLAMA": "LENS-3, Mini Doruk Oküler",
-     "URUNREF": 29361,
-     "BOMREF": 5611
-    },
-    {
-     "MALZEMEkOD": 10129820,
-     "ACİKLAMA": "F4, 2X UZATMA OPTİĞİ EŞLEŞME TAKIMI",
-     "URUNREF": 31082,
-     "BOMREF": 5562
-    },
-    {
-     "MALZEMEkOD": "5307-6406-0306",
-     "ACİKLAMA": "VİDA PSZCL M3X6",
-     "URUNREF": 4043,
-     "BOMREF": 5821
-    },
-    {
-     "MALZEMEkOD": 58000045,
-     "ACİKLAMA": "EL TUTAMAĞI KOMPLESİ \/ HANDLE ASSEMBLY",
-     "URUNREF": 29416,
-     "BOMREF": 4840
-    },
-    {
-     "MALZEMEkOD": 58000053,
-     "ACİKLAMA": "AYARLI MERKEZLEME KOMPLESİ \/ ADJUSTABLE CENTERING",
-     "URUNREF": 29417,
-     "BOMREF": 4841
-    },
-    {
-     "MALZEMEkOD": 58000073,
-     "ACİKLAMA": "AYARLI MERCEK TUTUCU 1, SGSI PROJEKTOR BİRİMİ",
-     "URUNREF": 29650,
-     "BOMREF": 5536
-    },
-    {
-     "MALZEMEkOD": 58000083,
-     "ACİKLAMA": "AYNA TUTUCU BRAKETİ, SGSI PROJEKTOR BİRİMİ",
-     "URUNREF": 29660,
-     "BOMREF": 5533
-    },
-    {
-     "MALZEMEkOD": 58001020,
-     "ACİKLAMA": "BOROSKOP, TANK UZATMA OPTİĞİ",
-     "URUNREF": 30869,
-     "BOMREF": 5740
-    },
-    {
-     "MALZEMEkOD": 58002001,
-     "ACİKLAMA": "UST GOVDE MEKANIK, M27 PERISKOP",
-     "URUNREF": 12667,
-     "BOMREF": 5310
-    },
-    {
-     "MALZEMEkOD": 58002003,
-     "ACİKLAMA": "ALT GOVDE MEKANIK, M27 PERISKOP",
-     "URUNREF": 12668,
-     "BOMREF": 5311
-    },
-    {
-     "MALZEMEkOD": 58002005,
-     "ACİKLAMA": "PRIZMA, M27 PERISKOP \/ PRISM, M27 PERISCOPE",
-     "URUNREF": 11056,
-     "BOMREF": 4710
-    },
-    {
-     "MALZEMEkOD": 58002100,
-     "ACİKLAMA": "T15 PERİSKOP",
-     "URUNREF": 16976,
-     "BOMREF": 4808
-    },
-    {
-     "MALZEMEkOD": 58002200,
-     "ACİKLAMA": "T13 PERİSKOP",
-     "URUNREF": 16975,
-     "BOMREF": 4790
-    },
-    {
-     "MALZEMEkOD": 58002531,
-     "ACİKLAMA": "ALT GOVDE MEKANIK, GÖVDE DÜZ, TİP-2 PERİSKOP",
-     "URUNREF": 28791,
-     "BOMREF": 5344
-    },
-    {
-     "MALZEMEkOD": 58002538,
-     "ACİKLAMA": "AYNA PLAKASI, GÖVDE DÜZ, TİP-2 PERİSKOP",
-     "URUNREF": 28798,
-     "BOMREF": 5345
-    },
-    {
-     "MALZEMEkOD": 58002541,
-     "ACİKLAMA": "BAĞLANTI BRAKETİ, GÖVDE DÜZ, TİP-2 PERİSKOP ",
-     "URUNREF": 28805,
-     "BOMREF": 5346
-    },
-    {
-     "MALZEMEkOD": 58002542,
-     "ACİKLAMA": "MİL, GÖVDE DÜZ, TİP-2 PERİSKOP",
-     "URUNREF": 28806,
-     "BOMREF": 5347
-    },
-    {
-     "MALZEMEkOD": 58002543,
-     "ACİKLAMA": "SINIRLAYICI, GÖVDE DÜZ, TİP-2 PERİSKOP",
-     "URUNREF": 28807,
-     "BOMREF": 5359
-    },
-    {
-     "MALZEMEkOD": 58002544,
-     "ACİKLAMA": "MENTEŞE 1, GÖVDE DÜZ, TİP-2 PERİSKOP",
-     "URUNREF": 28808,
-     "BOMREF": 5360
-    },
-    {
-     "MALZEMEkOD": 58002545,
-     "ACİKLAMA": "MENTEŞE 2, GÖVDE DÜZ, TİP-2 PERİSKOP",
-     "URUNREF": 28809,
-     "BOMREF": 5361
-    },
-    {
-     "MALZEMEkOD": 58002562,
-     "ACİKLAMA": "ARALAYICI, KULE TİP-1 PERİSKOP",
-     "URUNREF": 28854,
-     "BOMREF": 5491
-    },
-    {
-     "MALZEMEkOD": 58002563,
-     "ACİKLAMA": "MENTEŞE , KULE TİP-1 PERİSKOP",
-     "URUNREF": 28855,
-     "BOMREF": 5349
-    },
-    {
-     "MALZEMEkOD": 58002564,
-     "ACİKLAMA": "AYNA PLAKASI, KULE TİP-1 PERİSKOP",
-     "URUNREF": 28856,
-     "BOMREF": 5350
-    },
-    {
-     "MALZEMEkOD": 58002565,
-     "ACİKLAMA": "ÇEKTİRME PLAKASI, KULE TİP-1 PERİSKOP",
-     "URUNREF": 28857,
-     "BOMREF": 5351
-    },
-    {
-     "MALZEMEkOD": 58002566,
-     "ACİKLAMA": "MANDAL, KULE TİP-1 PERİSKOP",
-     "URUNREF": 28858,
-     "BOMREF": 5352
-    },
-    {
-     "MALZEMEkOD": 58002567,
-     "ACİKLAMA": "MENTEŞE MİLİ, KULE TİP-1 PERİSKOP",
-     "URUNREF": 28859,
-     "BOMREF": 5353
-    },
-    {
-     "MALZEMEkOD": 58002569,
-     "ACİKLAMA": "BAĞLANTI BRAKETİ 2 , KULE TİP-1 PERİSKOP",
-     "URUNREF": 28870,
-     "BOMREF": 5362
-    },
-    {
-     "MALZEMEkOD": 58002572,
-     "ACİKLAMA": "ALT GOVDE MEKANIK, KULE TİP-2 PERISKOP",
-     "URUNREF": 28818,
-     "BOMREF": 5354
-    },
-    {
-     "MALZEMEkOD": "58003410-1",
-     "ACİKLAMA": "A931 TAMBUR TAKIMI SAĞ\/SOL",
-     "URUNREF": 28767,
-     "BOMREF": 4513
-    },
-    {
-     "MALZEMEkOD": "58003410-2",
-     "ACİKLAMA": "A931 TAMBUR TAKIMI YUKARI\/AŞAĞI",
-     "URUNREF": 29190,
-     "BOMREF": 4515
-    },
-    {
-     "MALZEMEkOD": 58003411,
-     "ACİKLAMA": "KLİK TAMBURU, A931-A941 \/ CLICK DRUM, A931-A941",
-     "URUNREF": 24376,
-     "BOMREF": 4646
-    },
-    {
-     "MALZEMEkOD": 58003414,
-     "ACİKLAMA": "KLİK DİŞLİSİ, A931, CLICK SCREW, A931",
-     "URUNREF": 24379,
-     "BOMREF": 4604
-    },
-    {
-     "MALZEMEkOD": 58003415,
-     "ACİKLAMA": "KLİK HAREKET PİMİ, A931, CLICK MOTION PIN, A931",
-     "URUNREF": 24380,
-     "BOMREF": 4605
-    },
-    {
-     "MALZEMEkOD": "58003420-1",
-     "ACİKLAMA": "A941 TAMBUR TAKIMI SAĞ\/SOL",
-     "URUNREF": 28768,
-     "BOMREF": 4525
-    },
-    {
-     "MALZEMEkOD": "58003420-2",
-     "ACİKLAMA": "A941 TAMBUR TAKIMI YUKARI\/AŞAĞI",
-     "URUNREF": 29191,
-     "BOMREF": 4524
-    },
-    {
-     "MALZEMEkOD": "58003530-2",
-     "ACİKLAMA": "YAY YUVASI 3X DURBUN",
-     "URUNREF": 26876,
-     "BOMREF": 8246
-    },
-    {
-     "MALZEMEkOD": 60900002,
-     "ACİKLAMA": "ŞİM-SİYAH, 30X8X1",
-     "URUNREF": 15981,
-     "BOMREF": 4830
-    },
-    {
-     "MALZEMEkOD": 60900007,
-     "ACİKLAMA": "SIM, 30X6X1",
-     "URUNREF": 28827,
-     "BOMREF": 5490
-    },
-    {
-     "MALZEMEkOD": "TP0047791",
-     "ACİKLAMA": "GOVDE DUZ PERISKOP TIP 1",
-     "URUNREF": 28028,
-     "BOMREF": 5045
-    },
-    {
-     "MALZEMEkOD": "TP0047793",
-     "ACİKLAMA": "GOVDE DUZ PERISKOP TIP 1 AYNA",
-     "URUNREF": 28772,
-     "BOMREF": 5079
-    },
-    {
-     "MALZEMEkOD": "TP0047795",
-     "ACİKLAMA": "GOVDE DUZ PERISKOP TIP 2 AYNA SOL",
-     "URUNREF": 28794,
-     "BOMREF": 5047
-    },
-    {
-     "MALZEMEkOD": "TP0047796",
-     "ACİKLAMA": "KULE DUZ PERISKOP TIP 1",
-     "URUNREF": 28027,
-     "BOMREF": 5048
-    },
-    {
-     "MALZEMEkOD": "TP0047800",
-     "ACİKLAMA": "KULE DUZ PERISKOP TIP 1 AYNA DOLDURUCU",
-     "URUNREF": 28852,
-     "BOMREF": 5078
-    },
-    {
-     "MALZEMEkOD": "10030870.K",
-     "ACİKLAMA": "PATRİAL REFLAKTÖR (KAPLAMASIZ)",
+     "BOMREF": 5455,
      "URUNREF": 16833,
-     "BOMREF": 5455
+     "MALZEMEkOD": "10030870.K",
+     "ACİKLAMA": "PATRİAL REFLAKTÖR (KAPLAMASIZ)"
     },
     {
-     "MALZEMEkOD": "10033460-1",
-     "ACİKLAMA": "NAMLU REFLEKS KOLİMATÖRÜ",
+     "BOMREF": 5236,
+     "URUNREF": 13001,
+     "MALZEMEkOD": "10032661-1",
+     "ACİKLAMA": "TAKIM PIL BDK NRK"
+    },
+    {
+     "BOMREF": 5239,
      "URUNREF": 26317,
-     "BOMREF": 5239
+     "MALZEMEkOD": "10033460-1",
+     "ACİKLAMA": "NAMLU REFLEKS KOLİMATÖRÜ"
     },
     {
-     "MALZEMEkOD": "10033474-1",
-     "ACİKLAMA": "WINDOW, BRC",
+     "BOMREF": 5510,
      "URUNREF": 13026,
-     "BOMREF": 5510
+     "MALZEMEkOD": "10033474-1",
+     "ACİKLAMA": "WINDOW, BRC"
     },
     {
-     "MALZEMEkOD": "10033474.K",
-     "ACİKLAMA": "WINDOW BRC",
+     "BOMREF": 5235,
      "URUNREF": 19657,
-     "BOMREF": 5235
+     "MALZEMEkOD": "10033474.K",
+     "ACİKLAMA": "WINDOW BRC"
     },
     {
-     "MALZEMEkOD": "10061951-16",
-     "ACİKLAMA": "A100 GECE GÖRÜŞ GÖVDE TAKIMI",
+     "BOMREF": 8227,
      "URUNREF": 8939,
-     "BOMREF": 8227
+     "MALZEMEkOD": "10061951-16",
+     "ACİKLAMA": "A100 GECE GÖRÜŞ GÖVDE TAKIMI"
     },
     {
-     "MALZEMEkOD": "10061951-17",
-     "ACİKLAMA": "A100 GECE GÖRÜŞ GÖVDE TAKIMI",
+     "BOMREF": 8229,
      "URUNREF": 8938,
-     "BOMREF": 8229
+     "MALZEMEkOD": "10061951-17",
+     "ACİKLAMA": "A100 GECE GÖRÜŞ GÖVDE TAKIMI"
     },
     {
-     "MALZEMEkOD": "10061960-29",
-     "ACİKLAMA": "A100 MONOKULER GECE GÖRÜŞ GÖZLÜĞÜ",
+     "BOMREF": 8228,
      "URUNREF": 29245,
-     "BOMREF": 8228
+     "MALZEMEkOD": "10061960-29",
+     "ACİKLAMA": "A100 MONOKULER GECE GÖRÜŞ GÖZLÜĞÜ"
     },
     {
-     "MALZEMEkOD": "10063330-4",
-     "ACİKLAMA": "F5.5, SÜREKLİ BÜYÜTMELİ MOTORLU OBJEKTİF",
+     "BOMREF": 5816,
+     "URUNREF": 15650,
+     "MALZEMEkOD": "10061974.K",
+     "ACİKLAMA": "A100, OKÜLER ADAPTÖR SONLAMA  (KAPLAMASIZ)"
+    },
+    {
+     "BOMREF": 4643,
      "URUNREF": 1949,
-     "BOMREF": 4643
+     "MALZEMEkOD": "10063330-4",
+     "ACİKLAMA": "F5.5, SÜREKLİ BÜYÜTMELİ MOTORLU OBJEKTİF"
     },
     {
-     "MALZEMEkOD": "10063330-6",
-     "ACİKLAMA": "F5.5, SÜREKLİ BÜYÜTMELİ MOTORLU OBJEKTİF",
+     "BOMREF": 4642,
      "URUNREF": 17975,
-     "BOMREF": 4642
+     "MALZEMEkOD": "10063330-6",
+     "ACİKLAMA": "F5.5, SÜREKLİ BÜYÜTMELİ MOTORLU OBJEKTİF"
     },
     {
-     "MALZEMEkOD": "10065317-32",
-     "ACİKLAMA": "A341 GECE GÖRÜŞ SILAH NİŞANGAHI",
+     "BOMREF": 5925,
      "URUNREF": 31038,
-     "BOMREF": 5925
+     "MALZEMEkOD": "10065317-32",
+     "ACİKLAMA": "A341 GECE GÖRÜŞ SILAH NİŞANGAHI"
     },
     {
-     "MALZEMEkOD": 10069383,
-     "ACİKLAMA": "SPACER FLEX, GÖZ",
-     "URUNREF": 5871,
-     "BOMREF": 5772
+     "BOMREF": 5286,
+     "URUNREF": 30866,
+     "MALZEMEkOD": 10065319,
+     "ACİKLAMA": "ODAK TAKIMI,4X"
     },
     {
-     "MALZEMEkOD": 10070613,
-     "ACİKLAMA": "OBJ. KORUMA KAPAGI TK., 6X",
+     "BOMREF": 5282,
+     "URUNREF": 30863,
+     "MALZEMEkOD": "10065320-1",
+     "ACİKLAMA": "TÜP TAKIMI"
+    },
+    {
+     "BOMREF": 5283,
+     "URUNREF": 30864,
+     "MALZEMEkOD": 10065322,
+     "ACİKLAMA": "BİRLEŞTİRİCİ TAKIM"
+    },
+    {
+     "BOMREF": 5287,
+     "URUNREF": 30861,
+     "MALZEMEkOD": "10065323-1",
+     "ACİKLAMA": "ŞEBEKE TAKIMI, A300"
+    },
+    {
+     "BOMREF": 5281,
+     "URUNREF": 12499,
+     "MALZEMEkOD": 10065324,
+     "ACİKLAMA": "A341 OKÜLER TAKIMI"
+    },
+    {
+     "BOMREF": 5284,
+     "URUNREF": 30865,
+     "MALZEMEkOD": 10065329,
+     "ACİKLAMA": "BATARYA KAPAĞI TAKIMI"
+    },
+    {
+     "BOMREF": 5382,
+     "URUNREF": 30977,
+     "MALZEMEkOD": "10065423.K",
+     "ACİKLAMA": "A341, OKÜLER GÖVDE "
+    },
+    {
+     "BOMREF": 4771,
+     "URUNREF": 6035,
+     "MALZEMEkOD": "10068898-2",
+     "ACİKLAMA": "A100 MONOKÜLER NİŞANGAHI"
+    },
+    {
+     "BOMREF": 4945,
+     "URUNREF": 2630,
+     "MALZEMEkOD": 10070441,
+     "ACİKLAMA": "BATARYA KONTAK TAKIMI"
+    },
+    {
+     "BOMREF": 5495,
      "URUNREF": 30821,
-     "BOMREF": 5495
+     "MALZEMEkOD": 10070613,
+     "ACİKLAMA": "OBJ. KORUMA KAPAGI TK., 6X"
     },
     {
-     "MALZEMEkOD": 10071322,
-     "ACİKLAMA": "LENS-2, BEAM EXPANDER, GZM03",
-     "URUNREF": 17417,
-     "BOMREF": 5571
+     "BOMREF": 5280,
+     "URUNREF": 30862,
+     "MALZEMEkOD": 10070614,
+     "ACİKLAMA": "OBJ. KORUMA KAPAĞI TK., 4X"
     },
     {
-     "MALZEMEkOD": "10071322.K",
-     "ACİKLAMA": "LENS-2, BEAM EXPANDER, GZM03 (BLANK)",
-     "URUNREF": 18383,
-     "BOMREF": 5448
+     "BOMREF": 8245,
+     "URUNREF": 21929,
+     "MALZEMEkOD": "10070711-35",
+     "ACİKLAMA": "A230 GECE GÖRÜŞ EL DÜRBÜNÜ"
     },
     {
-     "MALZEMEkOD": 10071323,
-     "ACİKLAMA": "LENS-3, BEAM EXPANDER, GZM03",
-     "URUNREF": 17418,
-     "BOMREF": 5570
-    },
-    {
-     "MALZEMEkOD": "10071323.K",
-     "ACİKLAMA": "LENS-2, BEAM EXPANDER, GZM03",
-     "URUNREF": 18382,
-     "BOMREF": 5313
-    },
-    {
-     "MALZEMEkOD": 10071443,
-     "ACİKLAMA": "OUTPUT WINDOW, GZM-04",
+     "BOMREF": 5567,
      "URUNREF": 17421,
-     "BOMREF": 5567
+     "MALZEMEkOD": 10071443,
+     "ACİKLAMA": "OUTPUT WINDOW, GZM-04"
     },
     {
-     "MALZEMEkOD": "10082842-1",
-     "ACİKLAMA": "A100 OKÜLER HAFİF TAKIMI",
+     "BOMREF": 5288,
+     "URUNREF": 30860,
+     "MALZEMEkOD": "10072035-1",
+     "ACİKLAMA": "A341, GGSN ALT TAKIMI"
+    },
+    {
+     "BOMREF": 4887,
+     "URUNREF": 20340,
+     "MALZEMEkOD": "10082011.K",
+     "ACİKLAMA": "A100-EYEPIECE LENS 3 KAPLAMASIZ "
+    },
+    {
+     "BOMREF": 4766,
      "URUNREF": 1856,
-     "BOMREF": 4766
+     "MALZEMEkOD": "10082842-1",
+     "ACİKLAMA": "A100 OKÜLER HAFİF TAKIMI"
     },
     {
-     "MALZEMEkOD": 10083438,
-     "ACİKLAMA": "LENS 3",
-     "URUNREF": 15251,
-     "BOMREF": 5777
-    },
-    {
-     "MALZEMEkOD": "10083438.K",
-     "ACİKLAMA": "LENS 3 KAPLAMASIZ",
-     "URUNREF": 15250,
-     "BOMREF": 5775
-    },
-    {
-     "MALZEMEkOD": 10083439,
-     "ACİKLAMA": "LENS 4",
-     "URUNREF": 15254,
-     "BOMREF": 5778
-    },
-    {
-     "MALZEMEkOD": "10083439.K",
-     "ACİKLAMA": "LENS 4 KAPLAMASIZ",
-     "URUNREF": 15252,
-     "BOMREF": 5776
-    },
-    {
-     "MALZEMEkOD": 10083440,
-     "ACİKLAMA": "DOUBLET 1",
-     "URUNREF": 15255,
-     "BOMREF": 5779
-    },
-    {
-     "MALZEMEkOD": "10084678-15",
-     "ACİKLAMA": "TAKIM KAPAK MİNİ TSD",
+     "BOMREF": 5609,
      "URUNREF": 30822,
-     "BOMREF": 5609
+     "MALZEMEkOD": "10084678-15",
+     "ACİKLAMA": "TAKIM KAPAK MİNİ TSD"
     },
     {
-     "MALZEMEkOD": "10085553-1",
-     "ACİKLAMA": "A100 HAFİF OKÜLER TAKIMI MONTAJ",
+     "BOMREF": 4772,
      "URUNREF": 1857,
-     "BOMREF": 4772
+     "MALZEMEkOD": "10085553-1",
+     "ACİKLAMA": "A100 HAFİF OKÜLER TAKIMI MONTAJ"
     },
     {
-     "MALZEMEkOD": "10085553-1.ADAPTÖR",
-     "ACİKLAMA": "A100 HAFİF OKÜLER ÜST TAKIM ADAPTÖR",
+     "BOMREF": 4773,
      "URUNREF": 12568,
-     "BOMREF": 4773
+     "MALZEMEkOD": "10085553-1.ADAPTÖR",
+     "ACİKLAMA": "A100 HAFİF OKÜLER ÜST TAKIM ADAPTÖR"
     },
     {
-     "MALZEMEkOD": "10085553-1.CIRCIR TAKIM",
-     "ACİKLAMA": "A100 HAFİF OKÜLER CIRCIR TAKIMI",
+     "BOMREF": 4774,
      "URUNREF": 12529,
-     "BOMREF": 4774
+     "MALZEMEkOD": "10085553-1.CIRCIR TAKIM",
+     "ACİKLAMA": "A100 HAFİF OKÜLER CIRCIR TAKIMI"
     },
     {
-     "MALZEMEkOD": "10085558-2",
-     "ACİKLAMA": "A100- GÜNDÜZ EĞİTİM FİLTRESİ",
+     "BOMREF": 8319,
      "URUNREF": 33444,
-     "BOMREF": 8319
+     "MALZEMEkOD": "10085558-2",
+     "ACİKLAMA": "A100- GÜNDÜZ EĞİTİM FİLTRESİ"
     },
     {
-     "MALZEMEkOD": "10086635.K",
-     "ACİKLAMA": "GÖVDE, 3X UZATMA OPTİK TAKIMI",
+     "BOMREF": 4827,
+     "URUNREF": 2628,
+     "MALZEMEkOD": "10086029-1",
+     "ACİKLAMA": "A600 ÜST GÖVDE TAKIMI"
+    },
+    {
+     "BOMREF": 8034,
+     "URUNREF": 12677,
+     "MALZEMEkOD": 10086178,
+     "ACİKLAMA": "T LEGGOB APD LENS 2"
+    },
+    {
+     "BOMREF": 8294,
+     "URUNREF": 6138,
+     "MALZEMEkOD": 10086628,
+     "ACİKLAMA": "3X LENS 1"
+    },
+    {
+     "BOMREF": 5886,
+     "URUNREF": 6381,
+     "MALZEMEkOD": 10086635,
+     "ACİKLAMA": "GÖVDE, 3X UZATMA OPTİK TAKIMI"
+    },
+    {
+     "BOMREF": 5764,
      "URUNREF": 6388,
-     "BOMREF": 5764
+     "MALZEMEkOD": "10086635.K",
+     "ACİKLAMA": "GÖVDE, 3X UZATMA OPTİK TAKIMI"
     },
     {
-     "MALZEMEkOD": 10086636,
-     "ACİKLAMA": "TUTUCU 1, 3X BÜYÜTÜCÜ",
-     "URUNREF": 6380,
-     "BOMREF": 5881
-    },
-    {
-     "MALZEMEkOD": "10086636.K",
-     "ACİKLAMA": "TUTUCU 1, 3X BÜYÜTÜCÜ",
-     "URUNREF": 6387,
-     "BOMREF": 5771
-    },
-    {
-     "MALZEMEkOD": 10086637,
-     "ACİKLAMA": "TUTUCU 2, 3X BÜYÜTÜCÜ",
-     "URUNREF": 6382,
-     "BOMREF": 8285
-    },
-    {
-     "MALZEMEkOD": "10086637.K",
-     "ACİKLAMA": "TUTUCU 2, 3X BÜYÜTÜCÜ",
-     "URUNREF": 6389,
-     "BOMREF": 8264
-    },
-    {
-     "MALZEMEkOD": 10086638,
-     "ACİKLAMA": "TUTUCU 3, 3X BÜYÜTÜCÜ",
-     "URUNREF": 6383,
-     "BOMREF": 8286
-    },
-    {
-     "MALZEMEkOD": "10086638.K",
-     "ACİKLAMA": "TUTUCU 3, 3X BÜYÜTÜCÜ",
-     "URUNREF": 6390,
-     "BOMREF": 8265
-    },
-    {
-     "MALZEMEkOD": 10086639,
-     "ACİKLAMA": "BAĞLANTI HALKASI, 3X UZATMA",
-     "URUNREF": 6385,
-     "BOMREF": 5070
-    },
-    {
-     "MALZEMEkOD": "10086639.K",
-     "ACİKLAMA": "BAĞLANTI HALKASI, 3X UZATMA",
-     "URUNREF": 6391,
-     "BOMREF": 5064
-    },
-    {
-     "MALZEMEkOD": "10086640-1",
-     "ACİKLAMA": "3X UZATMA OPTİK TAKIMI",
+     "BOMREF": 5250,
      "URUNREF": 5942,
-     "BOMREF": 5250
+     "MALZEMEkOD": "10086640-1",
+     "ACİKLAMA": "3X UZATMA OPTİK TAKIMI"
     },
     {
-     "MALZEMEkOD": 10086641,
-     "ACİKLAMA": "SIKMA VİDASI, 3X UZATMA",
-     "URUNREF": 6386,
-     "BOMREF": 5076
-    },
-    {
-     "MALZEMEkOD": "10086641.K",
-     "ACİKLAMA": "SIKMA VİDASI, 3X UZATMA",
-     "URUNREF": 6392,
-     "BOMREF": 5075
-    },
-    {
-     "MALZEMEkOD": "10086694-36",
-     "ACİKLAMA": "A341 GECE GÖRÜS SYLAH NYSANGAHI, SYSTEM",
+     "BOMREF": 8159,
      "URUNREF": 31469,
-     "BOMREF": 8159
+     "MALZEMEkOD": "10086694-36",
+     "ACİKLAMA": "A341 GECE GÖRÜS SYLAH NYSANGAHI, SYSTEM"
     },
     {
-     "MALZEMEkOD": 10087200,
-     "ACİKLAMA": "LENS-1, IŞIN GENİŞLTİCİ, MRLR",
-     "URUNREF": 17414,
-     "BOMREF": 5560
+     "BOMREF": 5249,
+     "URUNREF": 28712,
+     "MALZEMEkOD": "10087523-2",
+     "ACİKLAMA": "OKÜLER ALT-TAKIMI, A301"
     },
     {
-     "MALZEMEkOD": 10087201,
-     "ACİKLAMA": "LENS-2, IŞIN GENİŞLTİCİ, MRLR",
-     "URUNREF": 17415,
-     "BOMREF": 5558
+     "BOMREF": 5238,
+     "URUNREF": 13032,
+     "MALZEMEkOD": "10089920-1",
+     "ACİKLAMA": "TAKIM, LENS YUVASI, NRK"
     },
     {
-     "MALZEMEkOD": "10087201.K",
-     "ACİKLAMA": "LENS-2, IŞIN GENİŞLTİCİ, MRLR (KAPLAMASIZ)",
-     "URUNREF": 18441,
-     "BOMREF": 5308
+     "BOMREF": 4963,
+     "URUNREF": 6115,
+     "MALZEMEkOD": "10091673-1",
+     "ACİKLAMA": "F4 HAREKETLİ GÖVDE ÖN,ARALAYICI 2 (0.75MM)"
     },
     {
-     "MALZEMEkOD": 10087204,
-     "ACİKLAMA": "LENS-3, IŞIN GENİŞLETİCİ, MRLR",
-     "URUNREF": 17420,
-     "BOMREF": 5559
-    },
-    {
-     "MALZEMEkOD": "10091693-1",
-     "ACİKLAMA": "F4 SÜREKLİ BÜYÜTMELİ MOTORLU OBJEKTİF",
+     "BOMREF": 4561,
      "URUNREF": 6066,
-     "BOMREF": 4561
+     "MALZEMEkOD": "10091693-1",
+     "ACİKLAMA": "F4 SÜREKLİ BÜYÜTMELİ MOTORLU OBJEKTİF"
     },
     {
-     "MALZEMEkOD": "10091753-1",
-     "ACİKLAMA": "ATS 70 SOĞUTMASIZ SÜREKLİ OBJ.",
+     "BOMREF": 5521,
      "URUNREF": 3326,
-     "BOMREF": 5521
+     "MALZEMEkOD": "10091753-1",
+     "ACİKLAMA": "ATS 70 SOĞUTMASIZ SÜREKLİ OBJ."
     },
     {
-     "MALZEMEkOD": 10091759,
-     "ACİKLAMA": "ATS 70 DÖNER GÖVDE ",
+     "BOMREF": 8487,
+     "URUNREF": 3501,
+     "MALZEMEkOD": 10091755,
+     "ACİKLAMA": "ATS 70 TUTUCU LENS 1 "
+    },
+    {
+     "BOMREF": 4987,
      "URUNREF": 3514,
-     "BOMREF": 4987
+     "MALZEMEkOD": 10091759,
+     "ACİKLAMA": "ATS 70 DÖNER GÖVDE "
     },
     {
-     "MALZEMEkOD": "10091759.K",
-     "ACİKLAMA": "ATS 70 DÖNER GÖVDE ",
+     "BOMREF": 4781,
      "URUNREF": 6432,
-     "BOMREF": 4781
+     "MALZEMEkOD": "10091759.K",
+     "ACİKLAMA": "ATS 70 DÖNER GÖVDE "
     },
     {
-     "MALZEMEkOD": 10091766,
-     "ACİKLAMA": "ATS 70 TUTUCU LENS 4",
+     "BOMREF": 5923,
      "URUNREF": 3483,
-     "BOMREF": 5923
+     "MALZEMEkOD": 10091766,
+     "ACİKLAMA": "ATS 70 TUTUCU LENS 4"
     },
     {
-     "MALZEMEkOD": "10091769.K",
-     "ACİKLAMA": "ATS 70 DÖNER GÖVDE 2 ",
-     "URUNREF": 6430,
-     "BOMREF": 4990
+     "BOMREF": 5846,
+     "URUNREF": 3507,
+     "MALZEMEkOD": 10091772,
+     "ACİKLAMA": "ATS 70 TUTUCU 2 IRIS "
     },
     {
-     "MALZEMEkOD": "10091787-1",
-     "ACİKLAMA": "ATS 70 GÖVDE İŞLETME TAKIMI",
+     "BOMREF": 5934,
+     "URUNREF": 3508,
+     "MALZEMEkOD": 10091773,
+     "ACİKLAMA": "ATS 70 TUTUCU 1 IRIS "
+    },
+    {
+     "BOMREF": 5935,
+     "URUNREF": 3487,
+     "MALZEMEkOD": 10091785,
+     "ACİKLAMA": "ATS70 YAY TUTUCU"
+    },
+    {
+     "BOMREF": 5522,
      "URUNREF": 3481,
-     "BOMREF": 5522
+     "MALZEMEkOD": "10091787-1",
+     "ACİKLAMA": "ATS 70 GÖVDE İŞLETME TAKIMI"
     },
     {
-     "MALZEMEkOD": "10092690-2",
-     "ACİKLAMA": "F4 2X UZATMA OPTİĞİ TAKIMI",
+     "BOMREF": 5563,
      "URUNREF": 29545,
-     "BOMREF": 5563
+     "MALZEMEkOD": "10092690-2",
+     "ACİKLAMA": "F4 2X UZATMA OPTİĞİ TAKIMI"
     },
     {
-     "MALZEMEkOD": "10095565-1",
-     "ACİKLAMA": "A600 GÖVDE TAKIMI",
+     "BOMREF": 4666,
+     "URUNREF": 2753,
+     "MALZEMEkOD": 10094454,
+     "ACİKLAMA": "A600 COLIMATOR LENS 1"
+    },
+    {
+     "BOMREF": 4979,
+     "URUNREF": 2754,
+     "MALZEMEkOD": 10094457,
+     "ACİKLAMA": "A600 COLIMATOR DOUBLET 1 L2-L3"
+    },
+    {
+     "BOMREF": 5487,
+     "URUNREF": 2757,
+     "MALZEMEkOD": 10094460,
+     "ACİKLAMA": "A600 COLIMATOR DOUBLET 2 L4-L5"
+    },
+    {
+     "BOMREF": 4671,
+     "URUNREF": 2760,
+     "MALZEMEkOD": 10094461,
+     "ACİKLAMA": "A600 COLIMATOR LENS 6"
+    },
+    {
+     "BOMREF": 4810,
      "URUNREF": 2627,
-     "BOMREF": 4810
+     "MALZEMEkOD": "10095565-1",
+     "ACİKLAMA": "A600 GÖVDE TAKIMI"
     },
     {
-     "MALZEMEkOD": "10095565-4",
-     "ACİKLAMA": "A600 GÖVDE TAKIMI",
-     "URUNREF": 9726,
-     "BOMREF": 8230
-    },
-    {
-     "MALZEMEkOD": "10095565-40",
-     "ACİKLAMA": "A600 GÖVDE TAKIMI",
-     "URUNREF": 11139,
-     "BOMREF": 8182
-    },
-    {
-     "MALZEMEkOD": "10095565-48",
-     "ACİKLAMA": "A600 GÖVDE TAKIMI",
+     "BOMREF": 4809,
      "URUNREF": 9719,
-     "BOMREF": 4809
+     "MALZEMEkOD": "10095565-48",
+     "ACİKLAMA": "A600 GÖVDE TAKIMI"
     },
     {
-     "MALZEMEkOD": "10095565-5",
-     "ACİKLAMA": "A600 GÖVDE TAKIMI",
+     "BOMREF": 5297,
      "URUNREF": 25956,
-     "BOMREF": 5297
+     "MALZEMEkOD": "10095565-5",
+     "ACİKLAMA": "A600 GÖVDE TAKIMI"
     },
     {
-     "MALZEMEkOD": "10095565-57",
-     "ACİKLAMA": "A600 GÖVDE TAKIMI",
+     "BOMREF": 5298,
      "URUNREF": 20333,
-     "BOMREF": 5298
+     "MALZEMEkOD": "10095565-57",
+     "ACİKLAMA": "A600 GÖVDE TAKIMI"
     },
     {
-     "MALZEMEkOD": "10095565-9",
-     "ACİKLAMA": "A600 GÖVDE TAKIMI",
+     "BOMREF": 8231,
      "URUNREF": 15801,
-     "BOMREF": 8231
+     "MALZEMEkOD": "10095565-9",
+     "ACİKLAMA": "A600 GÖVDE TAKIMI"
     },
     {
-     "MALZEMEkOD": 10095567,
-     "ACİKLAMA": "A600 KOLİMATÖR TAKIMI",
+     "BOMREF": 4823,
+     "URUNREF": 2625,
+     "MALZEMEkOD": "10095566-1",
+     "ACİKLAMA": "A600 OBJEKTİF TAKIMI"
+    },
+    {
+     "BOMREF": 4828,
      "URUNREF": 2626,
-     "BOMREF": 4828
+     "MALZEMEkOD": 10095567,
+     "ACİKLAMA": "A600 KOLİMATÖR TAKIMI"
     },
     {
-     "MALZEMEkOD": "10095580.K",
-     "ACİKLAMA": "A600, KOLİMATÖR, TUTUCU LENS 1",
-     "URUNREF": 6323,
-     "BOMREF": 8326
-    },
-    {
-     "MALZEMEkOD": "10095603-1",
-     "ACİKLAMA": "A600 KÖRÜK TAKIMI",
+     "BOMREF": 4943,
      "URUNREF": 2633,
-     "BOMREF": 4943
+     "MALZEMEkOD": "10095603-1",
+     "ACİKLAMA": "A600 KÖRÜK TAKIMI"
     },
     {
-     "MALZEMEkOD": "10095603-4",
-     "ACİKLAMA": "A600 KÖRÜK TAKIMI",
+     "BOMREF": 8233,
      "URUNREF": 30918,
-     "BOMREF": 8233
+     "MALZEMEkOD": "10095603-4",
+     "ACİKLAMA": "A600 KÖRÜK TAKIMI"
     },
     {
-     "MALZEMEkOD": "10097063-1",
-     "ACİKLAMA": "A600 GECE GÖRÜŞ EKLENTİSİ",
+     "BOMREF": 5795,
+     "URUNREF": 2651,
+     "MALZEMEkOD": "10095604-1",
+     "ACİKLAMA": "A600, DÜRBÜN KÖRÜK, HALKA"
+    },
+    {
+     "BOMREF": 5794,
+     "URUNREF": 6326,
+     "MALZEMEkOD": "10095604.K",
+     "ACİKLAMA": "A600, DÜRBÜN KÖRÜK, HALKA"
+    },
+    {
+     "BOMREF": 4851,
+     "URUNREF": 22473,
+     "MALZEMEkOD": 10096237,
+     "ACİKLAMA": "ARN-12 REFLEX SİGHT LENS 1 KESİLMEMİŞ ÇAP"
+    },
+    {
+     "BOMREF": 4864,
+     "URUNREF": 901,
+     "MALZEMEkOD": 10096239,
+     "ACİKLAMA": "ARN-12 REFLEX SİGHT DOUBLET"
+    },
+    {
+     "BOMREF": 5251,
      "URUNREF": 3240,
-     "BOMREF": 5251
+     "MALZEMEkOD": "10097063-1",
+     "ACİKLAMA": "A600 GECE GÖRÜŞ EKLENTİSİ"
     },
     {
-     "MALZEMEkOD": "10097063-4",
-     "ACİKLAMA": "A600 GECE GÖRÜŞ EKLENTİSİ",
+     "BOMREF": 8232,
      "URUNREF": 9721,
-     "BOMREF": 8232
+     "MALZEMEkOD": "10097063-4",
+     "ACİKLAMA": "A600 GECE GÖRÜŞ EKLENTİSİ"
     },
     {
-     "MALZEMEkOD": "10097063-40",
-     "ACİKLAMA": "A600 GECE GÖRÜŞ EKLENTİSİ",
-     "URUNREF": 11138,
-     "BOMREF": 5985
-    },
-    {
-     "MALZEMEkOD": "10097063-48",
-     "ACİKLAMA": "A600 GECE GÖRÜŞ EKLENTİSİ(SARI)",
+     "BOMREF": 4838,
      "URUNREF": 9720,
-     "BOMREF": 4838
+     "MALZEMEkOD": "10097063-48",
+     "ACİKLAMA": "A600 GECE GÖRÜŞ EKLENTİSİ(SARI)"
     },
     {
-     "MALZEMEkOD": "10097063-5",
-     "ACİKLAMA": "A600 GECE GÖRÜŞ EKLENTİSİ",
+     "BOMREF": 5252,
      "URUNREF": 18039,
-     "BOMREF": 5252
+     "MALZEMEkOD": "10097063-5",
+     "ACİKLAMA": "A600 GECE GÖRÜŞ EKLENTİSİ"
     },
     {
-     "MALZEMEkOD": "10097063-57",
-     "ACİKLAMA": "A600 GECE GÖRÜŞ EKLENTİSİ(TİLKİ SARISI)",
+     "BOMREF": 5253,
      "URUNREF": 20179,
-     "BOMREF": 5253
+     "MALZEMEkOD": "10097063-57",
+     "ACİKLAMA": "A600 GECE GÖRÜŞ EKLENTİSİ(TİLKİ SARISI)"
     },
     {
-     "MALZEMEkOD": "10100205-1",
-     "ACİKLAMA": "REFLEKS NİŞANGAH (ARN-12) (SİYAH)",
+     "BOMREF": 8339,
+     "URUNREF": 3568,
+     "MALZEMEkOD": 10097394,
+     "ACİKLAMA": "60 MM LENS 1 VK"
+    },
+    {
+     "BOMREF": 5797,
+     "URUNREF": 3571,
+     "MALZEMEkOD": 10097395,
+     "ACİKLAMA": "60 MM LENS 2 VK"
+    },
+    {
+     "BOMREF": 4619,
      "URUNREF": 3243,
-     "BOMREF": 4619
+     "MALZEMEkOD": "10100205-1",
+     "ACİKLAMA": "REFLEKS NİŞANGAH (ARN-12) (SİYAH)"
     },
     {
-     "MALZEMEkOD": "10100205-2",
-     "ACİKLAMA": "REFLEKS NİŞANGAH (ARN-12) (SARI)",
+     "BOMREF": 4620,
      "URUNREF": 8636,
-     "BOMREF": 4620
+     "MALZEMEkOD": "10100205-2",
+     "ACİKLAMA": "REFLEKS NİŞANGAH (ARN-12) (SARI)"
     },
     {
-     "MALZEMEkOD": "10100206-1",
-     "ACİKLAMA": "ARN-12, REFLEKS NİŞANGAH (SİYAH)",
+     "BOMREF": 4510,
      "URUNREF": 923,
-     "BOMREF": 4510
+     "MALZEMEkOD": "10100206-1",
+     "ACİKLAMA": "ARN-12, REFLEKS NİŞANGAH (SİYAH)"
     },
     {
-     "MALZEMEkOD": "10100206-2",
-     "ACİKLAMA": "ARN-12, REFLEKS NİŞANGAH (SARI)",
+     "BOMREF": 4511,
      "URUNREF": 8686,
-     "BOMREF": 4511
+     "MALZEMEkOD": "10100206-2",
+     "ACİKLAMA": "ARN-12, REFLEKS NİŞANGAH (SARI)"
     },
     {
-     "MALZEMEkOD": "10100207.K",
-     "ACİKLAMA": "ARN-12 GÖVDE (KAPLAMASIZ)",
+     "BOMREF": 4611,
+     "URUNREF": 5685,
+     "MALZEMEkOD": "10100207-1",
+     "ACİKLAMA": "ARN-12 GÖVDE (SİYAH)"
+    },
+    {
+     "BOMREF": 4612,
+     "URUNREF": 22502,
+     "MALZEMEkOD": "10100207-2",
+     "ACİKLAMA": "ARN-12 GÖVDE (SARI)"
+    },
+    {
+     "BOMREF": 4592,
      "URUNREF": 17563,
-     "BOMREF": 4592
+     "MALZEMEkOD": "10100207.K",
+     "ACİKLAMA": "ARN-12 GÖVDE (KAPLAMASIZ)"
     },
     {
-     "MALZEMEkOD": "10100743-1",
-     "ACİKLAMA": "A600 BATARYA KAPAK TAKIMI",
+     "BOMREF": 4779,
+     "URUNREF": 908,
+     "MALZEMEkOD": "10100208-1",
+     "ACİKLAMA": "ARN-12 YANCA-1"
+    },
+    {
+     "BOMREF": 4782,
+     "URUNREF": 909,
+     "MALZEMEkOD": "10100209-1",
+     "ACİKLAMA": "ARN-12 YANCA-2"
+    },
+    {
+     "BOMREF": 4783,
+     "URUNREF": 906,
+     "MALZEMEkOD": 10100210,
+     "ACİKLAMA": "ARN-12 YÜKSELİŞ"
+    },
+    {
+     "BOMREF": 5483,
+     "URUNREF": 907,
+     "MALZEMEkOD": 10100211,
+     "ACİKLAMA": "ARN-12 TUTUCU,KART"
+    },
+    {
+     "BOMREF": 5073,
+     "URUNREF": 893,
+     "MALZEMEkOD": 10100229,
+     "ACİKLAMA": "ARN-12 VİDA,YANCA"
+    },
+    {
+     "BOMREF": 5051,
+     "URUNREF": 892,
+     "MALZEMEkOD": 10100230,
+     "ACİKLAMA": "ARN-12 VİDA,YÜKSELİŞ"
+    },
+    {
+     "BOMREF": 5180,
+     "URUNREF": 911,
+     "MALZEMEkOD": 10100237,
+     "ACİKLAMA": "ARN-12 KAPAK,PİL"
+    },
+    {
+     "BOMREF": 4947,
      "URUNREF": 2632,
-     "BOMREF": 4947
+     "MALZEMEkOD": "10100743-1",
+     "ACİKLAMA": "A600 BATARYA KAPAK TAKIMI"
     },
     {
-     "MALZEMEkOD": 10104822,
-     "ACİKLAMA": "KGYS FİLTRE TAKIMI",
+     "BOMREF": 8033,
+     "URUNREF": 2647,
+     "MALZEMEkOD": 10101238,
+     "ACİKLAMA": "BATARYA KAPAĞI, A600"
+    },
+    {
+     "BOMREF": 5392,
      "URUNREF": 5592,
-     "BOMREF": 5392
+     "MALZEMEkOD": 10104822,
+     "ACİKLAMA": "KGYS FİLTRE TAKIMI"
     },
     {
-     "MALZEMEkOD": 10107607,
-     "ACİKLAMA": "DÖNER GÖVDE 1, ÖN 1, SWIR 1",
+     "BOMREF": 5158,
+     "URUNREF": 4121,
+     "MALZEMEkOD": "10105236-1",
+     "ACİKLAMA": "60 MM ATERMAL OBJ. TAKIMI"
+    },
+    {
+     "BOMREF": 5181,
+     "URUNREF": 2868,
+     "MALZEMEkOD": "10105323-1",
+     "ACİKLAMA": "A600 SİLAH ADAPTÖRÜ 16.8MM"
+    },
+    {
+     "BOMREF": 8459,
+     "URUNREF": 29130,
+     "MALZEMEkOD": 10107180,
+     "ACİKLAMA": "TRIPLET, SWIR ZOOM"
+    },
+    {
+     "BOMREF": 8460,
+     "URUNREF": 29142,
+     "MALZEMEkOD": "10107180-IS",
+     "ACİKLAMA": "TRIPLET, SWIR ZOOM KAPLAMASIZ"
+    },
+    {
+     "BOMREF": 8449,
+     "URUNREF": 29160,
+     "MALZEMEkOD": 10107181,
+     "ACİKLAMA": "LENS 1, TRIPLET, SWIR ZOOM"
+    },
+    {
+     "BOMREF": 8450,
+     "URUNREF": 29162,
+     "MALZEMEkOD": 10107182,
+     "ACİKLAMA": "LENS 2, TRIPLET, SWIR ZOOM"
+    },
+    {
+     "BOMREF": 5926,
+     "URUNREF": 29164,
+     "MALZEMEkOD": 10107183,
+     "ACİKLAMA": "LENS 3, TRIPLET, SWIR ZOOM"
+    },
+    {
+     "BOMREF": 8425,
+     "URUNREF": 29143,
+     "MALZEMEkOD": "10107184-IS",
+     "ACİKLAMA": "LENS 4, SWIR ZOOM KAPLAMASIZ"
+    },
+    {
+     "BOMREF": 8452,
+     "URUNREF": 29132,
+     "MALZEMEkOD": 10107185,
+     "ACİKLAMA": "LENS 5, SWIR ZOOM"
+    },
+    {
+     "BOMREF": 8461,
+     "URUNREF": 29144,
+     "MALZEMEkOD": "10107185-IS",
+     "ACİKLAMA": "LENS 5, SWIR ZOOM KAPLAMASIZ"
+    },
+    {
+     "BOMREF": 8429,
+     "URUNREF": 29145,
+     "MALZEMEkOD": "10107186-IS",
+     "ACİKLAMA": "LENS 6, SWIR ZOOM KAPLAMASIZ"
+    },
+    {
+     "BOMREF": 8462,
+     "URUNREF": 29146,
+     "MALZEMEkOD": "10107187-IS",
+     "ACİKLAMA": "DOUBLET 1, SWIR ZOOM KAPLAMASIZ"
+    },
+    {
+     "BOMREF": 8453,
+     "URUNREF": 29166,
+     "MALZEMEkOD": 10107188,
+     "ACİKLAMA": "LENS 1, DOUBLET 1, SWIR ZOOM"
+    },
+    {
+     "BOMREF": 8454,
+     "URUNREF": 29168,
+     "MALZEMEkOD": 10107189,
+     "ACİKLAMA": "LENS 2, DOUBLET 1, SWIR ZOOM"
+    },
+    {
+     "BOMREF": 8463,
+     "URUNREF": 29147,
+     "MALZEMEkOD": "10107190-IS",
+     "ACİKLAMA": "DOUBLET 2, SWIR ZOOM KAPLAMASIZ"
+    },
+    {
+     "BOMREF": 8455,
+     "URUNREF": 29170,
+     "MALZEMEkOD": 10107191,
+     "ACİKLAMA": "LENS 1, DOUBLET 2, SWIR ZOOM"
+    },
+    {
+     "BOMREF": 8456,
+     "URUNREF": 29172,
+     "MALZEMEkOD": 10107192,
+     "ACİKLAMA": "LENS 2, DOUBLET 2, SWIR ZOOM"
+    },
+    {
+     "BOMREF": 8427,
+     "URUNREF": 29150,
+     "MALZEMEkOD": "10107195-IS",
+     "ACİKLAMA": "LENS 13, SWIR ZOOM KAPLAMASIZ"
+    },
+    {
+     "BOMREF": 8464,
+     "URUNREF": 29151,
+     "MALZEMEkOD": "10107196-IS",
+     "ACİKLAMA": "DOUBLET 3, SWIR ZOOM KAPLAMASIZ"
+    },
+    {
+     "BOMREF": 8457,
+     "URUNREF": 29174,
+     "MALZEMEkOD": 10107197,
+     "ACİKLAMA": "LENS 1, DOUBLET 3, SWIR ZOOM"
+    },
+    {
+     "BOMREF": 8458,
+     "URUNREF": 29175,
+     "MALZEMEkOD": 10107198,
+     "ACİKLAMA": "LENS 2, DOUBLET 3, SWIR ZOOM"
+    },
+    {
+     "BOMREF": 8428,
+     "URUNREF": 29152,
+     "MALZEMEkOD": "10107199-IS",
+     "ACİKLAMA": "LENS 16, SWIR ZOOM KAPLAMASIZ"
+    },
+    {
+     "BOMREF": 5932,
+     "URUNREF": 31795,
+     "MALZEMEkOD": "10107199.K",
+     "ACİKLAMA": "LENS 16, SWIR ZOOM"
+    },
+    {
+     "BOMREF": 8212,
      "URUNREF": 5814,
-     "BOMREF": 8212
+     "MALZEMEkOD": 10107607,
+     "ACİKLAMA": "DÖNER GÖVDE 1, ÖN 1, SWIR 1"
     },
     {
-     "MALZEMEkOD": "10107607.K",
-     "ACİKLAMA": "DÖNER GÖVDE 1, ÖN 1, SWIR 1",
+     "BOMREF": 8105,
      "URUNREF": 31889,
-     "BOMREF": 8105
+     "MALZEMEkOD": "10107607.K",
+     "ACİKLAMA": "DÖNER GÖVDE 1, ÖN 1, SWIR 1"
     },
     {
-     "MALZEMEkOD": 10107972,
-     "ACİKLAMA": "SUPRASIL SUBSTRATE, 35DIAx1",
+     "BOMREF": 4550,
      "URUNREF": 27433,
-     "BOMREF": 4550
+     "MALZEMEkOD": 10107972,
+     "ACİKLAMA": "SUPRASIL SUBSTRATE, 35DIAx1"
     },
     {
-     "MALZEMEkOD": "10107972.K",
-     "ACİKLAMA": "SUPRASIL SUBSTRATE, 35DIAx1 KAPLAMASIZ",
+     "BOMREF": 4839,
      "URUNREF": 27966,
-     "BOMREF": 4839
+     "MALZEMEkOD": "10107972.K",
+     "ACİKLAMA": "SUPRASIL SUBSTRATE, 35DIAx1 KAPLAMASIZ"
     },
     {
-     "MALZEMEkOD": 10107974,
-     "ACİKLAMA": "SUPRASIL SUBSTRATE, UV",
+     "BOMREF": 5390,
      "URUNREF": 16805,
-     "BOMREF": 5390
+     "MALZEMEkOD": 10107974,
+     "ACİKLAMA": "SUPRASIL SUBSTRATE, UV"
     },
     {
-     "MALZEMEkOD": "10108911-1",
-     "ACİKLAMA": "ARKA KAPAK TAKIMI TSD MR",
+     "BOMREF": 8310,
+     "URUNREF": 28749,
+     "MALZEMEkOD": "10108233-15",
+     "ACİKLAMA": "A210 GECE GÖRÜŞ EL DÜRBÜNÜ"
+    },
+    {
+     "BOMREF": 8237,
+     "URUNREF": 22386,
+     "MALZEMEkOD": "10108909-1",
+     "ACİKLAMA": "GÖVDE TAKIM TSD-MR"
+    },
+    {
+     "BOMREF": 5014,
      "URUNREF": 8695,
-     "BOMREF": 5014
+     "MALZEMEkOD": "10108911-1",
+     "ACİKLAMA": "ARKA KAPAK TAKIMI TSD MR"
     },
     {
-     "MALZEMEkOD": 10110870,
-     "ACİKLAMA": "5X BÜYÜTME OPTİK TAKIMI",
+     "BOMREF": 8207,
+     "URUNREF": 8742,
+     "MALZEMEkOD": "10108912-1",
+     "ACİKLAMA": "ARKA KAPAK TSD MR"
+    },
+    {
+     "BOMREF": 8238,
+     "URUNREF": 22388,
+     "MALZEMEkOD": "10108913-1",
+     "ACİKLAMA": "ÜST KAPAK TAKIMI TSD-MR"
+    },
+    {
+     "BOMREF": 5152,
      "URUNREF": 8669,
-     "BOMREF": 5152
+     "MALZEMEkOD": 10110870,
+     "ACİKLAMA": "5X BÜYÜTME OPTİK TAKIMI"
     },
     {
-     "MALZEMEkOD": 10111017,
-     "ACİKLAMA": "Lens 1, 5X EXTENDER",
-     "URUNREF": 28525,
-     "BOMREF": 5173
-    },
-    {
-     "MALZEMEkOD": "10111017.K",
-     "ACİKLAMA": "Lens 1, 5X EXTENDER KAPLAMASIZ",
-     "URUNREF": 28526,
-     "BOMREF": 5128
-    },
-    {
-     "MALZEMEkOD": 10111018,
-     "ACİKLAMA": "Lens 2, 5X EXTENDER",
-     "URUNREF": 28530,
-     "BOMREF": 5175
-    },
-    {
-     "MALZEMEkOD": "10111018.K",
-     "ACİKLAMA": "Lens 2, 5X EXTENDER KAPLAMASIZ",
-     "URUNREF": 28529,
-     "BOMREF": 5129
-    },
-    {
-     "MALZEMEkOD": 10111019,
-     "ACİKLAMA": "LENS 3 5X",
-     "URUNREF": 28510,
-     "BOMREF": 5182
-    },
-    {
-     "MALZEMEkOD": "10111019.K",
-     "ACİKLAMA": "LENS 3 5X .K",
-     "URUNREF": 28511,
-     "BOMREF": 5157
-    },
-    {
-     "MALZEMEkOD": 10111020,
-     "ACİKLAMA": "Lens 4, 5X EXTENDER",
-     "URUNREF": 28519,
-     "BOMREF": 5162
-    },
-    {
-     "MALZEMEkOD": "10111020.K",
-     "ACİKLAMA": "Lens 4, 5X EXTENDER KAPLAMASIZ",
-     "URUNREF": 28520,
-     "BOMREF": 5126
-    },
-    {
-     "MALZEMEkOD": 10111021,
-     "ACİKLAMA": "Lens 5, 5X EXTENDER",
-     "URUNREF": 28522,
-     "BOMREF": 5163
-    },
-    {
-     "MALZEMEkOD": "10111021.K",
-     "ACİKLAMA": "Lens 5, 5X EXTENDER KAPLAMASIZ",
-     "URUNREF": 28523,
-     "BOMREF": 5114
-    },
-    {
-     "MALZEMEkOD": 10111022,
-     "ACİKLAMA": "LENS 1 5X",
-     "URUNREF": 28502,
-     "BOMREF": 5165
-    },
-    {
-     "MALZEMEkOD": "10111022.K",
-     "ACİKLAMA": "LENS 1 5X KAPLAMASIZ",
-     "URUNREF": 28503,
-     "BOMREF": 5127
-    },
-    {
-     "MALZEMEkOD": 10111023,
-     "ACİKLAMA": "DOUBLET 1 5X",
-     "URUNREF": 28516,
-     "BOMREF": 5174
-    },
-    {
-     "MALZEMEkOD": 10111024,
-     "ACİKLAMA": "DOUBLET 2 5X",
-     "URUNREF": 28507,
-     "BOMREF": 5164
-    },
-    {
-     "MALZEMEkOD": "10111397-1",
-     "ACİKLAMA": "60 MM OBJ TAKIMI KNOBLU TSD-MR",
+     "BOMREF": 5875,
      "URUNREF": 15230,
-     "BOMREF": 5875
+     "MALZEMEkOD": "10111397-1",
+     "ACİKLAMA": "60 MM OBJ TAKIMI KNOBLU TSD-MR"
     },
     {
-     "MALZEMEkOD": 10111707,
-     "ACİKLAMA": "UG11 DIA 70.8x1.5",
+     "BOMREF": 4627,
      "URUNREF": 8478,
-     "BOMREF": 4627
+     "MALZEMEkOD": 10111707,
+     "ACİKLAMA": "UG11 DIA 70.8x1.5"
     },
     {
-     "MALZEMEkOD": "10111707.K",
-     "ACİKLAMA": "UG11 DIA 70.8x1.5",
+     "BOMREF": 4553,
      "URUNREF": 8479,
-     "BOMREF": 4553
+     "MALZEMEkOD": "10111707.K",
+     "ACİKLAMA": "UG11 DIA 70.8x1.5"
     },
     {
-     "MALZEMEkOD": "10111845-1",
-     "ACİKLAMA": "TSD-MR MERMİSAYAR",
+     "BOMREF": 8255,
      "URUNREF": 24561,
-     "BOMREF": 8255
+     "MALZEMEkOD": "10111845-1",
+     "ACİKLAMA": "TSD-MR MERMİSAYAR"
     },
     {
-     "MALZEMEkOD": "10112173-1",
-     "ACİKLAMA": "TSD-MR, TİMSAH",
+     "BOMREF": 5561,
      "URUNREF": 29546,
-     "BOMREF": 5561
+     "MALZEMEkOD": "10112173-1",
+     "ACİKLAMA": "TSD-MR, TİMSAH"
     },
     {
-     "MALZEMEkOD": 10113740,
-     "ACİKLAMA": "3X-4X EYE PIECE LENS 1",
-     "URUNREF": 9099,
-     "BOMREF": 4677
+     "BOMREF": 5443,
+     "URUNREF": 21892,
+     "MALZEMEkOD": "10113310-3",
+     "ACİKLAMA": "5-25X56 NİŞANCI DÜRBÜNÜ"
     },
     {
-     "MALZEMEkOD": "10113740.K",
-     "ACİKLAMA": "3X-4X EYE PIECE LENS 1 KAPLAMASIZ",
-     "URUNREF": 9109,
-     "BOMREF": 4583
-    },
-    {
-     "MALZEMEkOD": 10113741,
-     "ACİKLAMA": "3X-4X EYE PIECE DOUBLET",
+     "BOMREF": 4797,
      "URUNREF": 9691,
-     "BOMREF": 4797
+     "MALZEMEkOD": 10113741,
+     "ACİKLAMA": "3X-4X EYE PIECE DOUBLET"
     },
     {
-     "MALZEMEkOD": 10113746,
-     "ACİKLAMA": "3X-4X OBJECTIVE LENS 1",
+     "BOMREF": 4680,
      "URUNREF": 9102,
-     "BOMREF": 4680
+     "MALZEMEkOD": 10113746,
+     "ACİKLAMA": "3X-4X OBJECTIVE LENS 1"
     },
     {
-     "MALZEMEkOD": "10113746.K",
-     "ACİKLAMA": "3X-4X OBJECTIVE LENS 1 KAPLAMASIZ",
-     "URUNREF": 9116,
-     "BOMREF": 4536
-    },
-    {
-     "MALZEMEkOD": 10113747,
-     "ACİKLAMA": "3X OBJECTIVE LENS 2",
-     "URUNREF": 9103,
-     "BOMREF": 4681
-    },
-    {
-     "MALZEMEkOD": "10113747.K",
-     "ACİKLAMA": "3X OBJECTIVE LENS 2 KAPLAMASIZ",
-     "URUNREF": 9115,
-     "BOMREF": 4588
-    },
-    {
-     "MALZEMEkOD": 10113748,
-     "ACİKLAMA": "3X OBJECTIVE DOUBLET",
+     "BOMREF": 4798,
      "URUNREF": 9692,
-     "BOMREF": 4798
+     "MALZEMEkOD": 10113748,
+     "ACİKLAMA": "3X OBJECTIVE DOUBLET"
     },
     {
-     "MALZEMEkOD": 10113751,
-     "ACİKLAMA": "4X OBJECTIVE LENS 2",
+     "BOMREF": 4530,
+     "URUNREF": 9113,
+     "MALZEMEkOD": "10113750.K",
+     "ACİKLAMA": "3X OBJECTIVE DOUBLET LENS 2 KAPLAMASIZ"
+    },
+    {
+     "BOMREF": 4684,
      "URUNREF": 9106,
-     "BOMREF": 4684
+     "MALZEMEkOD": 10113751,
+     "ACİKLAMA": "4X OBJECTIVE LENS 2"
     },
     {
-     "MALZEMEkOD": "10113751.K",
-     "ACİKLAMA": "4X OBJECTIVE LENS 2 KAPLAMASIZ",
-     "URUNREF": 9112,
-     "BOMREF": 4591
-    },
-    {
-     "MALZEMEkOD": 10113752,
-     "ACİKLAMA": "4X UZATMA DOUBLET ",
+     "BOMREF": 4799,
      "URUNREF": 9702,
-     "BOMREF": 4799
+     "MALZEMEkOD": 10113752,
+     "ACİKLAMA": "4X UZATMA DOUBLET "
     },
     {
-     "MALZEMEkOD": "10114015.K",
-     "ACİKLAMA": "ARALIYICI ÖN 3X",
+     "BOMREF": 4685,
+     "URUNREF": 9107,
+     "MALZEMEkOD": 10113753,
+     "ACİKLAMA": "4X OBJECTIVE DOUBLET LENS 1"
+    },
+    {
+     "BOMREF": 4616,
+     "URUNREF": 9108,
+     "MALZEMEkOD": 10113754,
+     "ACİKLAMA": "4X OBJECTIVE DOUBLET LENS 2"
+    },
+    {
+     "BOMREF": 5618,
      "URUNREF": 19601,
-     "BOMREF": 5618
+     "MALZEMEkOD": "10114015.K",
+     "ACİKLAMA": "ARALIYICI ÖN 3X"
     },
     {
-     "MALZEMEkOD": "10114020.K",
-     "ACİKLAMA": "ANA GÖVDE, 3X-4X (KAPLAMASIZ)",
+     "BOMREF": 4740,
+     "URUNREF": 9069,
+     "MALZEMEkOD": 10114019,
+     "ACİKLAMA": "OBJEKTİF GÖVDESİ 4X"
+    },
+    {
+     "BOMREF": 4566,
      "URUNREF": 15636,
-     "BOMREF": 4566
+     "MALZEMEkOD": "10114020.K",
+     "ACİKLAMA": "ANA GÖVDE, 3X-4X (KAPLAMASIZ)"
     },
     {
-     "MALZEMEkOD": "10114021.K",
-     "ACİKLAMA": "PRİZMA GÖVDESİ, 3X-4X",
+     "BOMREF": 4572,
+     "URUNREF": 22352,
+     "MALZEMEkOD": "10114020\/3X-2",
+     "ACİKLAMA": "ANA GÖVDE, 3X (SARI)"
+    },
+    {
+     "BOMREF": 4569,
+     "URUNREF": 22349,
+     "MALZEMEkOD": "10114020\/4X-1",
+     "ACİKLAMA": "ANA GÖVDE, 4X (SİYAH)"
+    },
+    {
+     "BOMREF": 4719,
+     "URUNREF": 9071,
+     "MALZEMEkOD": 10114021,
+     "ACİKLAMA": "PRİZMA GÖVDESİ, 3X-4X"
+    },
+    {
+     "BOMREF": 5902,
      "URUNREF": 18194,
-     "BOMREF": 5902
+     "MALZEMEkOD": "10114021.K",
+     "ACİKLAMA": "PRİZMA GÖVDESİ, 3X-4X"
     },
     {
-     "MALZEMEkOD": "10114032.K",
-     "ACİKLAMA": "OKÜLER GÖVDE,  3X-4X",
+     "BOMREF": 4741,
+     "URUNREF": 9072,
+     "MALZEMEkOD": 10114022,
+     "ACİKLAMA": "RETİKIL GÖVDESİ  3X-4X"
+    },
+    {
+     "BOMREF": 4648,
+     "URUNREF": 9073,
+     "MALZEMEkOD": 10114023,
+     "ACİKLAMA": "SABİTLEYİCİ 3X-4X"
+    },
+    {
+     "BOMREF": 7005,
+     "URUNREF": 9074,
+     "MALZEMEkOD": 10114024,
+     "ACİKLAMA": "ARALIYICI, ARKA, 3X"
+    },
+    {
+     "BOMREF": 5146,
+     "URUNREF": 9079,
+     "MALZEMEkOD": 10114030,
+     "ACİKLAMA": "PUL, 3X-4X"
+    },
+    {
+     "BOMREF": 4720,
+     "URUNREF": 9081,
+     "MALZEMEkOD": 10114032,
+     "ACİKLAMA": "OKÜLER GÖVDE,  3X-4X"
+    },
+    {
+     "BOMREF": 4921,
      "URUNREF": 19467,
-     "BOMREF": 4921
+     "MALZEMEkOD": "10114032.K",
+     "ACİKLAMA": "OKÜLER GÖVDE,  3X-4X"
     },
     {
-     "MALZEMEkOD": 10114036,
-     "ACİKLAMA": "SABİTLEYİCİ, PRİZMA GÖVDESİ  3X-4X",
-     "URUNREF": 9084,
-     "BOMREF": 5089
+     "BOMREF": 4614,
+     "URUNREF": 9082,
+     "MALZEMEkOD": 10114033,
+     "ACİKLAMA": "SABİTLEYİCİ,  3X-4X"
     },
     {
-     "MALZEMEkOD": "10114036.K",
-     "ACİKLAMA": "SABİTLEYİCİ, PRİZMA GÖVDESİ  3X-4X (KAPLAMASIZ)",
-     "URUNREF": 15647,
-     "BOMREF": 5083
+     "BOMREF": 4801,
+     "URUNREF": 9083,
+     "MALZEMEkOD": 10114034,
+     "ACİKLAMA": "SABİTLEYİCİ 2, 3X-4X"
     },
     {
-     "MALZEMEkOD": "10114040-1",
-     "ACİKLAMA": "A941 GÜNDÜZ GÖRÜŞ NİŞANGAH",
+     "BOMREF": 5434,
+     "URUNREF": 9085,
+     "MALZEMEkOD": 10114039,
+     "ACİKLAMA": "ARALIYICI, ÖN,  4X"
+    },
+    {
+     "BOMREF": 4526,
      "URUNREF": 23166,
-     "BOMREF": 4526
+     "MALZEMEkOD": "10114040-1",
+     "ACİKLAMA": "A941 GÜNDÜZ GÖRÜŞ NİŞANGAH"
     },
     {
-     "MALZEMEkOD": "10114070-3",
-     "ACİKLAMA": "KND 5-25 NİŞANCI DÜRBÜNÜ",
+     "BOMREF": 5444,
      "URUNREF": 9561,
-     "BOMREF": 5444
+     "MALZEMEkOD": "10114070-3",
+     "ACİKLAMA": "KND 5-25 NİŞANCI DÜRBÜNÜ"
     },
     {
-     "MALZEMEkOD": 10114346,
-     "ACİKLAMA": "OBJEKTİF TAKIMI, A931",
+     "BOMREF": 4520,
      "URUNREF": 12502,
-     "BOMREF": 4520
+     "MALZEMEkOD": 10114346,
+     "ACİKLAMA": "OBJEKTİF TAKIMI, A931"
     },
     {
-     "MALZEMEkOD": 10114347,
-     "ACİKLAMA": "OBJEKTİF TAKIMI, A941",
+     "BOMREF": 4521,
      "URUNREF": 12506,
-     "BOMREF": 4521
+     "MALZEMEkOD": 10114347,
+     "ACİKLAMA": "OBJEKTİF TAKIMI, A941"
     },
     {
-     "MALZEMEkOD": 10114348,
-     "ACİKLAMA": "OKÜLER TAKIMI, A931-A941",
+     "BOMREF": 4518,
      "URUNREF": 12503,
-     "BOMREF": 4518
+     "MALZEMEkOD": 10114348,
+     "ACİKLAMA": "OKÜLER TAKIMI, A931-A941"
     },
     {
-     "MALZEMEkOD": 10114349,
-     "ACİKLAMA": "PRİZMA TAKIMI, A931-A941",
+     "BOMREF": 4519,
      "URUNREF": 12501,
-     "BOMREF": 4519
+     "MALZEMEkOD": 10114349,
+     "ACİKLAMA": "PRİZMA TAKIMI, A931-A941"
     },
     {
-     "MALZEMEkOD": "10114350-2",
-     "ACİKLAMA": "RETİKIL TAKIMI A941",
+     "BOMREF": 4517,
      "URUNREF": 12505,
-     "BOMREF": 4517
+     "MALZEMEkOD": "10114350-2",
+     "ACİKLAMA": "RETİKIL TAKIMI A941"
     },
     {
-     "MALZEMEkOD": "10114350-5",
-     "ACİKLAMA": "RETİKÜL TAKIMI A931",
+     "BOMREF": 4516,
      "URUNREF": 23163,
-     "BOMREF": 4516
+     "MALZEMEkOD": "10114350-5",
+     "ACİKLAMA": "RETİKÜL TAKIMI A931"
     },
     {
-     "MALZEMEkOD": "10114352-6",
-     "ACİKLAMA": "A931 GÜNDÜZ GÖRÜŞ NİŞANGAH",
+     "BOMREF": 4522,
      "URUNREF": 26586,
-     "BOMREF": 4522
+     "MALZEMEkOD": "10114352-6",
+     "ACİKLAMA": "A931 GÜNDÜZ GÖRÜŞ NİŞANGAH"
     },
     {
-     "MALZEMEkOD": "10114906-1",
-     "ACİKLAMA": "ARKA KAPAK TAKIMI TİMSAH",
+     "BOMREF": 5024,
      "URUNREF": 9768,
-     "BOMREF": 5024
+     "MALZEMEkOD": "10114906-1",
+     "ACİKLAMA": "ARKA KAPAK TAKIMI TİMSAH"
     },
     {
-     "MALZEMEkOD": "10114906-12",
-     "ACİKLAMA": "ARKA KAPAK TAKIMI, TİMSAH",
+     "BOMREF": 8236,
      "URUNREF": 17216,
-     "BOMREF": 8236
+     "MALZEMEkOD": "10114906-12",
+     "ACİKLAMA": "ARKA KAPAK TAKIMI, TİMSAH"
     },
     {
-     "MALZEMEkOD": 10118262,
-     "ACİKLAMA": "DOUBLET1_SRCHO_OBJ",
+     "BOMREF": 5122,
+     "URUNREF": 12342,
+     "MALZEMEkOD": 10115471,
+     "ACİKLAMA": "32.8 MM DU KOLİMATÖR TAKIMI"
+    },
+    {
+     "BOMREF": 8235,
+     "URUNREF": 24543,
+     "MALZEMEkOD": 10116266,
+     "ACİKLAMA": "28.2 MM DU KOLİMATÖR TAKIMI"
+    },
+    {
+     "BOMREF": 5833,
+     "URUNREF": 17652,
+     "MALZEMEkOD": 10118255,
+     "ACİKLAMA": "LENS 1_SRCHO_OBJ"
+    },
+    {
+     "BOMREF": 5832,
+     "URUNREF": 17650,
+     "MALZEMEkOD": 10118256,
+     "ACİKLAMA": "LENS 2_SRCHO_OBJ"
+    },
+    {
+     "BOMREF": 8097,
      "URUNREF": 18079,
-     "BOMREF": 8097
+     "MALZEMEkOD": 10118262,
+     "ACİKLAMA": "DOUBLET1_SRCHO_OBJ"
     },
     {
-     "MALZEMEkOD": 10118469,
-     "ACİKLAMA": "Lens 1, EFL 24.4 Eyepiece",
-     "URUNREF": 22194,
-     "BOMREF": 5597
-    },
-    {
-     "MALZEMEkOD": "10118469.K",
-     "ACİKLAMA": "Lens 1, EFL 24.4 Eyepiece KAPLAMA ",
-     "URUNREF": 22202,
-     "BOMREF": 4866
-    },
-    {
-     "MALZEMEkOD": 10118470,
-     "ACİKLAMA": "Lens 2, EFL 24.4 Eyepiece BLANK",
-     "URUNREF": 28728,
-     "BOMREF": 5612
-    },
-    {
-     "MALZEMEkOD": "10118470.K",
-     "ACİKLAMA": "Lens 2, EFL 24.4 Eyepiece KAPLAMASIZ",
-     "URUNREF": 22200,
-     "BOMREF": 4872
-    },
-    {
-     "MALZEMEkOD": 10118471,
-     "ACİKLAMA": "Lens 3, EFL 24.4 Eyepiece BLANK",
+     "BOMREF": 5610,
      "URUNREF": 28729,
-     "BOMREF": 5610
+     "MALZEMEkOD": 10118471,
+     "ACİKLAMA": "Lens 3, EFL 24.4 Eyepiece BLANK"
     },
     {
-     "MALZEMEkOD": "10118471.K",
-     "ACİKLAMA": "Lens 3, EFL 24.4 Eyepiece KAPLAMASIZ ",
+     "BOMREF": 4874,
      "URUNREF": 22201,
-     "BOMREF": 4874
+     "MALZEMEkOD": "10118471.K",
+     "ACİKLAMA": "Lens 3, EFL 24.4 Eyepiece KAPLAMASIZ "
     },
     {
-     "MALZEMEkOD": 10118473,
-     "ACİKLAMA": "Doublet, EFL 24.4 Eyepiece",
+     "BOMREF": 5708,
      "URUNREF": 22193,
-     "BOMREF": 5708
+     "MALZEMEkOD": 10118473,
+     "ACİKLAMA": "Doublet, EFL 24.4 Eyepiece"
     },
     {
-     "MALZEMEkOD": "10118474-1",
-     "ACİKLAMA": "OKÜLER TAKIM 45MM ER",
+     "BOMREF": 5147,
      "URUNREF": 22294,
-     "BOMREF": 5147
+     "MALZEMEkOD": "10118474-1",
+     "ACİKLAMA": "OKÜLER TAKIM 45MM ER"
     },
     {
-     "MALZEMEkOD": "10118475-1",
-     "ACİKLAMA": "OKÜLER İÇ TAKIM 45MM",
+     "BOMREF": 5148,
      "URUNREF": 30770,
-     "BOMREF": 5148
+     "MALZEMEkOD": "10118475-1",
+     "ACİKLAMA": "OKÜLER İÇ TAKIM 45MM"
     },
     {
-     "MALZEMEkOD": "10119184.K",
-     "ACİKLAMA": "TUTUCU GÖVDE, FERSAH",
+     "BOMREF": 5292,
+     "URUNREF": 17378,
+     "MALZEMEkOD": 10119184,
+     "ACİKLAMA": "TUTUCU GÖVDE, FERSAH"
+    },
+    {
+     "BOMREF": 5279,
      "URUNREF": 19735,
-     "BOMREF": 5279
+     "MALZEMEkOD": "10119184.K",
+     "ACİKLAMA": "TUTUCU GÖVDE, FERSAH"
     },
     {
-     "MALZEMEkOD": 10119202,
-     "ACİKLAMA": "OKÜLER LENS TAKIMI, FERSAH",
+     "BOMREF": 5293,
+     "URUNREF": 17388,
+     "MALZEMEkOD": 10119185,
+     "ACİKLAMA": "OKÜLER GÖVDE , FERSAH"
+    },
+    {
+     "BOMREF": 4726,
      "URUNREF": 18177,
-     "BOMREF": 4726
+     "MALZEMEkOD": 10119202,
+     "ACİKLAMA": "OKÜLER LENS TAKIMI, FERSAH"
     },
     {
-     "MALZEMEkOD": "10119203-1",
-     "ACİKLAMA": "OBJEKTİF LENS TAKIMI , FERSAH",
+     "BOMREF": 4725,
      "URUNREF": 18176,
-     "BOMREF": 4725
+     "MALZEMEkOD": "10119203-1",
+     "ACİKLAMA": "OBJEKTİF LENS TAKIMI , FERSAH"
     },
     {
-     "MALZEMEkOD": "10119204-1",
-     "ACİKLAMA": "GÜNDÜZ GÖRÜŞ TAKIMI, 6X, FERSAH",
+     "BOMREF": 5267,
      "URUNREF": 18178,
-     "BOMREF": 5267
+     "MALZEMEkOD": "10119204-1",
+     "ACİKLAMA": "GÜNDÜZ GÖRÜŞ TAKIMI, 6X, FERSAH"
     },
     {
-     "MALZEMEkOD": 10119205,
-     "ACİKLAMA": "OBJEKTİF LENS TAKIMI 9x, FERSAH",
+     "BOMREF": 8148,
      "URUNREF": 24658,
-     "BOMREF": 8148
+     "MALZEMEkOD": 10119205,
+     "ACİKLAMA": "OBJEKTİF LENS TAKIMI 9x, FERSAH"
     },
     {
-     "MALZEMEkOD": 10119371,
-     "ACİKLAMA": "GÖZETLEME OPTİĞİ TAKIMI,9X",
+     "BOMREF": 8111,
+     "URUNREF": 19539,
+     "MALZEMEkOD": 10119206,
+     "ACİKLAMA": "OPTİK ANA TUTUCU GÖVDE,9X"
+    },
+    {
+     "BOMREF": 5494,
+     "URUNREF": 18173,
+     "MALZEMEkOD": 10119232,
+     "ACİKLAMA": "A100 BAĞLANTI ARAYÜZÜ,FERSAH"
+    },
+    {
+     "BOMREF": 8147,
      "URUNREF": 22259,
-     "BOMREF": 8147
+     "MALZEMEkOD": 10119371,
+     "ACİKLAMA": "GÖZETLEME OPTİĞİ TAKIMI,9X"
     },
     {
-     "MALZEMEkOD": "10119455-1",
-     "ACİKLAMA": "A941 GÜNDÜZ NİŞANGAH SİSTEMİ",
+     "BOMREF": 4527,
      "URUNREF": 24622,
-     "BOMREF": 4527
+     "MALZEMEkOD": "10119455-1",
+     "ACİKLAMA": "A941 GÜNDÜZ NİŞANGAH SİSTEMİ"
     },
     {
-     "MALZEMEkOD": "10119455-15",
-     "ACİKLAMA": "A931 GÜNDÜZ NİŞANGAH SİSTEMİ",
+     "BOMREF": 4528,
      "URUNREF": 24623,
-     "BOMREF": 4528
+     "MALZEMEkOD": "10119455-15",
+     "ACİKLAMA": "A931 GÜNDÜZ NİŞANGAH SİSTEMİ"
     },
     {
-     "MALZEMEkOD": 10126597,
-     "ACİKLAMA": "TAKIM BOROSKOP 35mm HSSM PMT",
+     "BOMREF": 4861,
      "URUNREF": 27315,
-     "BOMREF": 4861
+     "MALZEMEkOD": 10126597,
+     "ACİKLAMA": "TAKIM BOROSKOP 35mm HSSM PMT"
     },
     {
-     "MALZEMEkOD": 10127904,
-     "ACİKLAMA": "OKÜLER, MİNİ DORUK",
+     "BOMREF": 4860,
+     "URUNREF": 24559,
+     "MALZEMEkOD": "10126597 LOTSUZ",
+     "ACİKLAMA": "TAKIM BOROSKOP 35mm HSSM PMT"
+    },
+    {
+     "BOMREF": 8047,
+     "URUNREF": 29353,
+     "MALZEMEkOD": 10127901,
+     "ACİKLAMA": "OKÜLER TAKIMI, MİNİ DORUK"
+    },
+    {
+     "BOMREF": 5556,
      "URUNREF": 29332,
-     "BOMREF": 5556
+     "MALZEMEkOD": 10127904,
+     "ACİKLAMA": "OKÜLER, MİNİ DORUK"
     },
     {
-     "MALZEMEkOD": 58000040,
-     "ACİKLAMA": "TANK UZATMA OPTİĞİ \/ MUZZLE BORESIGH DEVICE",
+     "BOMREF": 5611,
+     "URUNREF": 29361,
+     "MALZEMEkOD": 10128688,
+     "ACİKLAMA": "LENS-3, Mini Doruk Oküler"
+    },
+    {
+     "BOMREF": 5562,
+     "URUNREF": 31082,
+     "MALZEMEkOD": 10129820,
+     "ACİKLAMA": "F4, 2X UZATMA OPTİĞİ EŞLEŞME TAKIMI"
+    },
+    {
+     "BOMREF": 4842,
      "URUNREF": 29412,
-     "BOMREF": 4842
+     "MALZEMEkOD": 58000040,
+     "ACİKLAMA": "TANK UZATMA OPTİĞİ \/ MUZZLE BORESIGH DEVICE"
     },
     {
-     "MALZEMEkOD": 58002000,
-     "ACİKLAMA": "M27 PERISKOP",
+     "BOMREF": 4840,
+     "URUNREF": 29416,
+     "MALZEMEkOD": 58000045,
+     "ACİKLAMA": "EL TUTAMAĞI KOMPLESİ \/ HANDLE ASSEMBLY"
+    },
+    {
+     "BOMREF": 4841,
+     "URUNREF": 29417,
+     "MALZEMEkOD": 58000053,
+     "ACİKLAMA": "AYARLI MERKEZLEME KOMPLESİ \/ ADJUSTABLE CENTERING"
+    },
+    {
+     "BOMREF": 5536,
+     "URUNREF": 29650,
+     "MALZEMEkOD": 58000073,
+     "ACİKLAMA": "AYARLI MERCEK TUTUCU 1, SGSI PROJEKTOR BİRİMİ"
+    },
+    {
+     "BOMREF": 5533,
+     "URUNREF": 29660,
+     "MALZEMEkOD": 58000083,
+     "ACİKLAMA": "AYNA TUTUCU BRAKETİ, SGSI PROJEKTOR BİRİMİ"
+    },
+    {
+     "BOMREF": 5740,
+     "URUNREF": 30869,
+     "MALZEMEkOD": 58001020,
+     "ACİKLAMA": "BOROSKOP, TANK UZATMA OPTİĞİ"
+    },
+    {
+     "BOMREF": 4791,
      "URUNREF": 23727,
-     "BOMREF": 4791
+     "MALZEMEkOD": 58002000,
+     "ACİKLAMA": "M27 PERISKOP"
     },
     {
-     "MALZEMEkOD": 58002050,
-     "ACİKLAMA": "LOOKUP PERISKOP \/ LOOKUP PERISCOPE",
+     "BOMREF": 4789,
      "URUNREF": 23785,
-     "BOMREF": 4789
+     "MALZEMEkOD": 58002050,
+     "ACİKLAMA": "LOOKUP PERISKOP \/ LOOKUP PERISCOPE"
     },
     {
-     "MALZEMEkOD": 58002540,
-     "ACİKLAMA": "BAĞLANTI KOMPLESİ SOL, GÖVDE DÜZ, TİP-2 PERİSKOP",
+     "BOMREF": 4808,
+     "URUNREF": 16976,
+     "MALZEMEkOD": 58002100,
+     "ACİKLAMA": "T15 PERİSKOP"
+    },
+    {
+     "BOMREF": 4790,
+     "URUNREF": 16975,
+     "MALZEMEkOD": 58002200,
+     "ACİKLAMA": "T13 PERİSKOP"
+    },
+    {
+     "BOMREF": 5344,
+     "URUNREF": 28791,
+     "MALZEMEkOD": 58002531,
+     "ACİKLAMA": "ALT GOVDE MEKANIK, GÖVDE DÜZ, TİP-2 PERİSKOP"
+    },
+    {
+     "BOMREF": 5345,
+     "URUNREF": 28798,
+     "MALZEMEkOD": 58002538,
+     "ACİKLAMA": "AYNA PLAKASI, GÖVDE DÜZ, TİP-2 PERİSKOP"
+    },
+    {
+     "BOMREF": 5105,
      "URUNREF": 28801,
-     "BOMREF": 5105
+     "MALZEMEkOD": 58002540,
+     "ACİKLAMA": "BAĞLANTI KOMPLESİ SOL, GÖVDE DÜZ, TİP-2 PERİSKOP"
     },
     {
-     "MALZEMEkOD": 58220091,
-     "ACİKLAMA": "F4 KORUMA KAPAĞI",
-     "URUNREF": 29212,
-     "BOMREF": 5751
+     "BOMREF": 5346,
+     "URUNREF": 28805,
+     "MALZEMEkOD": 58002541,
+     "ACİKLAMA": "BAĞLANTI BRAKETİ, GÖVDE DÜZ, TİP-2 PERİSKOP "
     },
     {
-     "MALZEMEkOD": 60300021,
-     "ACİKLAMA": "M4x16 ÇEKME VİDASI",
+     "BOMREF": 5347,
+     "URUNREF": 28806,
+     "MALZEMEkOD": 58002542,
+     "ACİKLAMA": "MİL, GÖVDE DÜZ, TİP-2 PERİSKOP"
+    },
+    {
+     "BOMREF": 5359,
+     "URUNREF": 28807,
+     "MALZEMEkOD": 58002543,
+     "ACİKLAMA": "SINIRLAYICI, GÖVDE DÜZ, TİP-2 PERİSKOP"
+    },
+    {
+     "BOMREF": 5360,
+     "URUNREF": 28808,
+     "MALZEMEkOD": 58002544,
+     "ACİKLAMA": "MENTEŞE 1, GÖVDE DÜZ, TİP-2 PERİSKOP"
+    },
+    {
+     "BOMREF": 5361,
+     "URUNREF": 28809,
+     "MALZEMEkOD": 58002545,
+     "ACİKLAMA": "MENTEŞE 2, GÖVDE DÜZ, TİP-2 PERİSKOP"
+    },
+    {
+     "BOMREF": 5491,
+     "URUNREF": 28854,
+     "MALZEMEkOD": 58002562,
+     "ACİKLAMA": "ARALAYICI, KULE TİP-1 PERİSKOP"
+    },
+    {
+     "BOMREF": 5349,
+     "URUNREF": 28855,
+     "MALZEMEkOD": 58002563,
+     "ACİKLAMA": "MENTEŞE , KULE TİP-1 PERİSKOP"
+    },
+    {
+     "BOMREF": 5350,
+     "URUNREF": 28856,
+     "MALZEMEkOD": 58002564,
+     "ACİKLAMA": "AYNA PLAKASI, KULE TİP-1 PERİSKOP"
+    },
+    {
+     "BOMREF": 5351,
+     "URUNREF": 28857,
+     "MALZEMEkOD": 58002565,
+     "ACİKLAMA": "ÇEKTİRME PLAKASI, KULE TİP-1 PERİSKOP"
+    },
+    {
+     "BOMREF": 5352,
+     "URUNREF": 28858,
+     "MALZEMEkOD": 58002566,
+     "ACİKLAMA": "MANDAL, KULE TİP-1 PERİSKOP"
+    },
+    {
+     "BOMREF": 5353,
+     "URUNREF": 28859,
+     "MALZEMEkOD": 58002567,
+     "ACİKLAMA": "MENTEŞE MİLİ, KULE TİP-1 PERİSKOP"
+    },
+    {
+     "BOMREF": 5362,
+     "URUNREF": 28870,
+     "MALZEMEkOD": 58002569,
+     "ACİKLAMA": "BAĞLANTI BRAKETİ 2 , KULE TİP-1 PERİSKOP"
+    },
+    {
+     "BOMREF": 5354,
+     "URUNREF": 28818,
+     "MALZEMEkOD": 58002572,
+     "ACİKLAMA": "ALT GOVDE MEKANIK, KULE TİP-2 PERISKOP"
+    },
+    {
+     "BOMREF": 4513,
+     "URUNREF": 28767,
+     "MALZEMEkOD": "58003410-1",
+     "ACİKLAMA": "A931 TAMBUR TAKIMI SAĞ\/SOL"
+    },
+    {
+     "BOMREF": 4515,
+     "URUNREF": 29190,
+     "MALZEMEkOD": "58003410-2",
+     "ACİKLAMA": "A931 TAMBUR TAKIMI YUKARI\/AŞAĞI"
+    },
+    {
+     "BOMREF": 4646,
+     "URUNREF": 24376,
+     "MALZEMEkOD": 58003411,
+     "ACİKLAMA": "KLİK TAMBURU, A931-A941 \/ CLICK DRUM, A931-A941"
+    },
+    {
+     "BOMREF": 4604,
+     "URUNREF": 24379,
+     "MALZEMEkOD": 58003414,
+     "ACİKLAMA": "KLİK DİŞLİSİ, A931, CLICK SCREW, A931"
+    },
+    {
+     "BOMREF": 4605,
+     "URUNREF": 24380,
+     "MALZEMEkOD": 58003415,
+     "ACİKLAMA": "KLİK HAREKET PİMİ, A931, CLICK MOTION PIN, A931"
+    },
+    {
+     "BOMREF": 4525,
+     "URUNREF": 28768,
+     "MALZEMEkOD": "58003420-1",
+     "ACİKLAMA": "A941 TAMBUR TAKIMI SAĞ\/SOL"
+    },
+    {
+     "BOMREF": 4524,
+     "URUNREF": 29191,
+     "MALZEMEkOD": "58003420-2",
+     "ACİKLAMA": "A941 TAMBUR TAKIMI YUKARI\/AŞAĞI"
+    },
+    {
+     "BOMREF": 5074,
      "URUNREF": 28864,
-     "BOMREF": 5074
+     "MALZEMEkOD": 60300021,
+     "ACİKLAMA": "M4x16 ÇEKME VİDASI"
     },
     {
-     "MALZEMEkOD": "60300021.K",
-     "ACİKLAMA": "M4x16 ÇEKME VİDASI",
+     "BOMREF": 5027,
      "URUNREF": 29676,
-     "BOMREF": 5027
+     "MALZEMEkOD": "60300021.K",
+     "ACİKLAMA": "M4x16 ÇEKME VİDASI"
     },
     {
-     "MALZEMEkOD": "7052-045-001-50",
-     "ACİKLAMA": "LENS COATED 001-50",
+     "BOMREF": 4830,
+     "URUNREF": 15981,
+     "MALZEMEkOD": 60900002,
+     "ACİKLAMA": "ŞİM-SİYAH, 30X8X1"
+    },
+    {
+     "BOMREF": 5490,
+     "URUNREF": 28827,
+     "MALZEMEkOD": 60900007,
+     "ACİKLAMA": "SIM, 30X6X1"
+    },
+    {
+     "BOMREF": 5496,
      "URUNREF": 27229,
-     "BOMREF": 5496
+     "MALZEMEkOD": "7052-045-001-50",
+     "ACİKLAMA": "LENS COATED 001-50"
     },
     {
-     "MALZEMEkOD": "7052-045-001-50.K",
-     "ACİKLAMA": "LENS COATED 001-50",
+     "BOMREF": 5515,
      "URUNREF": 27235,
-     "BOMREF": 5515
+     "MALZEMEkOD": "7052-045-001-50.K",
+     "ACİKLAMA": "LENS COATED 001-50"
     },
     {
-     "MALZEMEkOD": "7052-045-002-50",
-     "ACİKLAMA": "ASPHERICAL LENS COATED 002-50",
+     "BOMREF": 4728,
      "URUNREF": 27228,
-     "BOMREF": 4728
+     "MALZEMEkOD": "7052-045-002-50",
+     "ACİKLAMA": "ASPHERICAL LENS COATED 002-50"
     },
     {
-     "MALZEMEkOD": "7052-045-002-50.K",
-     "ACİKLAMA": "ASPHERICAL LENS COATED 002-50",
+     "BOMREF": 5006,
      "URUNREF": 27231,
-     "BOMREF": 5006
+     "MALZEMEkOD": "7052-045-002-50.K",
+     "ACİKLAMA": "ASPHERICAL LENS COATED 002-50"
     },
     {
-     "MALZEMEkOD": "7052-045-004-50",
-     "ACİKLAMA": "ASPHERICAL LENS COATED 004-50",
+     "BOMREF": 4729,
      "URUNREF": 27227,
-     "BOMREF": 4729
+     "MALZEMEkOD": "7052-045-004-50",
+     "ACİKLAMA": "ASPHERICAL LENS COATED 004-50"
     },
     {
-     "MALZEMEkOD": "7052-045-004-50.K",
-     "ACİKLAMA": "ASPHERICAL LENS COATED 004-50",
+     "BOMREF": 5008,
      "URUNREF": 27233,
-     "BOMREF": 5008
+     "MALZEMEkOD": "7052-045-004-50.K",
+     "ACİKLAMA": "ASPHERICAL LENS COATED 004-50"
     },
     {
-     "MALZEMEkOD": "7052-045-005-50",
-     "ACİKLAMA": "LENS COATED 005-50",
+     "BOMREF": 5497,
      "URUNREF": 27225,
-     "BOMREF": 5497
+     "MALZEMEkOD": "7052-045-005-50",
+     "ACİKLAMA": "LENS COATED 005-50"
     },
     {
-     "MALZEMEkOD": "7052-045-005-50.K",
-     "ACİKLAMA": "LENS COATED 005-50",
+     "BOMREF": 5453,
      "URUNREF": 27237,
-     "BOMREF": 5453
+     "MALZEMEkOD": "7052-045-005-50.K",
+     "ACİKLAMA": "LENS COATED 005-50"
     },
     {
-     "MALZEMEkOD": "7052-045-006-50",
-     "ACİKLAMA": "LENS COATED 006-50",
+     "BOMREF": 5500,
      "URUNREF": 27226,
-     "BOMREF": 5500
+     "MALZEMEkOD": "7052-045-006-50",
+     "ACİKLAMA": "LENS COATED 006-50"
     },
     {
-     "MALZEMEkOD": "7052-045-006-50.K",
-     "ACİKLAMA": "LENS COATED 006-50",
+     "BOMREF": 5454,
      "URUNREF": 27239,
-     "BOMREF": 5454
+     "MALZEMEkOD": "7052-045-006-50.K",
+     "ACİKLAMA": "LENS COATED 006-50"
     },
     {
-     "MALZEMEkOD": "A53001",
-     "ACİKLAMA": "PC-WINDOW",
+     "BOMREF": 4628,
      "URUNREF": 19606,
-     "BOMREF": 4628
+     "MALZEMEkOD": "A53001",
+     "ACİKLAMA": "PC-WINDOW"
     },
     {
-     "MALZEMEkOD": "A53001.K",
-     "ACİKLAMA": "PC-WINDOW",
-     "URUNREF": 19605,
-     "BOMREF": 4631
+     "BOMREF": 8469,
+     "URUNREF": 3068,
+     "MALZEMEkOD": "AR16-U2400280-131",
+     "ACİKLAMA": "PENCERE-A53001"
     },
     {
-     "MALZEMEkOD": "TP0047792",
-     "ACİKLAMA": "GOVDE DUZ PERISKOP TIP 2",
+     "BOMREF": 5045,
+     "URUNREF": 28028,
+     "MALZEMEkOD": "TP0047791",
+     "ACİKLAMA": "GOVDE DUZ PERISKOP TIP 1"
+    },
+    {
+     "BOMREF": 5046,
      "URUNREF": 28026,
-     "BOMREF": 5046
+     "MALZEMEkOD": "TP0047792",
+     "ACİKLAMA": "GOVDE DUZ PERISKOP TIP 2"
     },
     {
-     "MALZEMEkOD": "TP0047794",
-     "ACİKLAMA": "GOVDE DUZ PERISKOP TIP 2 AYNA SAG",
+     "BOMREF": 5079,
+     "URUNREF": 28772,
+     "MALZEMEkOD": "TP0047793",
+     "ACİKLAMA": "GOVDE DUZ PERISKOP TIP 1 AYNA"
+    },
+    {
+     "BOMREF": 5580,
      "URUNREF": 30773,
-     "BOMREF": 5580
+     "MALZEMEkOD": "TP0047794",
+     "ACİKLAMA": "GOVDE DUZ PERISKOP TIP 2 AYNA SAG"
     },
     {
-     "MALZEMEkOD": "TP0047797",
-     "ACİKLAMA": "KULE DUZ PERISKOP TIP 2",
+     "BOMREF": 5047,
+     "URUNREF": 28794,
+     "MALZEMEkOD": "TP0047795",
+     "ACİKLAMA": "GOVDE DUZ PERISKOP TIP 2 AYNA SOL"
+    },
+    {
+     "BOMREF": 5048,
+     "URUNREF": 28027,
+     "MALZEMEkOD": "TP0047796",
+     "ACİKLAMA": "KULE DUZ PERISKOP TIP 1"
+    },
+    {
+     "BOMREF": 5049,
      "URUNREF": 28271,
-     "BOMREF": 5049
+     "MALZEMEkOD": "TP0047797",
+     "ACİKLAMA": "KULE DUZ PERISKOP TIP 2"
     },
     {
-     "MALZEMEkOD": "TP0047798",
-     "ACİKLAMA": "KULE DUZ PERISKOP TIP 3",
+     "BOMREF": 5050,
      "URUNREF": 28031,
-     "BOMREF": 5050
+     "MALZEMEkOD": "TP0047798",
+     "ACİKLAMA": "KULE DUZ PERISKOP TIP 3"
     },
     {
-     "MALZEMEkOD": "TP0047799",
-     "ACİKLAMA": "KULE DUZ PERISKOP TIP 1 AYNA KOMUTAN",
+     "BOMREF": 5106,
      "URUNREF": 29688,
-     "BOMREF": 5106
+     "MALZEMEkOD": "TP0047799",
+     "ACİKLAMA": "KULE DUZ PERISKOP TIP 1 AYNA KOMUTAN"
     },
     {
-     "MALZEMEkOD": "ZAP-200",
-     "ACİKLAMA": "ZIRHLI ARAÇ PERİSKOPU-M27",
+     "BOMREF": 5078,
+     "URUNREF": 28852,
+     "MALZEMEkOD": "TP0047800",
+     "ACİKLAMA": "KULE DUZ PERISKOP TIP 1 AYNA DOLDURUCU"
+    },
+    {
+     "BOMREF": 5680,
      "URUNREF": 16028,
-     "BOMREF": 5680
+     "MALZEMEkOD": "ZAP-200",
+     "ACİKLAMA": "ZIRHLI ARAÇ PERİSKOPU-M27"
     },
     {
-     "MALZEMEkOD": "ZAP-250",
-     "ACİKLAMA": "ZIRHLI ARAÇ PERİSKOPU-LOOK UP",
+     "BOMREF": 4836,
      "URUNREF": 17560,
-     "BOMREF": 4836
+     "MALZEMEkOD": "ZAP-250",
+     "ACİKLAMA": "ZIRHLI ARAÇ PERİSKOPU-LOOK UP"
     },
     {
-     "MALZEMEkOD": "ZAP-300",
-     "ACİKLAMA": "ZIRHLI ARAÇ PERİSKOPU-T15",
+     "BOMREF": 5678,
      "URUNREF": 16973,
-     "BOMREF": 5678
+     "MALZEMEkOD": "ZAP-300",
+     "ACİKLAMA": "ZIRHLI ARAÇ PERİSKOPU-T15"
     },
     {
-     "MALZEMEkOD": "ZAP-400",
-     "ACİKLAMA": "ZIRHLI ARAÇ PERİSKOPU-T13 ",
+     "BOMREF": 5677,
      "URUNREF": 16974,
-     "BOMREF": 5677
+     "MALZEMEkOD": "ZAP-400",
+     "ACİKLAMA": "ZIRHLI ARAÇ PERİSKOPU-T13 "
     }
    ]

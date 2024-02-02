@@ -23,7 +23,6 @@ const storageDocs = multer.diskStorage({
   destination: (req, file, callBack) => {
     const destinationPath = path.join(__dirname, '..', '..', '..', '..', '..', '..', 'wamp64', 'www', 'bakim', 'assets', 'docs');
     //const destinationPath = path.join(__dirname, '..', 'front end', 'front end', 'src', 'assets', 'docs');
-    console.log("burayı tamamladı ", destinationPath)
     callBack(null, destinationPath)
   },
   filename: (req, file, callBack) => {
@@ -44,17 +43,15 @@ router.post('/insertMachineDokuman', uploadDocs.array('files'), async (req, res,
 
   const files = req.files;
 
-  console.log(files)
+  
 
   if (!files) {
     const error = new Error('No File')
     error.httpStatusCode = 400
-    console.log("buraya geldi ?")// buraya geliyor 
 
     return next(error)
   }
   try {
-    console.log("buraya geldi mi")
     let belge_url = `assets\\docs\\${files[0].filename}`
 
     result = await pool.query(`INSERT INTO public.main_machine_dokuman(
@@ -148,7 +145,6 @@ router.post('/insertMachine', cors(), async (req, res) => {
   const qrData = JSON.stringify(machineData);
 
   try {
-console.log(seri_no)
     const selectKontrol = await pool.query(`SELECT * FROM main_machines WHERE seri_no ='${seri_no}'`)
     const dataVarmi = selectKontrol.rowCount
     if (dataVarmi > 0) {
@@ -218,7 +214,6 @@ console.log(seri_no)
 })
 router.post('/getAyrintiMachinesOnarim', cors(), async (req, res) => {
   const { machine_id, type, bakim_id } = req.body
-  console.log("burda mıyız?", req.body)
   try {
     let result
     let data
@@ -256,6 +251,58 @@ router.post('/getMachineDokuman', cors(), async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 })
+router.post('/todoGetData', cors(), async (req, res) => {
+
+  try {
+    let result
+    let data
+
+    result = await pool.query(`SELECT * FROM  machines_todo`);
+    data = result.rows;
+
+
+    res.status(200).json({ status: 200, data: data });
+
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+})
+router.post('/todoGetDataSingle', cors(), async (req, res) => {
+  try {
+    let result
+    let data
+
+    result = await pool.query(`SELECT * FROM  machines_todo WHERE type = ${req.body.value}`);
+    data = result.rows;
+
+    res.status(200).json({ status: 200, data: data });
+
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+})
+router.post('/todoPostData', cors(), async (req, res) => {
+
+  try {
+    let result
+    let data
+
+    result = await pool.query(`INSERT INTO machines_todo (aciklama,type)VALUES('${req.body.aciklama}',${req.body.type})`);
+    data = result.rows;
+
+
+    res.status(200).json({ status: 200, data: data });
+
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+})
 router.post('/insertMachineDokuman', cors(), async (req, res) => {
   const { machine_id } = req.body
   try {
@@ -282,7 +329,6 @@ router.post('/getGecmisMachinesOnarim', cors(), async (req, res) => {
     let result
     let data
 
-    console.log(type)
     switch (type) {
       case 1:
         result = await pool.query(`
@@ -329,7 +375,6 @@ router.post('/getGecmisMachinesOnarim', cors(), async (req, res) => {
         data = result.rows;
         break;
       case 6:
-        console.log("alti aylik çalışacak")
         result = await pool.query(`  SELECT 
             mm.*,maa.durum as alti_durum,
            
@@ -408,305 +453,113 @@ router.post('/getGecmisMachinesOnarim', cors(), async (req, res) => {
   }
 })
 router.post('/putAylikMachinesOnarim', cors(), async (req, res) => {
-  const { type, machine_id, bakim_turu, bakim_tarihi, ariza_id, bakim_aciklama, bakim_tur_name, bakim_detail, bakim_durumu, user_id, user_name } = req.body
-  const tarihParcalari = bakim_tarihi.split('-');
-
-  const yil = parseInt(tarihParcalari[2], 10);
-  const ay = parseInt(tarihParcalari[1], 10) - 1;
-  const gun = parseInt(tarihParcalari[0], 10);
-
-  const tarih = new Date(yil, ay, gun);
-  tarih.setDate(tarih.getDate() + (type * 30));
-  const yeniTarih = `${tarih.getDate()}.${tarih.getMonth() + 1}.${tarih.getFullYear()}`;
-  console.log('Yeni Tarih:', yeniTarih);
-  let type_name
-  switch (type) {
-    case 1://1 aylık
-      type_name = "Aylik"
-      if (bakim_durumu == 0) { // bakim tamamlanmadığı durumda
-        const selectMachineAylik = await pool.query(`SELECT id FROM machines_aylik WHERE durum=0 AND machines_id = ${machine_id}`)
-
-
-        if (selectMachineAylik.rows.length > 0) { // makina için bir değer atanmış ise çalışacak
-          const selectMachineId = selectMachineAylik.rows[0].id
-          const updateMachineAylik = await pool.query(`Update machines_aylik SET g_aylik = '${bakim_tarihi}' WHERE durum = 0 and machines_id = ${machine_id}`)
-          const insertMachineDetail = await pool.query(`
-            INSERT INTO machine_bakim_detail(
-            type, user_id, user_name, bakim_turu, bakim_tarihi, aciklama, bakim_detail, type_name, bakim_tur_name, bakim_id,machine_id)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10,$11)`,
-            [type, user_id, user_name, bakim_turu, bakim_tarihi, bakim_aciklama, bakim_detail, type_name, bakim_tur_name, selectMachineId, machine_id]);
-
-        } else {  // makina için daha önce bir planlanan bakım olmadığında çalışacak
-          const insertMAchineAylik = await pool.query(`
-      INSERT INTO machines_aylik(p_aylik,  machines_id, durum)
-      VALUES ('${yeniTarih}', ${machine_id}, 0)
-      RETURNING id;
-  `);
-          selectMachineId = insertMAchineAylik.rows[0].id
-          const insertMachineDetail = await pool.query(`
-            INSERT INTO machine_bakim_detail(
-            type, user_id, user_name, bakim_turu, bakim_tarihi, aciklama, bakim_detail, type_name, bakim_tur_name, bakim_id,machine_id)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10,$11)`,
-            [type, user_id, user_name, bakim_turu, bakim_tarihi, bakim_aciklama, bakim_detail, type_name, bakim_tur_name, selectMachineId, machine_id]);
-
-        }
-
-      } else {//bakim tamamlandığında
-        const selectMachineAylik = await pool.query(`SELECT id FROM machines_aylik WHERE durum=0 AND machines_id = ${machine_id}`)
-
-        if (selectMachineAylik.rows.length > 0) { // makina için bir değer atanmış ise çalışacak
-          const selectMachineId = selectMachineAylik.rows[0].id
-          const updateMachineAylik = await pool.query(`Update machines_aylik SET g_aylik = '${bakim_tarihi}' , durum = 1 WHERE durum = 0 and machines_id = ${machine_id}`)
-          const insertMachineDetail = await pool.query(`
-            INSERT INTO machine_bakim_detail(
-            type, user_id, user_name, bakim_turu, bakim_tarihi, aciklama, bakim_detail, type_name, bakim_tur_name, bakim_id,machine_id)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10,$11)`,
-            [type, user_id, user_name, bakim_turu, bakim_tarihi, bakim_aciklama, bakim_detail, type_name, bakim_tur_name, selectMachineId, machine_id]);
-
-
-          const insertMAchineAylik = await pool.query(`INSERT INTO machines_aylik(
-              p_aylik,  machines_id, durum)
-              VALUES ('${yeniTarih}', ${machine_id}, 0);`)
-        } else {  // makina için daha önce bir planlanan bakım olmadığında çalışacak
-          const insertMAchineAylik = await pool.query(`
-            INSERT INTO machines_aylik(p_aylik,  machines_id, durum)
-            VALUES ('${yeniTarih}', ${machine_id}, 0)
-            RETURNING id;
-        `);
-          selectMachineId = insertMAchineAylik.rows[0].id
-          const insertMachineDetail = await pool.query(`
-            INSERT INTO machine_bakim_detail(
-            type, user_id, user_name, bakim_turu, bakim_tarihi, aciklama, bakim_detail, type_name, bakim_tur_name, bakim_id,machine_id)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10,$11)`,
-            [type, user_id, user_name, bakim_turu, bakim_tarihi, bakim_aciklama, bakim_detail, type_name, bakim_tur_name, selectMachineId, machine_id]);
-
-
-        }
-
-
-      }
-
-      break;
-    case 3://3 aylık
-      type_name = "Üç Aylik"
-      if (bakim_durumu == 0) { // bakim tamamlanmadığı durumda
-        const selectMachineAylik = await pool.query(`SELECT id FROM machines_ucaylik WHERE durum=0 AND machines_id = ${machine_id}`)
-
-
-        if (selectMachineAylik.rows.length > 0) { // makina için bir değer atanmış ise çalışacak
-          const selectMachineId = selectMachineAylik.rows[0].id
-          const updateMachineAylik = await pool.query(`Update machines_ucaylik SET g_ucaylik = '${bakim_tarihi}' WHERE durum = 0 and machines_id = ${machine_id}`)
-          const insertMachineDetail = await pool.query(`
-          INSERT INTO machine_bakim_detail(
-          type, user_id, user_name, bakim_turu, bakim_tarihi, aciklama, bakim_detail, type_name, bakim_tur_name, bakim_id,machine_id)
-          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10,$11)`,
-            [type, user_id, user_name, bakim_turu, bakim_tarihi, bakim_aciklama, bakim_detail, type_name, bakim_tur_name, selectMachineId, machine_id]);
-
-        } else {  // makina için daha önce bir planlanan bakım olmadığında çalışacak
-          const insertMAchineAylik = await pool.query(`
-    INSERT INTO machines_ucaylik(p_ucaylik,  machines_id, durum)
-    VALUES ('${yeniTarih}', ${machine_id}, 0)
-    RETURNING id;
-  `);
-          selectMachineId = insertMAchineAylik.rows[0].id
-          const insertMachineDetail = await pool.query(`
-          INSERT INTO machine_bakim_detail(
-          type, user_id, user_name, bakim_turu, bakim_tarihi, aciklama, bakim_detail, type_name, bakim_tur_name, bakim_id,machine_id)
-          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10,$11)`,
-            [type, user_id, user_name, bakim_turu, bakim_tarihi, bakim_aciklama, bakim_detail, type_name, bakim_tur_name, selectMachineId, machine_id]);
-
-        }
-
-      } else {//bakim tamamlandığında
-        const selectMachineAylik = await pool.query(`SELECT id FROM machines_ucaylik WHERE durum=0 AND machines_id = ${machine_id}`)
-
-        if (selectMachineAylik.rows.length > 0) { // makina için bir değer atanmış ise çalışacak
-          const selectMachineId = selectMachineAylik.rows[0].id
-          const updateMachineAylik = await pool.query(`Update machines_ucaylik SET g_ucaylik = '${bakim_tarihi}' , durum = 1 WHERE durum = 0 and machines_id = ${machine_id}`)
-          const insertMachineDetail = await pool.query(`
-          INSERT INTO machine_bakim_detail(
-          type, user_id, user_name, bakim_turu, bakim_tarihi, aciklama, bakim_detail, type_name, bakim_tur_name, bakim_id,machine_id)
-          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10,$11)`,
-            [type, user_id, user_name, bakim_turu, bakim_tarihi, bakim_aciklama, bakim_detail, type_name, bakim_tur_name, selectMachineId, machine_id]);
-
-
-          const insertMAchineAylik = await pool.query(`INSERT INTO machines_ucaylik(
-            p_ucaylik,  machines_id, durum)
-            VALUES ('${yeniTarih}', ${machine_id}, 0);`)
-        } else {  // makina için daha önce bir planlanan bakım olmadığında çalışacak
-          const insertMAchineAylik = await pool.query(`
-          INSERT INTO machines_ucaylik(p_ucaylik,  machines_id, durum)
-          VALUES ('${yeniTarih}', ${machine_id}, 0)
-          RETURNING id;
-      `);
-          selectMachineId = insertMAchineAylik.rows[0].id
-          const insertMachineDetail = await pool.query(`
-            INSERT INTO machine_bakim_detail(
-            type, user_id, user_name, bakim_turu, bakim_tarihi, aciklama, bakim_detail, type_name, bakim_tur_name, bakim_id,machine_id)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10,$11)`,
-            [type, user_id, user_name, bakim_turu, bakim_tarihi, bakim_aciklama, bakim_detail, type_name, bakim_tur_name, selectMachineId, machine_id]);
-
-
-        }
-
-
-      }
-      break;
-    case 6://6 aylık
-      type_name = "Altı Aylik"
-      if (bakim_durumu == 0) { // bakim tamamlanmadığı durumda
-        const selectMachineAylik = await pool.query(`SELECT id FROM machines_altiaylik WHERE durum=0 AND machines_id = ${machine_id}`)
-
-
-        if (selectMachineAylik.rows.length > 0) { // makina için bir değer atanmış ise çalışacak
-          const selectMachineId = selectMachineAylik.rows[0].id
-          const updateMachineAylik = await pool.query(`Update machines_altiaylik SET g_altiaylik = '${bakim_tarihi}' WHERE durum = 0 and machines_id = ${machine_id}`)
-          const insertMachineDetail = await pool.query(`
-          INSERT INTO machine_bakim_detail(
-          type, user_id, user_name, bakim_turu, bakim_tarihi, aciklama, bakim_detail, type_name, bakim_tur_name, bakim_id,machine_id)
-          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10,$11)`,
-            [type, user_id, user_name, bakim_turu, bakim_tarihi, bakim_aciklama, bakim_detail, type_name, bakim_tur_name, selectMachineId, machine_id]);
-
-        } else {  // makina için daha önce bir planlanan bakım olmadığında çalışacak
-          const insertMAchineAylik = await pool.query(`
-    INSERT INTO machines_altiaylik(p_altiaylik,  machines_id, durum)
-    VALUES ('${yeniTarih}', ${machine_id}, 0)
-    RETURNING id;
-  `);
-          selectMachineId = insertMAchineAylik.rows[0].id
-          const insertMachineDetail = await pool.query(`
-          INSERT INTO machine_bakim_detail(
-          type, user_id, user_name, bakim_turu, bakim_tarihi, aciklama, bakim_detail, type_name, bakim_tur_name, bakim_id,machine_id)
-          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10,$11)`,
-            [type, user_id, user_name, bakim_turu, bakim_tarihi, bakim_aciklama, bakim_detail, type_name, bakim_tur_name, selectMachineId, machine_id]);
-
-        }
-
-      } else {//bakim tamamlandığında
-        const selectMachineAylik = await pool.query(`SELECT id FROM machines_altiaylik WHERE durum=0 AND machines_id = ${machine_id}`)
-
-        if (selectMachineAylik.rows.length > 0) { // makina için bir değer atanmış ise çalışacak
-          const selectMachineId = selectMachineAylik.rows[0].id
-          const updateMachineAylik = await pool.query(`Update machines_altiaylik SET g_altiaylik = '${bakim_tarihi}' , durum = 1 WHERE durum = 0 and machines_id = ${machine_id}`)
-          const insertMachineDetail = await pool.query(`
-            INSERT INTO machine_bakim_detail(
-            type, user_id, user_name, bakim_turu, bakim_tarihi, aciklama, bakim_detail, type_name, bakim_tur_name, bakim_id,machine_id)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10,$11)`,
-            [type, user_id, user_name, bakim_turu, bakim_tarihi, bakim_aciklama, bakim_detail, type_name, bakim_tur_name, selectMachineId, machine_id]);
-
-
-          const insertMAchineAylik = await pool.query(`INSERT INTO machines_altiaylik(
-            p_altiaylik,  machines_id, durum)
-            VALUES ('${yeniTarih}', ${machine_id}, 0);`)
-        } else {  // makina için daha önce bir planlanan bakım olmadığında çalışacak
-          const insertMAchineAylik = await pool.query(`
-          INSERT INTO machines_altiaylik(p_altiaylik,  machines_id, durum)
-          VALUES ('${yeniTarih}', ${machine_id}, 0)
-          RETURNING id;
-      `);
-          selectMachineId = insertMAchineAylik.rows[0].id
-          const insertMachineDetail = await pool.query(`
-          INSERT INTO machine_bakim_detail(
-          type, user_id, user_name, bakim_turu, bakim_tarihi, aciklama, bakim_detail, type_name, bakim_tur_name, bakim_id,machine_id)
-          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10,$11)`,
-            [type, user_id, user_name, bakim_turu, bakim_tarihi, bakim_aciklama, bakim_detail, type_name, bakim_tur_name, selectMachineId, machine_id]);
-
-        }
-
-
-      }
-      break;
-    case 12://12 aylık
-      type_name = "Yıllık"
-      if (bakim_durumu == 0) { // bakim tamamlanmadığı durumda
-        const selectMachineAylik = await pool.query(`SELECT id FROM machines_yillik WHERE durum=0 AND machines_id = ${machine_id}`)
-
-
-        if (selectMachineAylik.rows.length > 0) { // makina için bir değer atanmış ise çalışacak
-          const selectMachineId = selectMachineAylik.rows[0].id
-          const updateMachineAylik = await pool.query(`Update machines_yillik SET g_yillik = '${bakim_tarihi}' WHERE durum = 0 and machines_id = ${machine_id}`)
-          const insertMachineDetail = await pool.query(`
-          INSERT INTO machine_bakim_detail(
-          type, user_id, user_name, bakim_turu, bakim_tarihi, aciklama, bakim_detail, type_name, bakim_tur_name, bakim_id,machine_id)
-          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10,$11)`,
-            [type, user_id, user_name, bakim_turu, bakim_tarihi, bakim_aciklama, bakim_detail, type_name, bakim_tur_name, selectMachineId, machine_id]);
-
-        } else {  // makina için daha önce bir planlanan bakım olmadığında çalışacak
-          const insertMAchineAylik = await pool.query(`
-    INSERT INTO machines_yillik(p_yillik,  machines_id, durum)
-    VALUES ('${yeniTarih}', ${machine_id}, 0)
-    RETURNING id;
-  `);
-          selectMachineId = insertMAchineAylik.rows[0].id
-          const insertMachineDetail = await pool.query(`
-          INSERT INTO machine_bakim_detail(
-          type, user_id, user_name, bakim_turu, bakim_tarihi, aciklama, bakim_detail, type_name, bakim_tur_name, bakim_id,machine_id)
-          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10,$11)`,
-            [type, user_id, user_name, bakim_turu, bakim_tarihi, bakim_aciklama, bakim_detail, type_name, bakim_tur_name, selectMachineId, machine_id]);
-
-        }
-
-      } else {//bakim tamamlandığında
-        const selectMachineAylik = await pool.query(`SELECT id FROM machines_yillik WHERE durum=0 AND machines_id = ${machine_id}`)
-
-        if (selectMachineAylik.rows.length > 0) { // makina için bir değer atanmış ise çalışacak
-          const selectMachineId = selectMachineAylik.rows[0].id
-          const updateMachineAylik = await pool.query(`Update machines_yillik SET g_yillik = '${bakim_tarihi}' , durum = 1 WHERE durum = 0 and machines_id = ${machine_id}`)
-          const insertMachineDetail = await pool.query(`
-          INSERT INTO machine_bakim_detail(
-          type, user_id, user_name, bakim_turu, bakim_tarihi, aciklama, bakim_detail, type_name, bakim_tur_name, bakim_id,machine_id)
-          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10,$11)`,
-            [type, user_id, user_name, bakim_turu, bakim_tarihi, bakim_aciklama, bakim_detail, type_name, bakim_tur_name, selectMachineId, machine_id]);
-
-          const insertMAchineAylik = await pool.query(`INSERT INTO machines_yillik(
-            p_yillik,  machines_id, durum)
-            VALUES ('${yeniTarih}', ${machine_id}, 0);`)
-        } else {  // makina için daha önce bir planlanan bakım olmadığında çalışacak
-          const insertMAchineAylik = await pool.query(`
-          INSERT INTO machines_yillik(p_yillik,  machines_id, durum)
-          VALUES ('${yeniTarih}', ${machine_id}, 0)
-          RETURNING id;
-      `);
-          selectMachineId = insertMAchineAylik.rows[0].id
-          const insertMachineDetail = await pool.query(`
-          INSERT INTO machine_bakim_detail(
-          type, user_id, user_name, bakim_turu, bakim_tarihi, aciklama, bakim_detail, type_name, bakim_tur_name, bakim_id,machine_id)
-          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10,$11)`,
-            [type, user_id, user_name, bakim_turu, bakim_tarihi, bakim_aciklama, bakim_detail, type_name, bakim_tur_name, selectMachineId, machine_id]);
-
-
-        }
-
-
-      }
-      break;
-    case 0://arıza
-      type_name = "Ariza"
-      //arızayı kayapacak 
-      const updateAriza = await pool.query(`UPDATE machines_ariza SET durum = 0,g_tarih='${bakim_tarihi}' WHERE id = ${ariza_id}`)
-      const updateMachine = await pool.query(`UPDATE main_machines SET durum = 0 WHERE id = ${machine_id}`)
-      const insertArizaBakim = await pool.query(`INSERT INTO machine_bakim_detail ( type, user_id, user_name, bakim_turu, bakim_tarihi, aciklama, bakim_detail, type_name, bakim_tur_name, bakim_id,machine_id)
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10,$11)`, [type, user_id, user_name, bakim_turu, bakim_tarihi, bakim_aciklama, bakim_detail, type_name, bakim_tur_name, ariza_id, machine_id])
-
-      break;
-
-    default:
-      break;
-  }
-
-  //   type 1->aylik 2-> ucaylik 3-> altı aylik 4-> yillik 
-  //   type 1       
   try {
+    const {
+      type,
+      machine_id,
+      bakim_turu,
+      bakim_tarihi,
+      ariza_id,
+      bakim_aciklama,
+      bakim_tur_name,
+      bakim_detail,
+      bakim_durumu,
+      user_id,
+      user_name,
+      islemler
+    } = req.body;
+    const tarihParcalari = bakim_tarihi.split('-');
+    const yil = parseInt(tarihParcalari[2], 10);
+    const ay = parseInt(tarihParcalari[1], 10) - 1;
+    const gun = parseInt(tarihParcalari[0], 10);
 
+    const tarih = new Date(yil, ay, gun);
+    tarih.setDate(tarih.getDate() + (type * 30));
+    const yeniTarih = `${tarih.getDate()}.${tarih.getMonth() + 1}.${tarih.getFullYear()}`;
+
+    let type_name;
+
+    switch (type) {
+      case 1: // 1 aylık
+        type_name = "Aylik";
+        typename = "aylik"
+        handleMaintenance(type_name, machine_id, bakim_durumu, bakim_tarihi, yeniTarih, user_id, user_name, bakim_turu, bakim_aciklama, bakim_detail, ariza_id,islemler,typename,type,bakim_tur_name);
+        break;
+      case 3: // 3 aylık
+        type_name = "Üç Aylik";
+        typename = "ucaylik"
+        handleMaintenance(type_name, machine_id, bakim_durumu, bakim_tarihi, yeniTarih, user_id, user_name, bakim_turu, bakim_aciklama, bakim_detail, ariza_id,islemler,typename,type,bakim_tur_name);
+        break;
+      case 6: // 6 aylık
+        type_name = "Altı Aylik";
+        typename = "altiaylik"
+        handleMaintenance(type_name, machine_id, bakim_durumu, bakim_tarihi, yeniTarih, user_id, user_name, bakim_turu, bakim_aciklama, bakim_detail, ariza_id,islemler,typename,type,bakim_tur_name);
+        break;
+      case 12: // 12 aylık
+        type_name = "Yıllık";
+        typename = "yillik"
+        handleMaintenance(type_name, machine_id, bakim_durumu, bakim_tarihi, yeniTarih, user_id, user_name, bakim_turu, bakim_aciklama, bakim_detail, ariza_id,islemler,typename,type,bakim_tur_name);
+        break;
+      case 0: // arıza
+        type_name = "Ariza";
+        typename = "ariza"
+        handleFault(type_name, machine_id, bakim_tarihi, ariza_id, user_id, user_name, bakim_turu, bakim_aciklama, bakim_detail,typename,type,bakim_tur_name);
+        break;
+      default:
+        break;
+    }
 
     res.status(200).json({ status: 200 });
-
-
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
-})
+});
+
+async function handleMaintenance(type_name, machine_id, bakim_durumu, bakim_tarihi, yeniTarih, user_id, user_name, bakim_turu, bakim_aciklama, bakim_detail, ariza_id,islemler,typename,type,bakim_tur_name) {
+  const selectMachineTable = await pool.query(`SELECT id FROM machines_${typename.toLowerCase()} WHERE durum=0 AND machines_id = ${machine_id}`);
+  if (selectMachineTable.rows.length > 0) {
+    const selectMachineId = selectMachineTable.rows[0].id;
+    const updateMachineTable = await pool.query(`Update machines_${typename.toLowerCase()} SET g_${typename.toLowerCase()} = '${bakim_tarihi}'${bakim_durumu === 1 ? ', durum = 1' : ''} WHERE durum = 0 and machines_id = ${machine_id} and id = ${selectMachineId}`);
+
+    const insertMachineDetail = await pool.query(`
+      INSERT INTO machine_bakim_detail(
+      type, user_id, user_name, bakim_turu, bakim_tarihi, aciklama, bakim_detail, type_name, bakim_tur_name, bakim_id, machine_id,secimler)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11,$12)`,
+      [type, user_id, user_name, bakim_turu, bakim_tarihi, bakim_aciklama, bakim_detail, type_name, bakim_tur_name, selectMachineId, machine_id,islemler]);
+      if(bakim_durumu==1){
+        const insertMachineTable = await pool.query(`
+      INSERT INTO machines_${typename.toLowerCase()}(p_${typename.toLowerCase()}, machines_id, durum)
+      VALUES ('${yeniTarih}', ${machine_id}, 0)
+      RETURNING id;
+    `);
+      }
+  } else {
+    const insertMachineTable = await pool.query(`
+      INSERT INTO machines_${typename.toLowerCase()}(p_${typename.toLowerCase()}, machines_id, durum)
+      VALUES ('${yeniTarih}', ${machine_id}, 0)
+      RETURNING id;
+    `);
+
+    const selectMachineId = insertMachineTable.rows[0].id;
+    const insertMachineDetail = await pool.query(`
+      INSERT INTO machine_bakim_detail(
+      type, user_id, user_name, bakim_turu, bakim_tarihi, aciklama, bakim_detail, type_name, bakim_tur_name, bakim_id, machine_id,secimler)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11,$12)`,
+      [type, user_id, user_name, bakim_turu, bakim_tarihi, bakim_aciklama, bakim_detail, type_name, bakim_tur_name, selectMachineId, machine_id,islemler]);
+  }
+}
+
+async function handleFault(type_name, machine_id, bakim_tarihi, ariza_id, user_id, user_name, bakim_turu, bakim_aciklama, bakim_detail,typename,type,bakim_tur_name) {
+  const updateAriza = await pool.query(`UPDATE machines_ariza SET durum = 0, g_tarih='${bakim_tarihi}' WHERE id = ${ariza_id}`);
+  const updateMachine = await pool.query(`UPDATE main_machines SET durum = 0 WHERE id = ${machine_id}`);
+  const insertArizaBakim = await pool.query(`
+    INSERT INTO machine_bakim_detail (
+      type, user_id, user_name, bakim_turu, bakim_tarihi, aciklama, bakim_detail, type_name, bakim_tur_name, bakim_id, machine_id
+    )
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`,
+    [type, user_id, user_name, bakim_turu, bakim_tarihi, bakim_aciklama, bakim_detail, type_name, bakim_tur_name, ariza_id, machine_id]);
+}
 router.post('/getMachinesBakim', cors(), async (req, res) => {
 
   try {
@@ -734,63 +587,72 @@ router.post('/insertMachineAriza', cors(), async (req, res) => {
   const tarih = new Date(yil, ay, gun);
   tarih.setDate(tarih.getDate());
   const yeniTarih = `${tarih.getDate()}.${tarih.getMonth() + 1}.${tarih.getFullYear()}`;
-  console.log('Yeni Tarih:', yeniTarih);
-
-  try {
-    const result = await pool.query(
-      `INSERT INTO machines_ariza(
-        ariza_tarih, machines_id, durum, user_id, ariza_tur_name, ariza_tur, durum_name)
-        VALUES ($1, $2, $3, $4, $5, $6, $7)`,
-      [ariza_tarih, machine_id, durum, user_id, ariza_tur_name, ariza_tur, durum_name]
-    );
-    const resultUpdate = await pool.query(`UPDATE public.main_machines
-    SET  durum = ${durum}
-    WHERE id=${machine_id}`)   //main machine duruş yaptığı için duruş bilgisi girilecektir. Makina arızalı olarak görükecektir. durum = 0 çalışıyor , durum = 1 arızalı , durum = 2 makina durdu
+   const datakontrol = await pool.query(`select * from machines_ariza WHERE machines_id = ${machine_id} AND durum!=0`)
+   const dataKontrolRow = datakontrol.rowCount
+   if(dataKontrolRow==0){
     try {
-
-      let transporter = nodemailer.createTransport({
-        host: '20.0.0.20',
-        port: 25,
-        secure: false,
-
-        auth: {
-          user: 'bilgi@aho.com',
-          pass: 'Bilgi5858!'
-        },
-        tls: {
-          rejectUnauthorized: false
-        }
-      });
-      let mailOptions = {
-        from: 'bilgi@aho.com',
-        to: 'bakim@aho.com,yhalici@aho.com,ekoc@aho.com',
-        cc: '',
-        subject: `Bakım Onarım ${ariza_tur_name} Bildirimi`,
-        html: `<p>Sayın İlgili,</p>
-  <p>Makian arıza-duruş kaydı girilmiştir.</p> 
-${user_name} Kullanıcı tarafından ${machine_name} isimli ${seri_no} lu makina için  ${ariza_tur_name} kaydı girmiştir. 
-
-  `
-      };
-      transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-          console.log(error);
-        } else {
-          console.log('Email sent: ' + info.response);
-        }
-      });
-
-    } catch (err) {
-      console.error(err.message);
+      const result = await pool.query(
+        `INSERT INTO machines_ariza(
+          ariza_tarih, machines_id, durum, user_id, ariza_tur_name, ariza_tur, durum_name)
+          VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+        [ariza_tarih, machine_id, durum, user_id, ariza_tur_name, ariza_tur, durum_name]
+      );
+      const resultUpdate = await pool.query(`UPDATE public.main_machines
+      SET  durum = ${durum}
+      WHERE id=${machine_id}`)   //main machine duruş yaptığı için duruş bilgisi girilecektir. Makina arızalı olarak görükecektir. durum = 0 çalışıyor , durum = 1 arızalı , durum = 2 makina durdu
+      try {
+  
+        let transporter = nodemailer.createTransport({
+          host: '20.0.0.20',
+          port: 25,
+          secure: false,
+  
+          auth: {
+            user: 'bilgi@aho.com',
+            pass: 'Bilgi5858!'
+          },
+          tls: {
+            rejectUnauthorized: false
+          }
+        });
+        let mailOptions = {
+          from: 'bilgi@aho.com',
+          to: 'bakim@aho.com,yhalici@aho.com,ekoc@aho.com',
+          cc: '',
+          subject: `Bakım Onarım ${ariza_tur_name} Bildirimi`,
+          html: `<p>Sayın İlgili,</p>
+    <p>Makian arıza-duruş kaydı girilmiştir.</p> 
+  ${user_name} Kullanıcı tarafından ${machine_name} isimli ${seri_no} lu makina için  ${ariza_tur_name} kaydı girmiştir. 
+  
+    `
+        };
+        transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+            console.log(error);
+          } else {
+            console.log('Email sent: ' + info.response);
+          }
+        });
+  
+      } catch (err) {
+        console.error(err.message);
+      }
+  
+      res.status(200).json({ status: 200 });
+  
+  
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
     }
-
-    res.status(200).json({ status: 200 });
-
-
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
+   }else{
+    try {
+      res.status(200).json({ status: 205 });
+    } catch (error) {
+      console.error(error)
+    }
+   }
+ 
 })
 router.post('/getKalibrasyonGecmis', cors(), async (req, res) => {
   try {
